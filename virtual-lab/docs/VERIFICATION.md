@@ -1,6 +1,6 @@
 # Verification record — 22 September 2026
 
-The sections below retain the original baseline. The latest real-bench instrument results are recorded in the 27 September section at the end of this document.
+The sections below retain the original baseline. The latest usability results are recorded in the final 27 September section, after the real-bench instrument upgrade.
 
 Executed against the delivered local `index.html` with the already-installed Chrome browser and Playwright. The application itself has no runtime dependencies.
 
@@ -89,3 +89,17 @@ Tests launch `index.html` directly as a local file, with networking disabled in 
 Visual review covered the 1512-by-1100 desktop and 393-by-852 emulated-touch layouts, visible softkeys/controls, live trace pixels and the nonblank WebGL scene. Final scene measurement: 60.00 FPS, 320 draw calls and 0.908 ms mean CPU render submission. This is not GPU completion time or a guarantee for other hardware. Chrome was tested; Safari, Firefox and physical mobile devices were not.
 
 Reproduce with `node tests/physics.test.cjs`, `node tests/instrument-firmware.test.cjs`, and `EE_PLAYWRIGHT_PATH=/absolute/path/to/playwright node tests/real-bench.test.cjs`, followed by the existing browser, scene, play-game, interaction-edges, navigation-spacing and language test scripts. Browser tooling is an external development dependency, not an application dependency. See [the implementation and model boundaries](UPGRADE_REAL_BENCH_2026-09-27.md) for the supported firmware subset, teaching scale ranges, deterministic acquisition approximations and probe assumptions.
+
+## Header, guidance and contextual help - 27 September 2026
+
+Passed **140 distinct checks**: the previous 129 plus 11 new UX scenarios in `tests/bench-ux.test.cjs`. The separate language suite also passed. The original physics/firmware, browser, WebGL, full campaign, interaction-edge, navigation/spacing and real-bench checks remain covered. There were no recorded page exceptions, console errors, failed assets or external network requests.
+
+New assertions compare the exact header and action rectangles across repeated language switches and verify unchanged desktop instrument geometry. Tests enter and leave 3D from a scrolled page, exercise mission/assembly/modal transitions, wheel the locked background and confirm scroll restoration. Floating mission reachability, collapse state, precise source identification in both 2D and 3D, state-neutral hover help, and touch inspection are exercised through actual browser interactions. Mobile overflow/header checks cover widths of 320, 393 and 768 pixels.
+
+The language contract now keeps physical instrument legends and displays, including `FUSE OPEN`, in hardware English. The surrounding course guidance, event log, worksheets and contextual explanations remain bilingual. The language regression asserts stable instrument text and translated fault events, rather than expecting the physical display to resize with its translation.
+
+Screenshots were inspected for source-port highlighting, the expanded floating mission, the scope help popover, touch help, live WebGL and visible clipped assembly leads. The source test verifies the highlighted physical jack, matching port preview and explicit navigation to the instrument. The full campaign still completes all 18 steps and exports 11 readings.
+
+Final timing: 2D 60.00 FPS with 0.353 ms mean scope draw time; 3D 60.003 FPS with 1.254 ms mean CPU render submission and 320 draw calls. Earlier runs also capped an empty page at 30 FPS. A new development-only baseline helper measures the browser's available animation cadence before loading the app; final reports show a 60 FPS baseline and pass the original 50/45 FPS thresholds. See [the frame-budget explanation](UPGRADE_BENCH_UX_2026-09-27.md#frame-pacing) for the capped-environment criterion. These figures are not GPU completion time or hardware-independent guarantees.
+
+The new report, source/help screenshots and final per-suite logs are in `output/playwright/bench-ux/`; existing suites keep their original output locations. Verification uses Chrome and emulated mobile touch, not Safari, Firefox or physical mobile devices. No runtime dependencies or server were added. See [the UX upgrade record](UPGRADE_BENCH_UX_2026-09-27.md).

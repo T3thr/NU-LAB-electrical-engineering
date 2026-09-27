@@ -1,86 +1,86 @@
 {
   "version": 1,
-  "exportedAt": "2026-09-27T06:40:31.402Z",
+  "exportedAt": "2026-09-27T14:55:45.009Z",
   "actions": [
     {
       "label": "Undo",
       "detail": "Change component",
-      "time": 1790491231271
+      "time": 1790520944948
     },
     {
       "label": "Change component",
       "detail": "",
-      "time": 1790491231205
+      "time": 1790520944914
     },
     {
       "label": "Circuit event",
       "detail": "R1 dissipated 0.625 W, exceeding 0.25 W. The resistor is now open.",
-      "time": 1790491231203
+      "time": 1790520944911
     },
     {
       "label": "Remove component",
       "detail": "",
-      "time": 1790491231149
+      "time": 1790520944652
     },
     {
       "label": "Undo",
       "detail": "Set generator",
-      "time": 1790491231145
+      "time": 1790520944649
     },
     {
       "label": "Set generator",
       "detail": "",
-      "time": 1790491231138
+      "time": 1790520944644
     },
     {
       "label": "Set generator",
       "detail": "",
-      "time": 1790491230835
+      "time": 1790520944493
     },
     {
       "label": "Undo",
       "detail": "Remove component",
-      "time": 1790491230717
+      "time": 1790520944419
     },
     {
       "label": "Remove component",
       "detail": "",
-      "time": 1790491230707
+      "time": 1790520944408
     },
     {
       "label": "Undo",
       "detail": "Move component",
-      "time": 1790491230692
+      "time": 1790520944394
     },
     {
       "label": "Move component",
       "detail": "",
-      "time": 1790491230678
+      "time": 1790520944383
     },
     {
       "label": "Set generator",
       "detail": "",
-      "time": 1790491230295
+      "time": 1790520944190
     },
     {
       "label": "Redo",
       "detail": "Move breadboard",
-      "time": 1790491230120
+      "time": 1790520944017
     },
     {
       "label": "Undo",
       "detail": "Move breadboard",
-      "time": 1790491230113
+      "time": 1790520944003
     },
     {
       "label": "Move breadboard",
       "detail": "",
-      "time": 1790491230101
+      "time": 1790520943992
     },
     {
       "label": "Mission paused",
       "detail": "",
-      "time": 1790491229537
+      "time": 1790520943710
     }
   ]
 }

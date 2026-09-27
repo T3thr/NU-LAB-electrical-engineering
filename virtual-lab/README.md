@@ -132,9 +132,16 @@ An optional browser runner uses an already-installed Playwright and Chrome. It i
 ```sh
 EE_PLAYWRIGHT_PATH=/absolute/path/to/playwright node tests/browser.test.cjs
 EE_PLAYWRIGHT_PATH=/absolute/path/to/playwright node tests/real-bench.test.cjs
+EE_PLAYWRIGHT_PATH=/absolute/path/to/playwright node tests/bench-ux.test.cjs
 ```
 
 See `docs/VERIFICATION.md` and `output/playwright/verification.json` for results. Screenshots and a captured worksheet CSV are in `output/playwright/`.
+
+## Contextual assistance
+
+The header stays fixed across languages and work modes. Mission instructions float and can be collapsed without losing progress; free experiments have a compact lab companion. Hover or keyboard-focus instrument controls for explanations. On touch screens, enable `?` in the header, tap a control to inspect it without changing its setting, then turn `?` off to operate normally.
+
+Hover a patch terminal to identify its instrument and physical jack. The source preview can open that instrument explicitly. Dialogs lock background scrolling and return to the previous page position when closed. See [the usability upgrade record](docs/UPGRADE_BENCH_UX_2026-09-27.md) for behavior, tests and accessibility details.
 
 ## Model boundaries
 

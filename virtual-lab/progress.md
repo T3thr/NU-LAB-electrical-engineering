@@ -40,3 +40,13 @@ Original prompt: ปรับปรุงเว็บตาม feedback วั�
 - Verification: all original 100 checks plus 15 new firmware checks and 14 new real-bench browser scenarios passed (129 distinct checks), plus the language suite and native module smoke check. Ten benchmark configurations remain covered by the physics suite. Browser reports contain no page/console/network errors or external requests.
 - Inspected desktop/mobile instrument panels and nonblank live WebGL traces. Final scene measurement: 60.00 FPS, 0.908 ms mean CPU render submission, 320 draw calls in the tested Chrome environment.
 - Upgrade details and deliberate model limits: docs/UPGRADE_REAL_BENCH_2026-09-27.md. Final verification: docs/VERIFICATION.md. New screenshots/report: output/real-bench/. No application runtime dependencies or server added.
+
+## 2026-09-27 - user-feedback UX corrections
+- Traced the unstable header to conflicting sticky/relative mode rules, language-specific wrapping and different inherited fonts. Implemented one fixed header boundary, stable mobile actions, shared font metrics and unchanged physical-panel legends.
+- Added a floating collapsible mission panel in every work mode and a compact free-play lab companion. Kept the assembly guide out of the desktop part tray and reserved mobile scroll space for content behind an expanded guide.
+- Added bilingual contextual help for instrument controls, values, terminals and context-sensitive softkeys. Desktop hover/keyboard focus explains controls; the touch inspection toggle prevents accidental electrical edits while seeking help.
+- Added exact source model/port previews, a short physical-jack pulse, visible origin labels and explicit navigation to the live instrument. 3D picking uses the same source identity.
+- Locked background scrolling while dialogs or full-screen work modes are open, preserving the original page position and handling nested locks. Made drawers opaque and retained clipped cables/failure effects in the correct overlay order.
+- Final verification: 140 distinct checks plus the language suite passed, with clean console/network reports. All 18 campaign steps and 11 measurement records remain valid. Inspected desktop/mobile help, stable headers, source highlights, floating instructions and assembly wiring screenshots.
+- Measured empty-page frame cadence after early environment-capped 30 FPS runs. Final 2D/3D runs achieved about 60 FPS and passed the original performance thresholds; baseline-aware regression details are documented.
+- Details: docs/UPGRADE_BENCH_UX_2026-09-27.md and docs/VERIFICATION.md. New regression report, screenshots and per-suite logs: output/playwright/bench-ux/. Safari/Firefox and physical touch hardware remain unverified.

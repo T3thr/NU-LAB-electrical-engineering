@@ -20,11 +20,11 @@
   "errors": [],
   "failedRequests": [],
   "externalRequests": [],
-  "emptyPageFps": 30.00150007500375,
-  "minimumFps": 27.001350067503378,
+  "emptyPageFps": 60.00600060006001,
+  "minimumFps": 45,
   "performance": {
-    "fps": 30.000750018750473,
-    "meanRenderMs": 1.0231405013848927,
+    "fps": 60.003000150007495,
+    "meanRenderMs": 1.2537190047177402,
     "drawCalls": 320
   }
 }

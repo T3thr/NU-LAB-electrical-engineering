@@ -76,8 +76,8 @@
   "errors": [],
   "networkFailures": [],
   "externalRequests": [],
-  "emptyPageFps": 30.001500075003747,
-  "bootMs": 161.79999995231628,
+  "emptyPageFps": 59.99999999999999,
+  "bootMs": 143.60000002384186,
   "tracePixels": {
     "yellow": 1205,
     "green": 452,
@@ -89,8 +89,8 @@
     }
   },
   "rendering": {
-    "fps": 30.000750018750466,
-    "drawMs": 0.3107437988943305
+    "fps": 60,
+    "drawMs": 0.35289256434795285
   },
-  "minimumFps": 27.001350067503374
+  "minimumFps": 50
 }

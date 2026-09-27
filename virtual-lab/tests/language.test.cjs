@@ -33,8 +33,10 @@ const { chromium } = require(process.env.EE_PLAYWRIGHT_PATH || 'playwright');
   await page.locator('.fault-section summary').click();
   await page.locator('[data-fault="fuse"]').click(); await page.locator('[data-output="0"]').click();
   assert.match(await page.locator('#event-log').innerText(),/ฟิวส์/);
-  assert.equal(await page.locator('#dmm-reading').innerText(),'ฟิวส์ขาด · 0.000 A');
+  // Physical instrument legends remain stable; course guidance and event messages translate.
+  assert.equal(await page.locator('#dmm-reading').innerText(),'FUSE OPEN · 0.000 A');
   await page.locator('.topbar [data-language-toggle]').click(); assert.match(await page.locator('#event-log').innerText(),/Fuse open/);
+  assert.equal(await page.locator('#dmm-reading').innerText(),'FUSE OPEN · 0.000 A');
   assert.equal(await page.evaluate(()=>EE.bench.model.dmm.fuse),'blown');
   await page.locator('.topbar [data-language-toggle]').click();
   await page.locator('#reset-bench').click();
