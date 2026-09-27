@@ -1057,6 +1057,26 @@ figcaption .fno {
   color: var(--paper);
 }
 
+.fnd-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  box-shadow: 0 2px 8px rgba(26, 22, 18, 0.28);
+  position: relative;
+}
+
+.fnd-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
 .fnd-btn-vlab {
   background: var(--accent);
   color: #FFFFFF;
@@ -1098,6 +1118,16 @@ figcaption .fno {
 .fnd-trigger-arrow {
   font-size: 0.72rem;
   line-height: 1;
+}
+
+.fnd-current-topic {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.fnd-trigger-btn:hover .fnd-current-topic {
+  color: #93C5FD;
 }
 
 /* When Dock is Collapsed */
@@ -1218,8 +1248,9 @@ footer.colophon {
   </div>
 
   <!-- Collapsed Trigger Pill Button -->
-  <button type="button" class="fnd-trigger-btn" id="fnd-btn-expand" title="เปิดสารบัญนำทางด่วน" aria-label="เปิดสารบัญนำทางด่วน">
-    <span class="fnd-trigger-text">🧭 นำทางด่วน</span>
+  <button type="button" class="fnd-trigger-btn" id="fnd-btn-expand" title="เปิดแถบนำทางด่วน" aria-label="เปิดแถบนำทางด่วน">
+    <span class="fnd-trigger-text">นำทางด่วน</span>
+    <span class="fnd-current-topic" id="fnd-current-topic"></span>
     <span class="fnd-trigger-arrow">▲</span>
   </button>
 </aside>
@@ -1248,12 +1279,12 @@ footer.colophon {
   <nav class="toc">
     <div class="toc-head">สารบัญเนื้อหาการทดลอง (TABLE OF CONTENTS)</div>
     <a href="#sec-intro"><span class="no">1.</span> วัตถุประสงค์และรายการอุปกรณ์การทดลอง (หน้า 59)</a>
-    <a href="#sec-theory"><span class="no">2.</span> ทฤษฎีและสมการพื้นฐานวงจร RC (หน้า 56 – 58)</a>
+    <a href="#sec-theory"><span class="no">2.</span> ทฤษฎีและสมการพื้นฐานวงจร RC (หน้า 56 - 58)</a>
     <a href="#sec-oscillo-guide"><span class="no">3.</span> หลักการวัดและอ่านหน้าจอออสซิลโลสโคป</a>
-    <a href="#sec-part1"><span class="no">4.</span> การทดลองตอนที่ 7.1: ผลของค่าความจุ C (หน้า 60 – 62)</a>
-    <a href="#sec-part2"><span class="no">5.</span> การทดลองตอนที่ 7.2: ผลตอบสนองทางความถี่ (หน้า 63 – 67)</a>
+    <a href="#sec-part1"><span class="no">4.</span> การทดลองตอนที่ 7.1: ผลของค่าความจุ C (หน้า 60 - 62)</a>
+    <a href="#sec-part2"><span class="no">5.</span> การทดลองตอนที่ 7.2: ผลตอบสนองทางความถี่ (หน้า 63 - 67)</a>
     <a href="#discussion-7-2-13" style="padding-left:22px; font-size:0.90rem; color:var(--accent); font-weight:700;"><span class="no">↳</span> ข้อ 7.2.13: อภิปรายผล เปรียบเทียบผลการคำนวณกับผลการทดลอง</a>
-    <a href="#sec-part3"><span class="no">6.</span> การทดลองตอนที่ 7.3: ตัวเก็บประจุต่ออนุกรม (หน้า 68 – 69)</a>
+    <a href="#sec-part3"><span class="no">6.</span> การทดลองตอนที่ 7.3: ตัวเก็บประจุต่ออนุกรม (หน้า 68 - 69)</a>
     <a href="#sec-analysis-deep"><span class="no">7.</span> การวิเคราะห์เชิงลึกกรณีความผิดพลาดจากการวัดจริง</a>
     <a href="#sec-summary"><span class="no">8.</span> สรุปผลการทดลองและการตอบคำถามท้ายบท</a>
   </nav>
@@ -1308,7 +1339,7 @@ footer.colophon {
           <tr>
             <td>1</td>
             <td class="t-left">เครื่องกำเนิดสัญญาณ (Function Generator)</td>
-            <td>สัญญาณรูปคลื่นไซน์ (Sine wave) 0 – 10 V_p-p, 50 Hz – 5 kHz</td>
+            <td>สัญญาณรูปคลื่นไซน์ (Sine wave) 0 - 10 V_p-p, 50 Hz - 5 kHz</td>
             <td>1 เครื่อง</td>
           </tr>
           <tr>
@@ -1539,7 +1570,7 @@ footer.colophon {
 
     <p>การทดลองตอนนี้ศึกษาอิทธิพลของค่าความจุ <span class="var">C</span> ที่มีต่อขนาดแรงดันและมุมเฟส โดยกำหนดให้ความถี่คงที่ที่ <b><span class="var">f</span> = 300 Hz</b> และตัวต้านทาน <b><span class="var">R</span> = 1 k&Omega;</b></p>
 
-    <h3>ขั้นตอนการดำเนินการทดลอง (Procedure 7.1.1 – 7.1.10)</h3>
+    <h3>ขั้นตอนการดำเนินการทดลอง (Procedure 7.1.1 - 7.1.10)</h3>
     <ul class="steps-list">
       <li>
         <div class="step-no">1</div>
@@ -1640,7 +1671,7 @@ footer.colophon {
       </table>
     </div>
 
-    <h3>รูปคลื่นสัญญาณออสซิลโลสโคปและการกรอกข้อมูลใต้กริด ตอนที่ 7.1 (รูปที่ 7.5 – 7.7)</h3>
+    <h3>รูปคลื่นสัญญาณออสซิลโลสโคปและการกรอกข้อมูลใต้กริด ตอนที่ 7.1 (รูปที่ 7.5 - 7.7)</h3>
     <div class="freq-nav-bar">
       <span class="freq-nav-label">เลือกดูค่าความจุ:</span>
       <a class="freq-pill" href="#fig-7-5">C = 2.2 &micro;F (รูปที่ 7.5)</a>
@@ -1927,13 +1958,13 @@ footer.colophon {
   <section id="sec-part2">
     <div class="sec-head">
       <div class="sec-no">5</div>
-      <h2>การทดลองตอนที่ 7.2: ผลตอบสนองทางความถี่และวงจรกรองความถี่ต่ำผ่าน (50 Hz – 5 kHz)</h2>
+      <h2>การทดลองตอนที่ 7.2: ผลตอบสนองทางความถี่และวงจรกรองความถี่ต่ำผ่าน (50 Hz - 5 kHz)</h2>
     </div>
 
-    <p>การทดลองตอนนี้ศึกษาการตอบสนองความถี่ (Frequency Response) ตามคู่มือหน้า 63 – 67 โดยกำหนดค่าอุปกรณ์คงที่ที่ <b><span class="var">R</span> = 1 k&Omega;</b> และ <b><span class="var">C</span> = 1.0 &micro;F</b> แหล่งจ่ายสัญญาณไซน์ปรับขนาดคงที่ <span class="var">A</span> = 5 V (10 V<sub>p-p</sub>) แล้วเปลี่ยนความถี่ 6 ค่า ได้แก่ <b>50 Hz, 200 Hz, 500 Hz, 1 kHz, 2 kHz และ 5 kHz</b> ตามวงจรรูปที่ 7.8 (หน้า 63) เพื่อศึกษาสมบัติของวงจรกรองความถี่ต่ำผ่าน (Low-Pass Filter)</p>
+    <p>การทดลองตอนนี้ศึกษาการตอบสนองความถี่ (Frequency Response) ตามคู่มือหน้า 63 - 67 โดยกำหนดค่าอุปกรณ์คงที่ที่ <b><span class="var">R</span> = 1 k&Omega;</b> และ <b><span class="var">C</span> = 1.0 &micro;F</b> แหล่งจ่ายสัญญาณไซน์ปรับขนาดคงที่ <span class="var">A</span> = 5 V (10 V<sub>p-p</sub>) แล้วเปลี่ยนความถี่ 6 ค่า ได้แก่ <b>50 Hz, 200 Hz, 500 Hz, 1 kHz, 2 kHz และ 5 kHz</b> ตามวงจรรูปที่ 7.8 (หน้า 63) เพื่อศึกษาสมบัติของวงจรกรองความถี่ต่ำผ่าน (Low-Pass Filter)</p>
 
     <!-- ขั้นตอนการทดลองตอนที่ 7.2 ตามคู่มือหน้า 63 -->
-    <h3>ขั้นตอนการดำเนินการทดลอง (Procedure 7.2.1 – 7.2.13 ตามคู่มือหน้า 63)</h3>
+    <h3>ขั้นตอนการดำเนินการทดลอง (Procedure 7.2.1 - 7.2.13 ตามคู่มือหน้า 63)</h3>
     <ul class="steps-list">
       <li>
         <div class="step-no">1</div>
@@ -2035,10 +2066,10 @@ footer.colophon {
     <div class="scope-legend-box">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
         <h3 style="margin:0; font-size:1.08rem; color:var(--navy);">คู่มือถอดรหัสอ่านค่าจากหน้าจอ Keysight DSOX2002A (7 ช่องตามแบบฟอร์มในเล่มแล็บ)</h3>
-        <span class="result-tag" style="background:#EFF6FF; color:#1D4ED8; border-color:#93C5FD;">หน้า 64 – 67</span>
+        <span class="result-tag" style="background:#EFF6FF; color:#1D4ED8; border-color:#93C5FD;">หน้า 64 - 67</span>
       </div>
       <p style="font-size:0.86rem; color:var(--ink-soft); margin:8px 0 12px 0;">
-        ในเล่มปฏิบัติการ ใต้ตารางกริดออสซิลโลสโคปทุกรูป (รูปที่ 7.9 – 7.14) จะมีช่องว่างให้กรอกผลทั้งหมด <b>7 ช่องพารามิเตอร์</b> ซึ่งสามารถอ่านและถอดรหัสค่าได้โดยตรงจากหน้าจอเครื่องวัดจริงในโฟลเดอร์ <code>result/</code> ดังนี้:
+        ในเล่มปฏิบัติการ ใต้ตารางกริดออสซิลโลสโคปทุกรูป (รูปที่ 7.9 - 7.14) จะมีช่องว่างให้กรอกผลทั้งหมด <b>7 ช่องพารามิเตอร์</b> ซึ่งสามารถอ่านและถอดรหัสค่าได้โดยตรงจากหน้าจอเครื่องวัดจริงในโฟลเดอร์ <code>result/</code> ดังนี้:
       </p>
       <div class="scope-legend-grid">
         <div class="scope-legend-item">
@@ -2263,7 +2294,7 @@ footer.colophon {
     </div>
 
     <!-- การ์ดผลการทดลองจริงทั้ง 6 รูป พร้อมตาราง 7 ช่องและที่มาตัวเลข -->
-    <h3>รูปคลื่นสัญญาณออสซิลโลสโคปและการกรอกข้อมูลทั้ง 7 ช่องใต้กริด (รูปที่ 7.9 – 7.14)</h3>
+    <h3>รูปคลื่นสัญญาณออสซิลโลสโคปและการกรอกข้อมูลทั้ง 7 ช่องใต้กริด (รูปที่ 7.9 - 7.14)</h3>
     <div class="freq-nav-bar">
       <span class="freq-nav-label">เลือกดูความถี่:</span>
       <a class="freq-pill" href="#fig-7-9">50 Hz (รูปที่ 7.9)</a>
@@ -2762,11 +2793,11 @@ footer.colophon {
       <!-- กล่องความเรียงฉบับสรุปกระชับ 50% ส่งอาจารย์ -->
       <div class="prose-submission-box">
         <div class="ps-head">
-          <span class="ps-title">📝 บทอภิปรายผลเชิงความเรียง (ฉบับกระชับ ~50% สำหรับส่งอาจารย์)</span>
+          <span class="ps-title">บทอภิปรายผลเชิงความเรียง (ฉบับกระชับ ~50% สำหรับส่งอาจารย์)</span>
           <span class="result-tag" style="background:#EFF6FF; color:#1D4ED8; border-color:#BFDBFE;">กระชับตรงประเด็น &bull; ภาษาทางการ &bull; ส่งอาจารย์</span>
         </div>
         <p class="ps-text">
-          ผลการทดลองสอดคล้องกับผลการคำนวณตามทฤษฎี โดยขนาดแรงดันค่ายอด A<sub>c</sub> ตกคร่อมตัวเก็บประจุลดลงต่อเนื่องจาก 4.75 V (50 Hz) เหลือ 0.25 V (5 kHz) เมื่อความถี่สูงขึ้น ตามคุณลักษณะวงจรกรองความถี่ต่ำผ่าน (RC Low-Pass Filter, f<sub>c</sub> &approx; 159.15 Hz) เนื่องจากรีแอกแทนซ์ X<sub>C</sub> แปรผกผันกับความถี่ ในย่าน 50–500 Hz ค่าทดลองใกล้เคียงค่าคำนวณมาก (ความคลาดเคลื่อน 0.42%–5.14%) ส่วนย่าน 1–5 kHz ค่าทดลองสูงกว่าการคำนวณเล็กน้อย (ต่าง 0.06–0.10 V) มีสาเหตุจากแรงดันสัญญาณเข้าจริงลอยขึ้นเป็น 10.7–11.5 V<sub>p-p</sub> และขีดจำกัดความละเอียดของสเกล 2.00 V/DIV บนออสซิลโลสโคป
+          ผลการทดลองสอดคล้องกับผลการคำนวณตามทฤษฎี โดยขนาดแรงดันค่ายอด A<sub>c</sub> ตกคร่อมตัวเก็บประจุลดลงต่อเนื่องจาก 4.75 V (50 Hz) เหลือ 0.25 V (5 kHz) เมื่อความถี่สูงขึ้น ตามคุณลักษณะวงจรกรองความถี่ต่ำผ่าน (RC Low-Pass Filter, f<sub>c</sub> &approx; 159.15 Hz) เนื่องจากรีแอกแทนซ์ X<sub>C</sub> แปรผกผันกับความถี่ ในย่าน 50-500 Hz ค่าทดลองใกล้เคียงค่าคำนวณมาก (ความคลาดเคลื่อน 0.42%-5.14%) ส่วนย่าน 1-5 kHz ค่าทดลองสูงกว่าการคำนวณเล็กน้อย (ต่าง 0.06-0.10 V) มีสาเหตุจากแรงดันสัญญาณเข้าจริงลอยขึ้นเป็น 10.7-11.5 V<sub>p-p</sub> และขีดจำกัดความละเอียดของสเกล 2.00 V/DIV บนออสซิลโลสโคป
         </p>
       </div>
 
@@ -2774,7 +2805,7 @@ footer.colophon {
       <h4>ข้อมูลเชิงปริมาณและการแจกแจงความคลาดเคลื่อนอ้างอิง (Supporting Quantitative Data & Error Breakdown)</h4>
       <div class="table-wrap">
         <table class="tb">
-          <caption>ตารางเปรียบเทียบผลการคำนวณกับผลการทดลองจริง ตอนที่ 7.2 (ความถี่ 50 Hz – 5 kHz)</caption>
+          <caption>ตารางเปรียบเทียบผลการคำนวณกับผลการทดลองจริง ตอนที่ 7.2 (ความถี่ 50 Hz - 5 kHz)</caption>
           <thead>
             <tr>
               <th style="width:11%;">ความถี่ (f)</th>
@@ -2912,7 +2943,7 @@ footer.colophon {
       <div class="callout c-tip" style="margin-top:20px;">
         <span class="lab">คำแนะนำสำหรับการบันทึกผลการทดลองส่งอาจารย์</span>
         <p style="margin:4px 0; font-size:0.92rem; line-height:1.75;">
-          นักศึกษาสามารถนำเนื้อความในกล่อง <b>"บทอภิปรายผลเชิงความเรียง (ฉบับสรุป 5–6 บรรทัด สำหรับเขียนส่งอาจารย์)"</b> ด้านบน ไปเขียนลงในช่องสรุปและอภิปรายผลการทดลองของรายงานปฏิบัติการข้อ 7.2.13 ได้โดยตรง ซึ่งมีความกระชับ สละสลวย ถูกต้องตามหลักฟิสิกส์และวิศวกรรมไฟฟ้า และครอบคลุมทั้งแนวโน้มทฤษฎี การวิเคราะห์เชิงปริมาณ และสาเหตุความคลาดเคลื่อนทางกายภาพครบถ้วน
+          นักศึกษาสามารถนำเนื้อความในกล่อง <b>"บทอภิปรายผลเชิงความเรียง (ฉบับสรุป 5-6 บรรทัด สำหรับเขียนส่งอาจารย์)"</b> ด้านบน ไปเขียนลงในช่องสรุปและอภิปรายผลการทดลองของรายงานปฏิบัติการข้อ 7.2.13 ได้โดยตรง ซึ่งมีความกระชับ สละสลวย ถูกต้องตามหลักฟิสิกส์และวิศวกรรมไฟฟ้า และครอบคลุมทั้งแนวโน้มทฤษฎี การวิเคราะห์เชิงปริมาณ และสาเหตุความคลาดเคลื่อนทางกายภาพครบถ้วน
         </p>
       </div>
 
@@ -3120,7 +3151,7 @@ footer.colophon {
       <li><b>คุณสมบัติการต่อตัวเก็บประจุแบบอนุกรม (ตอนที่ 7.3):</b> การต่อตัวเก็บประจุอนุกรมกันจะทำให้ค่าความจุรวมลดลง (C<sub>eq</sub> &lt; C ตัวที่น้อยที่สุด) ส่งผลให้ค่ารีแอกแทนซ์รวมเพิ่มขึ้น แรงดันตกคร่อมจึงมีขนาดใหญ่กว่ากรณีใช้ตัวเก็บประจุค่ามากตัวเดียว</li>
     </ul>
 
-    <h3>ตอบคำถามท้ายการทดลอง (คำถามท้ายบทข้อ 7.1 – 7.3)</h3>
+    <h3>ตอบคำถามท้ายการทดลอง (คำถามท้ายบทข้อ 7.1 - 7.3)</h3>
     <div class="table-wrap">
       <table class="tb">
         <caption>แนวทางการตอบคำถามสรุปผลการทดลอง</caption>
@@ -3145,7 +3176,7 @@ footer.colophon {
           </tr>
           <tr>
             <td class="t-left"><b>4. อภิปรายผลเปรียบเทียบผลการคำนวณกับผลการทดลอง (ข้อ 7.2.13)</b></td>
-            <td class="t-left">ผลการทดลองสอดคล้องกับผลการคำนวณตามทฤษฎี โดยขนาดแรงดันค่ายอด A<sub>c</sub> ตกคร่อมตัวเก็บประจุลดลงต่อเนื่องจาก 4.75 V (50 Hz) เหลือ 0.25 V (5 kHz) เมื่อความถี่สูงขึ้น ตามคุณลักษณะวงจรกรองความถี่ต่ำผ่าน (RC Low-Pass Filter, f<sub>c</sub> &approx; 159.15 Hz) เนื่องจากรีแอกแทนซ์ X<sub>C</sub> แปรผกผันกับความถี่ ในย่าน 50–500 Hz ค่าทดลองใกล้เคียงค่าคำนวณมาก (ความคลาดเคลื่อน 0.42%–5.14%) ส่วนย่าน 1–5 kHz ค่าทดลองสูงกว่าการคำนวณเล็กน้อย (ต่าง 0.06–0.10 V) มีสาเหตุจากแรงดันสัญญาณเข้าจริงลอยขึ้นเป็น 10.7–11.5 V<sub>p-p</sub> และขีดจำกัดความละเอียดของสเกล 2.00 V/DIV บนออสซิลโลสโคป (<a href="#discussion-7-2-13" style="color:var(--accent); font-weight:700;">อ่านบทอภิปรายผลฉบับเต็มและตารางข้อ 7.2.13</a>)</td>
+            <td class="t-left">ผลการทดลองสอดคล้องกับผลการคำนวณตามทฤษฎี โดยขนาดแรงดันค่ายอด A<sub>c</sub> ตกคร่อมตัวเก็บประจุลดลงต่อเนื่องจาก 4.75 V (50 Hz) เหลือ 0.25 V (5 kHz) เมื่อความถี่สูงขึ้น ตามคุณลักษณะวงจรกรองความถี่ต่ำผ่าน (RC Low-Pass Filter, f<sub>c</sub> &approx; 159.15 Hz) เนื่องจากรีแอกแทนซ์ X<sub>C</sub> แปรผกผันกับความถี่ ในย่าน 50-500 Hz ค่าทดลองใกล้เคียงค่าคำนวณมาก (ความคลาดเคลื่อน 0.42%-5.14%) ส่วนย่าน 1-5 kHz ค่าทดลองสูงกว่าการคำนวณเล็กน้อย (ต่าง 0.06-0.10 V) มีสาเหตุจากแรงดันสัญญาณเข้าจริงลอยขึ้นเป็น 10.7-11.5 V<sub>p-p</sub> และขีดจำกัดความละเอียดของสเกล 2.00 V/DIV บนออสซิลโลสโคป (<a href="#discussion-7-2-13" style="color:var(--accent); font-weight:700;">อ่านบทอภิปรายผลฉบับเต็มและตารางข้อ 7.2.13</a>)</td>
           </tr>
         </tbody>
       </table>
@@ -3162,8 +3193,8 @@ footer.colophon {
       </div>
       <div>
         <b>โฟลเดอร์ไฟล์อ้างอิง:</b><br>
-        คู่มือการทดลอง: <code>guide/ (หน้า 56 – 69)</code><br>
-        ภาพถ่ายผลการทดลองจริง: <code>result/ (ภาพที่ 01 – 10)</code>
+        คู่มือการทดลอง: <code>guide/ (หน้า 56 - 69)</code><br>
+        ภาพถ่ายผลการทดลองจริง: <code>result/ (ภาพที่ 01 - 10)</code>
       </div>
     </div>
   </footer>
@@ -3183,27 +3214,76 @@ function openLb(src) {
   const dock = document.getElementById('float-nav-dock');
   const btnCollapse = document.getElementById('fnd-btn-collapse');
   const btnExpand = document.getElementById('fnd-btn-expand');
-  if (!dock || !btnCollapse || !btnExpand) return;
+  if (!dock) return;
 
   const setCollapsed = (collapsed) => {
     dock.classList.toggle('collapsed', collapsed);
-    localStorage.setItem('lab7_nav_dock_collapsed', collapsed ? 'true' : 'false');
+    try {
+      localStorage.setItem('lab7_nav_dock_collapsed', collapsed ? 'true' : 'false');
+    } catch(e) {}
   };
 
   // Restore stored preference
-  if (localStorage.getItem('lab7_nav_dock_collapsed') === 'true') {
-    dock.classList.add('collapsed');
+  try {
+    if (localStorage.getItem('lab7_nav_dock_collapsed') === 'true') {
+      dock.classList.add('collapsed');
+    }
+  } catch(e) {}
+
+  if (btnCollapse) {
+    btnCollapse.addEventListener('click', function(e) {
+      e.preventDefault();
+      setCollapsed(true);
+    });
   }
 
-  btnCollapse.addEventListener('click', function(e) {
-    e.preventDefault();
-    setCollapsed(true);
-  });
+  if (btnExpand) {
+    btnExpand.addEventListener('click', function(e) {
+      e.preventDefault();
+      setCollapsed(false);
+    });
+  }
 
-  btnExpand.addEventListener('click', function(e) {
-    e.preventDefault();
-    setCollapsed(false);
-  });
+  // Dynamic ScrollSpy Section Highlight
+  const navLinks = Array.from(dock.querySelectorAll('.fnd-links a[href^="#"]'));
+  const currentTopicEl = document.getElementById('fnd-current-topic');
+
+  const targets = navLinks.map(link => {
+    const id = link.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    return el ? { link, el } : null;
+  }).filter(Boolean);
+
+  function updateActive() {
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const offset = 180; // Buffer for sticky header
+    let current = null;
+
+    for (let i = 0; i < targets.length; i++) {
+      const top = targets[i].el.getBoundingClientRect().top + scrollY;
+      if (scrollY + offset >= top) {
+        current = targets[i];
+      }
+    }
+
+    targets.forEach(t => {
+      if (current && t === current) {
+        t.link.classList.add('active');
+        t.link.setAttribute('aria-current', 'true');
+      } else {
+        t.link.classList.remove('active');
+        t.link.removeAttribute('aria-current');
+      }
+    });
+
+    if (currentTopicEl) {
+      currentTopicEl.textContent = current ? ' : ' + current.link.textContent.trim() : '';
+    }
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('resize', updateActive, { passive: true });
+  updateActive();
 })();
 </script>
 
