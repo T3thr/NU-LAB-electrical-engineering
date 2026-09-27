@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "Patch buttons and instrument controls remain hit-testable above every connected cable",
+    "Selected-lead mode follows pointer focus and hidden leads do not change connectivity",
+    "R rotates the live drag preview immediately and a second rotation changes actual pin orientation",
+    "Escape, occupied holes and out-of-board drops leave no phantom parts or history entries",
+    "Scrolling the assembly view reroutes the cable clip to the actual visible work surface",
+    "Undo/redo restore frozen acquisitions, while a new edit correctly clears redo",
+    "Mission map and history dialogs switch languages without stale generated content",
+    "A stored board pose becomes the undo baseline on reload",
+    "Reduced-motion mode suppresses placement animation; blocked storage still runs a complete first step"
+  ],
+  "errors": []
+}

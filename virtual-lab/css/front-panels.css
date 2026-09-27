@@ -1,0 +1,69 @@
+/* Compact bench panels expand to the physical left-screen/right-controls arrangement on inspection. */
+.generator,.instrument.scope{container-type:inline-size;background:linear-gradient(120deg,#eceeec,#d0d5d3);color:#394744;border-color:#a4adaa;letter-spacing:0}
+.generator *,.instrument.scope *{letter-spacing:0}
+.generator .instrument-brand small,.scope .instrument-brand small{font-size:7px;line-height:1.4}
+.generator .instrument-brand>span{max-width:70%}
+.generator-face{gap:13px}.generator-face .vfd{padding:12px 10px;min-height:102px;background:#101f1b;border:3px solid #60736a}
+.gen-flags{display:flex;flex-wrap:wrap;gap:5px;font:7px monospace;color:#294235;min-height:18px}
+.gen-flags .lit{color:#abfac4;text-shadow:0 0 5px #8efaaf66}
+#gen-frequency{display:flex;align-items:baseline;justify-content:flex-end;min-height:31px;font:24px ui-monospace,monospace;color:#b9f5c8;letter-spacing:0}
+#gen-frequency small{font:10px monospace;margin-left:5px;color:#a5dab3}
+#gen-frequency.menu-reading{font-size:17px;justify-content:center}
+.selected-digit{border-bottom:2px solid #b9f5c8;background:#315b4244}
+.generator-level{font:8px monospace;color:#8bbb99;flex-wrap:wrap}
+.panel-knob{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-width:0}
+.panel-knob>span{font:8px Arial;color:#475750;text-align:center}
+.generator .panel-knob .knob{width:58px;height:58px}
+.generator-keys{display:grid;grid-template-columns:minmax(0,1fr) 80px;gap:10px;margin-top:14px}
+.panel-legend{display:block;font:8px Arial;color:#4f5c57;text-align:center;margin-bottom:9px}
+.generator-keypad{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px 4px}
+.generator-keypad button{position:relative;padding:5px 1px 3px;min-height:39px;min-width:0;font:8px Arial;background:linear-gradient(#fafbfa,#d9dedb);box-shadow:0 2px 1px #74867b55;line-height:1.2}
+.generator-keypad sup{position:absolute;top:1px;left:2px;font:7px monospace;color:#617468}
+.generator-keypad b{display:block;font:18px Arial;line-height:17px}.generator-keypad small{font-size:6px}
+.generator-keypad button.active{border-color:#568064;box-shadow:inset 0 0 3px #72947c}
+.shift-legend{font:7px Arial!important;color:#385f93;margin-bottom:3px}
+.generator-navigation{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.generator-navigation button{font:11px Arial;padding:3px 1px;min-height:29px}
+.generator-navigation button small{font:6px Arial;margin-top:2px}
+#gen-enter{grid-column:1;grid-row:1/3;font-size:9px}#gen-shift{grid-column:1;grid-row:3/5;background:#bfd4eb;font-size:9px}
+.generator-navigation [data-gen-key=up],.generator-navigation [data-gen-key=down],.generator-navigation [data-gen-key=right],.generator-navigation [data-gen-key=left]{grid-column:2}
+.generator-bottom{gap:7px;border-top:1px solid #b1bbb5;padding-top:13px}.generator-bottom>button{font:8px Arial;padding:7px 4px}
+#gen-load-label{font:8px monospace}.generator-bottom .terminal-row{gap:15px}.generator-bottom .terminal-row label{font-size:7px}
+.scope-front{display:grid;grid-template-columns:minmax(0,1fr);gap:15px}.scope-screen-side{min-width:0}
+.instrument button,.instrument canvas{scroll-margin-top:calc(var(--nav-height,77px) + 20px);scroll-margin-bottom:80px}
+.scope-bezel{border:5px solid #485652;background:#202b28;border-radius:5px;padding:5px}
+.scope-status,.scope-acq-status{font:8px monospace;display:flex;justify-content:space-between;gap:4px;background:#121a19;color:#c3d4cd;padding:5px 3px;white-space:normal}
+.scope-acq-status{font-size:7px;padding-top:3px;border-top:1px solid #3d4944}
+.scope-display{grid-template-columns:minmax(0,1fr) 85px;background:#0b1519}
+.scope-display canvas{height:255px;min-width:0}.measurements{position:relative;background:#131e1c;border-color:#3b4d44}
+.measurements label{font:8px monospace;padding:9px 5px;border-color:#30473b}.measurements output{font:11px monospace;margin-top:5px;white-space:normal;overflow-wrap:anywhere}
+.measure-header{font:7px monospace;background:#2b4136}
+.cursor-readout{font:8px monospace;line-height:1.5;min-height:29px;overflow-wrap:anywhere;background:#15231c;color:#d2d9cf}
+.scope-menu-title{font:9px Arial;color:#d5e1d7;background:#23382d;padding:4px 5px}
+.scope-soft-labels,.scope-softkeys{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px}
+.scope-soft-labels{background:#15231c;padding:3px 0 0;gap:2px}
+.scope-soft-labels>div{min-height:38px;background:#32443a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:2px;text-align:center;overflow-wrap:anywhere;font:7px Arial;color:#d0dace}
+.scope-soft-labels b{font:8px Arial;color:#f0f3dc;line-height:1.2}
+.scope-softkeys{padding:7px 11px 0;gap:12px}.scope-softkeys button{height:19px;min-width:0;padding:0;background:linear-gradient(#fafafa,#bfc9c3);border:1px solid #929f97;box-shadow:0 2px 2px #74837988}
+.scope-control-side{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.scope-top-controls{display:flex;align-items:center;gap:15px;grid-column:1/-1}
+.scope-entry-control{text-align:center}.scope-entry-control>small{font:7px Arial;margin-top:7px}
+.scope-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin:0;flex:1}
+.scope-actions button,.scope-shortcuts button,.scope-trigger-controls button:not(.knob){font:9px Arial;padding:7px 3px;background:linear-gradient(#f9faf9,#d4dad6);color:#34433c;border-color:#9caaa0}
+#scope-run.active{background:#b7edbd;border-color:#75a87c}#scope-run.stopped{background:#e7b9b6;border-color:#bf8783}#scope-single.active{background:#ecd88d}
+.scope-control-group{border-top:1px solid #acb7af;padding-top:10px;min-width:0}.scope-control-group:last-child{grid-column:1/-1}
+.scope-control-group output{display:block;font:9px monospace;text-align:center;min-height:13px;margin:7px 0 0}
+.horizontal-knobs,.scope-trigger-controls{display:flex;justify-content:space-around;align-items:center;gap:12px}
+.scope-trigger-controls>div{display:grid;gap:8px;min-width:0}
+.scope-shortcuts{display:flex;gap:7px;grid-column:1/-1;grid-row:3}.scope-shortcuts button{flex:1}
+.scope-vertical-controls{display:flex;justify-content:space-around;gap:20px}.vertical-channel{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:10px;min-width:0}.vertical-channel>.panel-knob:first-child{grid-row:1/3}.vertical-channel>.panel-knob:last-child{grid-column:1/-1}
+.channel-key{width:34px;height:28px;justify-self:center;padding:0;font:bold 13px Arial}.channel-key.ch1{background:#b8b495;color:#665e31!important}.channel-key.ch2{background:#9eb5a4;color:#315b40!important}.channel-key.ch1[aria-pressed=true]{background:#f7da56;box-shadow:0 0 6px #edd65b77}.channel-key.ch2[aria-pressed=true]{background:#80df96;box-shadow:0 0 6px #80df9677}
+.scope-terminal-strip{display:flex;align-items:end;gap:12px;border-top:1px solid #aab6ad;margin-top:16px;padding-top:13px}
+.probe-comp{text-align:center;flex:0 0 88px;font:8px Arial}.probe-comp small{font:7px Arial;margin:5px 0 12px}.probe-comp .terminal-row{gap:10px}.probe-comp .jack{width:19px;height:19px;min-width:19px}
+.probe-pairs{margin:0;gap:8px;flex:1}.probe-pairs>div>span{font:7px Arial;display:block;line-height:1.4}.probe-pairs .terminal-row{gap:14px;margin-top:14px}.probe-pairs .terminal-row>label{font-size:6px}
+.scope-choice{position:absolute;inset:20px 0 auto;background:#d9dfda;color:#1f2e26;z-index:2;font:9px Arial;box-shadow:0 2px 7px #0008}.scope-choice div{padding:7px 4px;overflow-wrap:anywhere}.scope-choice .selected{background:#e8bd55;color:#282414}
+.scene-dock:has(.generator){width:min(760px,calc(100vw - 30px))}.scene-dock:has(.scope){width:min(1000px,calc(100vw - 30px))}
+@container (min-width:600px){
+  .scope-front{grid-template-columns:minmax(0,1.65fr) minmax(230px,1fr);gap:18px}.scope-control-side{display:flex;flex-direction:column;gap:14px}.scope-control-side>div{width:100%}.scope-top-controls{gap:12px}.scope-actions button{font-size:10px;padding:6px 3px}.scope-display canvas{height:345px}.scope-shortcuts{order:0}.scope-vertical-controls{gap:12px}.scope-terminal-strip{justify-content:space-between}.probe-pairs{max-width:300px}.probe-comp{flex-basis:110px}.scope-soft-labels>div{font-size:9px}.scope-soft-labels b{font-size:10px}.scope-status{font-size:10px}.scope-acq-status{font-size:9px}.cursor-readout{font-size:10px}.scope-menu-title{font-size:11px}.scope-softkeys button{height:24px}.measurements output{font-size:12px}.measurements label{padding:15px 5px}.generator-keypad button{min-height:52px;font-size:12px}.generator-keypad small{font-size:8px}.generator-keypad sup{font-size:9px}.generator-keys{grid-template-columns:minmax(0,1fr) 115px;gap:24px}.generator-navigation button{font-size:15px}.generator-navigation button small{font-size:8px}#gen-enter,#gen-shift{font-size:12px}.generator-face .vfd{padding:16px 20px}#gen-frequency{font-size:34px}#gen-frequency.menu-reading{font-size:25px}.gen-flags{font-size:10px;gap:15px}.generator-level{font-size:11px}.generator .panel-knob .knob{width:80px;height:80px}.generator-bottom{padding-top:18px}.generator-bottom .terminal-row{gap:30px}
+}
+@media(max-width:420px){.instrument.scope,.generator{padding:12px 9px}.scope-display{grid-template-columns:minmax(0,1fr) 72px}.scope-display canvas{height:230px}.scope-terminal-strip{gap:6px}.probe-comp{flex-basis:72px}.probe-pairs .terminal-row{gap:11px}.generator-keys{grid-template-columns:minmax(0,1fr) 73px;gap:7px}.generator-keypad{gap:5px 3px}.generator-face .panel-knob .knob{width:45px;height:45px}#gen-frequency{font-size:20px}.generator-face .vfd{padding:9px 6px}#gen-frequency.menu-reading{font-size:14px}}

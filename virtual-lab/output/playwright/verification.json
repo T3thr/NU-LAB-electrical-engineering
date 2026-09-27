@@ -1,0 +1,96 @@
+{
+  "checks": [
+    {
+      "name": "Direct-file boot has 830 pins, correct measured input and no page overflow",
+      "pass": true
+    },
+    {
+      "name": "Canvas draws both trace colors on an exact 10 by 8 graticule",
+      "pass": true
+    },
+    {
+      "name": "Active rendering sustains the available browser frame budget",
+      "pass": true
+    },
+    {
+      "name": "Capacitance, frequency, and generator waveform controls change solved signals",
+      "pass": true
+    },
+    {
+      "name": "Rotary controls respond to keyboard, wheel, and pointer dragging",
+      "pass": true
+    },
+    {
+      "name": "Scope screen drag, cursors, auto scale, and stopped acquisitions are functional",
+      "pass": true
+    },
+    {
+      "name": "Physical jack-to-pin dragging creates a real connection",
+      "pass": true
+    },
+    {
+      "name": "Free wiring supports precise part placement, endpoint editing, and removal",
+      "pass": true
+    },
+    {
+      "name": "All five failure lessons trigger from real output controls; audio starts on gesture",
+      "pass": true
+    },
+    {
+      "name": "Fuse replacement follows the rear-compartment repair sequence",
+      "pass": true
+    },
+    {
+      "name": "Damaged resistor can be replaced after outputs are disabled",
+      "pass": true
+    },
+    {
+      "name": "Photo 10 produces 10.1 Vpp, zero phase, and the explicit grading explanation",
+      "pass": true
+    },
+    {
+      "name": "All ten worksheet rows capture live readings and grade within tolerance",
+      "pass": true
+    },
+    {
+      "name": "Worksheet persists after a direct-file reload and works offline",
+      "pass": true
+    },
+    {
+      "name": "Console and network remain clean throughout desktop interactions",
+      "pass": true
+    },
+    {
+      "name": "Mobile viewport switches between instrument rack, breadboard, and scope without overflow",
+      "pass": true
+    },
+    {
+      "name": "Native two-finger horizontal and vertical pinches change time and voltage scales",
+      "pass": true
+    },
+    {
+      "name": "Touch double-tap resets trace position with Auto scale",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "networkFailures": [],
+  "externalRequests": [],
+  "emptyPageFps": 30.001500075003747,
+  "bootMs": 161.79999995231628,
+  "tracePixels": {
+    "yellow": 1205,
+    "green": 452,
+    "g": {
+      "x": 19,
+      "y": 18,
+      "w": 250,
+      "h": 213
+    }
+  },
+  "rendering": {
+    "fps": 30.000750018750466,
+    "drawMs": 0.3107437988943305
+  },
+  "minimumFps": 27.001350067503374
+}

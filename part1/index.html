@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>ปฏิบัติการวิศวกรรมไฟฟ้า 1 (Part 1: Circuits & Measurement) · มหาวิทยาลัยนเรศวร</title>
+<style>
+/* ═══════════ พื้นฐานแบบตำราเรียนและเอกสารวิชาการ ═══════════ */
+:root {
+  --paper: #FBF8F1;
+  --paper2: #F5F0E4;
+  --ink: #22292F;
+  --ink-soft: #4B5563;
+  --rule: #D8CFBC;
+  --accent: #1E40AF;
+  --accent-hover: #1D4ED8;
+  --accent2: #B45309;
+  --green: #047857;
+  --green-bg: #ECFDF5;
+  --red: #B91C1C;
+  --red-bg: #FEF2F2;
+  --purple: #6D28D9;
+  --amber-bg: #FFFBEB;
+  --blue-bg: #EFF6FF;
+  --navy: #0F172A;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans Thai", "Sarabun", "Thonburi", "Noto Sans Thai", -apple-system, "Segoe UI", sans-serif;
+  font-size: 16.5px;
+  line-height: 1.85;
+}
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 36px 32px 90px;
+}
+
+/* ═══════════ แถบนำทางและส่วนหัวกลาง ═══════════ */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .sep {
+  color: #9CA3AF;
+}
+
+header.central-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.institute-line {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.chips-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 3px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--paper2);
+  letter-spacing: 0.04em;
+}
+
+.chip.highlight {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.chip.active-tag {
+  background: var(--green-bg);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+h1.book-title {
+  font-size: 2.25rem;
+  line-height: 1.35;
+  margin: 10px 0 12px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.subtitle {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  max-width: 840px;
+  margin: 0 auto 24px;
+  line-height: 1.75;
+}
+
+.header-divider {
+  border: none;
+  border-bottom: 3px double var(--ink);
+  margin: 26px 0 32px;
+}
+
+/* ═══════════ แบนเนอร์ Virtual Lab สอดคล้อง ═══════════ */
+.quick-vlab-box {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-left: 5px solid var(--accent);
+  border-radius: 8px;
+  padding: 18px 24px;
+  margin-bottom: 36px;
+  box-shadow: 3px 3px 0 var(--paper2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.quick-vlab-info h3 {
+  margin: 0 0 4px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.quick-vlab-info p {
+  margin: 0;
+  font-size: 0.90rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+/* ═══════════ หัวข้อส่วนเนื้อหา ═══════════ */
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  border-bottom: 2.5px solid var(--ink);
+  padding-bottom: 8px;
+  margin: 44px 0 20px;
+}
+
+.sec-no {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 1.45rem;
+  margin: 0;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.sec-lead {
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  margin: -10px 0 24px;
+}
+
+/* ═══════════ การ์ด Lab 7 ฉบับเด่น ═══════════ */
+.featured-lab-card {
+  background: #FFFFFF;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  padding: 28px 30px;
+  margin-bottom: 36px;
+  box-shadow: 6px 6px 0 var(--paper2);
+  position: relative;
+}
+
+.featured-lab-card::before {
+  content: "ACTIVE MODULE · บทปฏิบัติการฉบับสมบูรณ์พร้อมผลการทดลองจริง";
+  position: absolute;
+  top: -15px;
+  left: 26px;
+  background: var(--ink);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 3px 16px;
+  letter-spacing: 0.08em;
+  border-radius: 4px;
+}
+
+.featured-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.featured-title {
+  font-size: 1.48rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.featured-desc {
+  font-size: 0.98rem;
+  color: var(--ink);
+  line-height: 1.8;
+  margin: 0 0 18px;
+}
+
+.parts-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.part-item {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-size: 0.88rem;
+}
+
+.part-item b {
+  color: var(--accent);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.featured-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  border-top: 1px solid #F1ECE1;
+  padding-top: 18px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1.5px solid var(--ink);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #FFFFFF;
+  color: var(--ink);
+}
+
+.btn-secondary:hover {
+  background: var(--paper2);
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+
+/* ═══════════ ตารางสรุปบทเรียนทั้งหมด ═══════════ */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  background: #FFFFFF;
+  box-shadow: 4px 4px 0 var(--paper2);
+  margin-bottom: 40px;
+}
+
+table.lab-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+  font-size: 0.92rem;
+}
+
+table.lab-table th {
+  background: #EEF4F8;
+  color: var(--navy);
+  font-weight: 700;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 2px solid var(--rule);
+  font-size: 0.86rem;
+  letter-spacing: 0.04em;
+}
+
+table.lab-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E7EB;
+  color: var(--ink);
+  vertical-align: middle;
+  line-height: 1.55;
+}
+
+table.lab-table tr:nth-child(even) td {
+  background: #FAF9F5;
+}
+
+table.lab-table tr.highlight-row td {
+  background: #EFF6FF;
+  font-weight: 600;
+}
+
+.status-pill {
+  display: inline-block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.status-active {
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid #A7F3D0;
+}
+
+.status-doc {
+  background: var(--blue-bg);
+  color: var(--accent);
+  border: 1px solid #BFDBFE;
+}
+
+.status-prep {
+  background: var(--paper2);
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+}
+
+/* ═══════════ เอกสารคู่มือเครื่องมือวัด ═══════════ */
+.manuals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 44px;
+}
+
+.manual-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  padding: 18px 20px;
+  box-shadow: 3px 3px 0 var(--paper2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.manual-card .m-type {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.manual-card .m-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.manual-card .m-size {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+
+.manual-card a {
+  align-self: flex-start;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.manual-card a:hover {
+  text-decoration: underline;
+}
+
+/* ═══════════ ท้ายกระดาษ Colophon ═══════════ */
+footer.colophon {
+  margin-top: 70px;
+  border-top: 3px double var(--ink);
+  padding-top: 24px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-col {
+  flex: 1 1 300px;
+}
+
+.footer-col b {
+  color: var(--ink);
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  font-size: 0.82rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  body { font-size: 15.5px; }
+  .page { padding: 20px 16px 60px; }
+  h1.book-title { font-size: 1.85rem; }
+  .featured-lab-card { padding: 20px 18px; }
+  .featured-lab-card::before { position: static; display: inline-block; margin-bottom: 12px; }
+  .quick-vlab-box { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="../index.html">หน้าแรก</a>
+    <span class="sep">/</span>
+    <span style="color:var(--ink); font-weight:700;">ปฏิบัติการวิศวกรรมไฟฟ้า 1 (Part 1)</span>
+  </div>
+
+  <!-- ส่วนหัวกลางแบบวิชาการ -->
+  <header class="central-header">
+    <div class="institute-line">ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ · คณะวิศวกรรมศาสตร์ · มหาวิทยาลัยนเรศวร</div>
+    
+    <div class="chips-row">
+      <span class="chip highlight">EE LAB 1</span>
+      <span class="chip">PART 1: CIRCUITS &amp; MEASUREMENT</span>
+      <span class="chip active-tag">รหัสวิชา 305141 / 305142</span>
+    </div>
+
+    <h1 class="book-title">ปฏิบัติการวิศวกรรมไฟฟ้า 1 (Part 1)</h1>
+    <p class="subtitle">สารบัญบทปฏิบัติการ เอกสารขั้นตอนการดำเนินการทดลอง การวัดและวิเคราะห์รูปคลื่นสัญญาณ และคู่มือเครื่องมือวัดประจำห้องปฏิบัติการ</p>
+
+    <hr class="header-divider">
+  </header>
+
+  <!-- กล่องเชื่อมโยง Virtual Lab สำหรับการเตรียมตัว -->
+  <div class="quick-vlab-box">
+    <div class="quick-vlab-info">
+      <h3>โต๊ะทดลองเสมือนจริงสำหรับ Part 1 (Virtual Lab Workbench)</h3>
+      <p>ฝึกการต่อสายลงบน Breadboard ปรับตั้งแหล่งจ่ายไฟตรง Siglent ฟังก์ชันเจนเนอเรเตอร์ และฝึกวัดรูปคลื่นออสซิลโลสโคปเสมือนจริงก่อนเข้าเรียน</p>
+    </div>
+    <a href="../virtual-lab/index.html" class="btn btn-primary">เปิด Virtual Lab →</a>
+  </div>
+
+  <!-- หมวดเนื้อหาหลักที่ 1: บทปฏิบัติการเด่น Lab 7 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">01</div>
+      <h2>บทปฏิบัติการฉบับสมบูรณ์ (Active Module)</h2>
+    </div>
+    <p class="sec-lead">คู่มือการทดลองและบทวิเคราะห์ผลสัญญาณจริงฉบับละเอียดที่เปิดให้ศึกษาในระบบ</p>
+
+    <article class="featured-lab-card">
+      <div class="featured-header">
+        <div>
+          <span class="chip" style="margin-bottom: 8px; display: inline-block;">LABORATORY 07</span>
+          <h3 class="featured-title">ปฏิบัติการที่ 7: ผลตอบสนองต่อไฟสลับในวงจรอนุกรม RC</h3>
+        </div>
+        <span class="status-pill status-active">เอกสารฉบับสมบูรณ์ · 10 รูปคลื่นจริง</span>
+      </div>
+
+      <p class="featured-desc">
+        ศึกษาคุณสมบัติของวงจรอนุกรม RC เมื่อถูกกระตุ้นด้วยสัญญาณแรงดันไฟฟ้าสลับรูปคลื่นไซน์ วิเคราะห์ผลต่างทางขนาดและมุมเฟสระหว่างแรงดันตกคร่อมตัวเก็บประจุเทียบกับแรงดันแหล่งจ่าย สังเกตพฤติกรรมวงจรกรองความถี่ต่ำผ่าน (Low-Pass Filter) และผลของการต่อตัวเก็บประจุแบบอนุกรม
+      </p>
+
+      <div class="parts-list">
+        <div class="part-item">
+          <b>ตอนที่ 7.1: ผลของค่าความจุ</b>
+          วัดและเปรียบเทียบขนาดแรงดันและมุมเฟสเมื่อ C มีค่า 2.2 µF, 1.0 µF และ 0.1 µF ที่ความถี่คงที่ 300 Hz
+        </div>
+        <div class="part-item">
+          <b>ตอนที่ 7.2: ผลตอบสนองความถี่</b>
+          วิเคราะห์คุณลักษณะ Low-Pass Filter ที่ความถี่ 50 Hz ถึง 5 kHz บันทึกอัตราขยายแรงดันและผลต่างเวลา
+        </div>
+        <div class="part-item">
+          <b>ตอนที่ 7.3: ตัวเก็บประจุอนุกรม</b>
+          ศึกษาผลของความจุสมมูลเมื่อนำตัวเก็บประจุ 1.0 µF และ 2.2 µF มาต่ออนุกรมกัน และวิเคราะห์จุดต่อโพรบ
+        </div>
+      </div>
+
+      <div class="featured-actions">
+        <a href="./lab7/index.html" class="btn btn-primary">อ่านคู่มือและบทวิเคราะห์ผล Lab 7 ฉบับเต็ม →</a>
+        <a href="../virtual-lab/index.html" class="btn btn-secondary">เปิดแบบจำลองโต๊ะทดลองเสมือนจริง Lab 7 ↗</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- หมวดเนื้อหาหลักที่ 2: สารบัญบทปฏิบัติการทั้งหมดตามหลักสูตร -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">02</div>
+      <h2>สารบัญบทปฏิบัติการตามหลักสูตร (Curriculum Overview)</h2>
+    </div>
+    <p class="sec-lead">โครงสร้างบทเรียนปฏิบัติการวิศวกรรมไฟฟ้า 1 ตามคู่มือประจำภาควิชา</p>
+
+    <div class="table-wrap">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th style="width: 90px;">ลำดับ</th>
+            <th>ชื่อบทปฏิบัติการ</th>
+            <th style="width: 220px;">หัวข้อหลัก</th>
+            <th style="width: 170px;">สถานะในระบบ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 01</td>
+            <td>กฎความปลอดภัยและการวัดค่าความต้านทาน</td>
+            <td>Safety Rules, Multimeter, Resistor Color Code</td>
+            <td><span class="status-pill status-doc">มีเอกสารคู่มือ PDF</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 02</td>
+            <td>กฎของโอห์มและกฎของเคอร์ชอฟฟ์</td>
+            <td>Ohm's Law, KVL, KCL, DC Measurement</td>
+            <td><span class="status-pill status-doc">มีเอกสารคู่มือ PDF</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 03</td>
+            <td>ทฤษฎีบทการวางซ้อนและทฤษฎีบทเทเวนิน</td>
+            <td>Superposition Theorem, Thevenin's Theorem</td>
+            <td><span class="status-pill status-prep">อยู่ระหว่างจัดทำ</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 04</td>
+            <td>การใช้งานเครื่องกำเนิดสัญญาณและออสซิลโลสโคป</td>
+            <td>Oscilloscope Setup, Function Generator, AC Waveforms</td>
+            <td><span class="status-pill status-doc">มีเอกสารคู่มือ PDF</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 05</td>
+            <td>การตอบสนองชั่วขณะของวงจร RL และ RC</td>
+            <td>Transient Response, Time Constant Tau</td>
+            <td><span class="status-pill status-prep">อยู่ระหว่างจัดทำ</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 06</td>
+            <td>วงจรเรโซแนนซ์แบบอนุกรมและขนาน</td>
+            <td>Resonance Frequency, Quality Factor, Bandwidth</td>
+            <td><span class="status-pill status-prep">อยู่ระหว่างจัดทำ</span></td>
+          </tr>
+          <tr class="highlight-row">
+            <td style="font-weight: 800; color: var(--accent);">Lab 07</td>
+            <td><b>ผลตอบสนองต่อไฟสลับในวงจรอนุกรม RC</b></td>
+            <td><b>Sinusoidal AC Response, Phase Shift, Low-Pass Filter</b></td>
+            <td><span class="status-pill status-active">เปิดดูเนื้อหาได้แล้ว</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 08</td>
+            <td>วงจรกรองความถี่และผลตอบสนองความถี่</td>
+            <td>Passive and Active Filters, Bode Plot</td>
+            <td><span class="status-pill status-prep">อยู่ระหว่างจัดทำ</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 09</td>
+            <td>วงจรบริดจ์และการประยุกต์ใช้งาน</td>
+            <td>Wheatstone Bridge, Sensor Conditioning</td>
+            <td><span class="status-pill status-prep">อยู่ระหว่างจัดทำ</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- หมวดเนื้อหาหลักที่ 3: เอกสารคู่มือเครื่องมือวัด -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">03</div>
+      <h2>เอกสารคู่มือเครื่องมือวัดและอุปกรณ์ (Instrument Manuals)</h2>
+    </div>
+    <p class="sec-lead">ดาวน์โหลดและเปิดอ่านเอกสารคู่มือเครื่องมือวัดประจำห้องปฏิบัติการ</p>
+
+    <div class="manuals-grid">
+      <div class="manual-card">
+        <div>
+          <span class="m-type">LAB MANUAL 01</span>
+          <div class="m-title">คู่มือปฏิบัติการที่ 1: ความปลอดภัยและการใช้เครื่องมือวัด</div>
+          <div class="m-size">เอกสาร PDF (7.0 MB)</div>
+        </div>
+        <a href="./manual-of-lab-instruments/305141_Lab_01.pdf" target="_blank">เปิดเอกสาร PDF ↗</a>
+      </div>
+
+      <div class="manual-card">
+        <div>
+          <span class="m-type">OSCILLOSCOPE MANUAL</span>
+          <div class="m-title">คู่มือปฏิบัติการที่ 4: การใช้งานออสซิลโลสโคป</div>
+          <div class="m-size">เอกสาร PDF (805 KB)</div>
+        </div>
+        <a href="./manual-of-lab-instruments/305142Lab04oscilloscope.pdf" target="_blank">เปิดเอกสาร PDF ↗</a>
+      </div>
+
+      <div class="manual-card">
+        <div>
+          <span class="m-type">LAB MANUAL 02</span>
+          <div class="m-title">คู่มือปฏิบัติการที่ 2: กฎของโอห์มและกฎของเคอร์ชอฟฟ์</div>
+          <div class="m-size">เอกสาร PDF (904 KB)</div>
+        </div>
+        <a href="./manual-of-lab-instruments/Lab 2.pdf" target="_blank">เปิดเอกสาร PDF ↗</a>
+      </div>
+
+      <div class="manual-card">
+        <div>
+          <span class="m-type">EXERCISE GUIDE</span>
+          <div class="m-title">เอกสารฝึกปฏิบัติการเสริม Lab 2 Ex 0</div>
+          <div class="m-size">เอกสาร PDF (409 KB)</div>
+        </div>
+        <a href="./manual-of-lab-instruments/Lab 2 Ex 0.pdf" target="_blank">เปิดเอกสาร PDF ↗</a>
+      </div>
+
+      <div class="manual-card">
+        <div>
+          <span class="m-type">BENCH HARDWARE</span>
+          <div class="m-title">คลังภาพอุปกรณ์และเครื่องมือจริงในห้องปฏิบัติการ</div>
+          <div class="m-size">ชุดภาพถ่ายจริง (IMG_1226)</div>
+        </div>
+        <a href="./tools-use-in-lab/IMG_1226.jpeg" target="_blank">เปิดดูภาพอุปกรณ์ ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ท้ายกระดาษ Colophon -->
+  <footer class="colophon">
+    <div class="footer-content">
+      <div class="footer-col">
+        <b>ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร</b><br>
+        เอกสารสื่อการสอนและคู่มือปฏิบัติการวิศวกรรมไฟฟ้า 1 (Part 1)<br>
+        รองรับการเปิดอ่านออฟไลน์บนทุกอุปกรณ์
+      </div>
+      <div class="footer-col" style="text-align: right;">
+        <a href="../index.html" style="color:var(--accent); font-weight:700; text-decoration:none;">← กลับสู่หน้าหลักพอร์ทัล</a><br>
+        <span style="font-family: monospace; font-size: 0.88rem;">https://github.com/T3thr/NU-LAB-electrical-engineering</span>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>ปฏิบัติการวิศวกรรมไฟฟ้า 1 (EE LAB 1)</span>
+      <span>OFFLINE CAPABLE · ZERO BUILD · NU ELECTRICAL ENGINEERING</span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

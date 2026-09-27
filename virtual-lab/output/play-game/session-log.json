@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "exportedAt": "2026-09-27T06:40:31.402Z",
+  "actions": [
+    {
+      "label": "Undo",
+      "detail": "Change component",
+      "time": 1790491231271
+    },
+    {
+      "label": "Change component",
+      "detail": "",
+      "time": 1790491231205
+    },
+    {
+      "label": "Circuit event",
+      "detail": "R1 dissipated 0.625 W, exceeding 0.25 W. The resistor is now open.",
+      "time": 1790491231203
+    },
+    {
+      "label": "Remove component",
+      "detail": "",
+      "time": 1790491231149
+    },
+    {
+      "label": "Undo",
+      "detail": "Set generator",
+      "time": 1790491231145
+    },
+    {
+      "label": "Set generator",
+      "detail": "",
+      "time": 1790491231138
+    },
+    {
+      "label": "Set generator",
+      "detail": "",
+      "time": 1790491230835
+    },
+    {
+      "label": "Undo",
+      "detail": "Remove component",
+      "time": 1790491230717
+    },
+    {
+      "label": "Remove component",
+      "detail": "",
+      "time": 1790491230707
+    },
+    {
+      "label": "Undo",
+      "detail": "Move component",
+      "time": 1790491230692
+    },
+    {
+      "label": "Move component",
+      "detail": "",
+      "time": 1790491230678
+    },
+    {
+      "label": "Set generator",
+      "detail": "",
+      "time": 1790491230295
+    },
+    {
+      "label": "Redo",
+      "detail": "Move breadboard",
+      "time": 1790491230120
+    },
+    {
+      "label": "Undo",
+      "detail": "Move breadboard",
+      "time": 1790491230113
+    },
+    {
+      "label": "Move breadboard",
+      "detail": "",
+      "time": 1790491230101
+    },
+    {
+      "label": "Mission paused",
+      "detail": "",
+      "time": 1790491229537
+    }
+  ]
+}

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>ปฏิบัติการวิศวกรรมไฟฟ้า 2 (Part 2: Power & Machinery) · มหาวิทยาลัยนเรศวร</title>
+<style>
+/* ═══════════ พื้นฐานแบบตำราเรียนและเอกสารวิชาการ ═══════════ */
+:root {
+  --paper: #FBF8F1;
+  --paper2: #F5F0E4;
+  --ink: #22292F;
+  --ink-soft: #4B5563;
+  --rule: #D8CFBC;
+  --accent: #1E40AF;
+  --accent-hover: #1D4ED8;
+  --accent2: #B45309;
+  --green: #047857;
+  --green-bg: #ECFDF5;
+  --red: #B91C1C;
+  --red-bg: #FEF2F2;
+  --purple: #6D28D9;
+  --amber-bg: #FFFBEB;
+  --blue-bg: #EFF6FF;
+  --navy: #0F172A;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans Thai", "Sarabun", "Thonburi", "Noto Sans Thai", -apple-system, "Segoe UI", sans-serif;
+  font-size: 16.5px;
+  line-height: 1.85;
+}
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 36px 32px 90px;
+}
+
+/* ═══════════ แถบนำทางและส่วนหัวกลาง ═══════════ */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .sep {
+  color: #9CA3AF;
+}
+
+header.central-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.institute-line {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.chips-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 3px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--paper2);
+  letter-spacing: 0.04em;
+}
+
+.chip.highlight {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.chip.prep-tag {
+  background: var(--amber-bg);
+  border-color: var(--accent2);
+  color: var(--accent2);
+}
+
+h1.book-title {
+  font-size: 2.25rem;
+  line-height: 1.35;
+  margin: 10px 0 12px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.subtitle {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  max-width: 840px;
+  margin: 0 auto 24px;
+  line-height: 1.75;
+}
+
+.header-divider {
+  border: none;
+  border-bottom: 3px double var(--ink);
+  margin: 26px 0 32px;
+}
+
+/* ═══════════ กล่องแจ้งสถานะ ═══════════ */
+.notice-box {
+  background: #FFFFFF;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  padding: 26px 28px;
+  margin-bottom: 36px;
+  box-shadow: 5px 5px 0 var(--paper2);
+  position: relative;
+}
+
+.notice-box::before {
+  content: "CURRICULUM IN PREPARATION · สถานะการพัฒนาเนื้อหา";
+  position: absolute;
+  top: -15px;
+  left: 24px;
+  background: var(--accent2);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 3px 16px;
+  letter-spacing: 0.08em;
+  border-radius: 4px;
+}
+
+.notice-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+
+.notice-text {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin: 0 0 18px;
+}
+
+.notice-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 18px;
+  border-radius: 6px;
+  font-size: 0.90rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1.5px solid var(--ink);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #FFFFFF;
+  color: var(--ink);
+}
+
+.btn-secondary:hover {
+  background: var(--paper2);
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+
+/* ═══════════ หัวข้อส่วนเนื้อหา ═══════════ */
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  border-bottom: 2.5px solid var(--ink);
+  padding-bottom: 8px;
+  margin: 44px 0 20px;
+}
+
+.sec-no {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 1.45rem;
+  margin: 0;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.sec-lead {
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  margin: -10px 0 24px;
+}
+
+/* ═══════════ ตารางแผนการทดลอง ═══════════ */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  background: #FFFFFF;
+  box-shadow: 4px 4px 0 var(--paper2);
+  margin-bottom: 40px;
+}
+
+table.lab-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+  font-size: 0.92rem;
+}
+
+table.lab-table th {
+  background: #EEF4F8;
+  color: var(--navy);
+  font-weight: 700;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 2px solid var(--rule);
+  font-size: 0.86rem;
+  letter-spacing: 0.04em;
+}
+
+table.lab-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E7EB;
+  color: var(--ink);
+  vertical-align: middle;
+  line-height: 1.55;
+}
+
+table.lab-table tr:nth-child(even) td {
+  background: #FAF9F5;
+}
+
+.status-prep {
+  display: inline-block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--amber-bg);
+  color: var(--accent2);
+  border: 1px solid #FDE68A;
+  white-space: nowrap;
+}
+
+/* ═══════════ การ์ดเนื้อหาแผนการสอน ═══════════ */
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin-bottom: 44px;
+}
+
+.roadmap-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  padding: 20px 22px;
+  box-shadow: 3px 3px 0 var(--paper2);
+}
+
+.roadmap-card .r-no {
+  font-size: 0.80rem;
+  font-weight: 800;
+  color: var(--accent2);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.roadmap-card .r-title {
+  font-size: 1.10rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.roadmap-card .r-desc {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ═══════════ ท้ายกระดาษ Colophon ═══════════ */
+footer.colophon {
+  margin-top: 70px;
+  border-top: 3px double var(--ink);
+  padding-top: 24px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-col {
+  flex: 1 1 300px;
+}
+
+.footer-col b {
+  color: var(--ink);
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  font-size: 0.82rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  body { font-size: 15.5px; }
+  .page { padding: 20px 16px 60px; }
+  h1.book-title { font-size: 1.85rem; }
+  .notice-box { padding: 20px 18px; }
+  .notice-box::before { position: static; display: inline-block; margin-bottom: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="../index.html">หน้าแรก</a>
+    <span class="sep">/</span>
+    <span style="color:var(--ink); font-weight:700;">ปฏิบัติการวิศวกรรมไฟฟ้า 2 (Part 2)</span>
+  </div>
+
+  <!-- ส่วนหัวกลางแบบวิชาการ -->
+  <header class="central-header">
+    <div class="institute-line">ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ · คณะวิศวกรรมศาสตร์ · มหาวิทยาลัยนเรศวร</div>
+    
+    <div class="chips-row">
+      <span class="chip highlight">EE LAB 2</span>
+      <span class="chip">PART 2: POWER &amp; MACHINERY</span>
+      <span class="chip prep-tag">รหัสวิชา 305241</span>
+    </div>
+
+    <h1 class="book-title">ปฏิบัติการวิศวกรรมไฟฟ้า 2 (Part 2)</h1>
+    <p class="subtitle">โครงสร้างหลักสูตรและหัวข้อการทดลองด้านระบบไฟฟ้ากำลัง หม้อแปลงไฟฟ้า และเครื่องจักรกลไฟฟ้า</p>
+
+    <hr class="header-divider">
+  </header>
+
+  <!-- กล่องแจ้งสถานะการเตรียมเนื้อหา -->
+  <div class="notice-box">
+    <h3 class="notice-title">อยู่ระหว่างการจัดเตรียมเอกสารและแบบจำลอง (In Preparation)</h3>
+    <p class="notice-text">
+      หมวดวิชาปฏิบัติการวิศวกรรมไฟฟ้า 2 ครอบคลุมการทดลองที่ใช้แรงดันและกำลังไฟฟ้าสูงขึ้น เช่น ระบบไฟฟ้า 3 เฟส และเครื่องจักรกลไฟฟ้า ขณะนี้ทีมงานกำลังรวบรวมเอกสารคู่มือปฏิบัติการ การจัดเตรียมภาพถ่ายการทดลองจริง และการพัฒนาแบบจำลองเสมือนจริงเพื่อให้นิสิตสามารถฝึกจำลองก่อนลงมือปฏิบัติจริงกับเครื่องจักรกล
+    </p>
+
+    <div class="notice-actions">
+      <a href="../part1/index.html" class="btn btn-primary">ไปยังปฏิบัติการวิศวกรรมไฟฟ้า 1 (Part 1) →</a>
+      <a href="../virtual-lab/index.html" class="btn btn-secondary">ทดลองใช้งาน Virtual Lab ↗</a>
+      <a href="../index.html" class="btn btn-secondary">กลับสู่หน้าแรกพอร์ทัล</a>
+    </div>
+  </div>
+
+  <!-- หัวข้อหลักสูตรของ Part 2 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">01</div>
+      <h2>โครงสร้างบทปฏิบัติการที่เตรียมจัดทำ (Planned Modules)</h2>
+    </div>
+    <p class="sec-lead">รายการบทปฏิบัติการตามหลักสูตรวิศวกรรมไฟฟ้า 2</p>
+
+    <div class="table-wrap">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th style="width: 90px;">ลำดับ</th>
+            <th>ชื่อบทปฏิบัติการ</th>
+            <th style="width: 260px;">หัวข้อหลัก</th>
+            <th style="width: 170px;">สถานะ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 01</td>
+            <td>วงจรไฟฟ้ากระแสสลับสามเฟส</td>
+            <td>Balanced &amp; Unbalanced Loads, Star/Delta</td>
+            <td><span class="status-prep">กำลังจัดทำ</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 02</td>
+            <td>การวัดกำลังไฟฟ้าในระบบสามเฟส</td>
+            <td>Two-Wattmeter Method, Power Factor</td>
+            <td><span class="status-prep">กำลังจัดทำ</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 03</td>
+            <td>การทดสอบหม้อแปลงไฟฟ้าหนึ่งเฟส</td>
+            <td>Open-Circuit &amp; Short-Circuit Test, Equivalent Circuit</td>
+            <td><span class="status-prep">กำลังจัดทำ</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 04</td>
+            <td>การต่อหม้อแปลงไฟฟ้าสามเฟส</td>
+            <td>Y-Y, Y-Delta, Delta-Y, Delta-Delta Banking</td>
+            <td><span class="status-prep">กำลังจัดทำ</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 05</td>
+            <td>เครื่องกำเนิดไฟฟ้ากระแสสลับซิงโครนัส</td>
+            <td>Open-Circuit Characteristic (OCC), SCC, Voltage Regulation</td>
+            <td><span class="status-prep">กำลังจัดทำ</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--accent2);">Lab 06</td>
+            <td>มอเตอร์เหนี่ยวนำสามเฟสและการควบคุม</td>
+            <td>Torque-Speed Characteristics, Inverter Control</td>
+            <td><span class="status-prep">กำลังจัดทำ</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- รายละเอียดภาพรวมของ 3 แกนหลัก -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">02</div>
+      <h2>เนื้อหาหลัก 3 ด้านของ Part 2 (Core Domains)</h2>
+    </div>
+    <p class="sec-lead">การแบ่งหมวดหมู่เนื้อหาเชิงปฏิบัติการเพื่อเตรียมพร้อมก่อนเริ่มการทดลอง</p>
+
+    <div class="roadmap-grid">
+      <div class="roadmap-card">
+        <span class="r-no">DOMAIN 01</span>
+        <div class="r-title">ระบบไฟฟ้ากระแสสลับ 3 เฟส</div>
+        <p class="r-desc">
+          การวิเคราะห์ความสัมพันธ์ของแรงดันคู่สาย (Line Voltage) และแรงดันเฟส (Phase Voltage) การคำนวณกำลังไฟฟ้าจริง กำลังไฟฟ้ารีแอกทีฟ และการปรับปรุงตัวประกอบกำลัง (Power Factor Correction)
+        </p>
+      </div>
+
+      <div class="roadmap-card">
+        <span class="r-no">DOMAIN 02</span>
+        <div class="r-title">หม้อแปลงไฟฟ้า (Transformers)</div>
+        <p class="r-desc">
+          การทดสอบหาพารามิเตอร์ของแกนเหล็กและความต้านทานขดลวด การคำนวณประสิทธิภาพ (Efficiency) และการควบคุมแรงดัน (Voltage Regulation) ของหม้อแปลง 1 เฟส และการเชื่อมต่อกลุ่ม 3 เฟส
+        </p>
+      </div>
+
+      <div class="roadmap-card">
+        <span class="r-no">DOMAIN 03</span>
+        <div class="r-title">เครื่องจักรกลไฟฟ้า (Electric Machines)</div>
+        <p class="r-desc">
+          การวิเคราะห์การหมุนของสนามแม่เหล็กในสเตเตอร์ การต่อโหลดทดสอบมอเตอร์เหนี่ยวนำกรงกระรอก และการศึกษาคุณลักษณะของเครื่องกำเนิดไฟฟ้าซิงโครนัสเมื่อจ่ายโหลดชนิดต่างๆ
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ท้ายกระดาษ Colophon -->
+  <footer class="colophon">
+    <div class="footer-content">
+      <div class="footer-col">
+        <b>ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร</b><br>
+        เอกสารสื่อการสอนและคู่มือปฏิบัติการวิศวกรรมไฟฟ้า 2 (Part 2)<br>
+        โครงสร้างหลักสูตรเพื่อการศึกษาทางวิศวกรรมไฟฟ้า
+      </div>
+      <div class="footer-col" style="text-align: right;">
+        <a href="../index.html" style="color:var(--accent); font-weight:700; text-decoration:none;">← กลับสู่หน้าหลักพอร์ทัล</a><br>
+        <span style="font-family: monospace; font-size: 0.88rem;">https://github.com/T3thr/NU-LAB-electrical-engineering</span>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>ปฏิบัติการวิศวกรรมไฟฟ้า 2 (EE LAB 2)</span>
+      <span>OFFLINE CAPABLE · ZERO BUILD · NU ELECTRICAL ENGINEERING</span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

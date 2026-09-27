@@ -1,0 +1,30 @@
+{
+  "checks": [
+    "3D entry builds a genuine WebGL scene without changing the circuit",
+    "Head look, bounded steps, optical zoom and home controls preserve the circuit",
+    "Projection and ray picking agree for instrument jacks and breadboard pins",
+    "3D terminal clicks update the real netlist and measured trace",
+    "Dragging a 3D connector onto a pin creates a live cable",
+    "Double-clicking a 3D cable removes that electrical connection",
+    "Scope drawer uses existing controls and returns the original DOM intact",
+    "Component palette places real parts on the 3D breadboard",
+    "Live generator controls and worksheets operate inside the 3D session",
+    "3D fault effects use the existing damage engine",
+    "Camera bounds, persistence and 2D round-trip preserve the simulator",
+    "Renderer sustains interactive frame pacing with live scope textures",
+    "WebGL context loss pauses safely and restores the scene",
+    "Thai/English controls switch within 3D without camera or netlist reset",
+    "Mobile 3D touch pinch and pan work with bounded layout",
+    "Unavailable WebGL falls back to a working 2D bench"
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "externalRequests": [],
+  "emptyPageFps": 30.00150007500375,
+  "minimumFps": 27.001350067503378,
+  "performance": {
+    "fps": 30.000750018750473,
+    "meanRenderMs": 1.0231405013848927,
+    "drawCalls": 320
+  }
+}

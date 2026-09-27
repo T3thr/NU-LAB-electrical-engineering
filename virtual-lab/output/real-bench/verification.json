@@ -1,0 +1,67 @@
+{
+  "checks": [
+    {
+      "name": "Offline local-file boot has no generic source/scope inputs and six physical softkeys",
+      "pass": true
+    },
+    {
+      "name": "Manual High-Z sequence exposes both menu levels and commits only on Enter",
+      "pass": true
+    },
+    {
+      "name": "Shared numeric keys enter frequency, amplitude and offset without changing waveform",
+      "pass": true
+    },
+    {
+      "name": "Digit cursor plus knob edits a selected decade; keyboard numeric entry commits once",
+      "pass": true
+    },
+    {
+      "name": "Undo and redo restore committed generator values; editing keys do not pollute history",
+      "pass": true
+    },
+    {
+      "name": "Scope has independent channel scale, position, horizontal position and trigger knobs",
+      "pass": true
+    },
+    {
+      "name": "Cursors > X1/X2 > Entry knob measures Lab 7 delay and phase",
+      "pass": true
+    },
+    {
+      "name": "Entry push selects a context-menu choice and channel softkeys affect the trace",
+      "pass": true
+    },
+    {
+      "name": "Meas softkeys select, add and clear actual nodal measurements",
+      "pass": true
+    },
+    {
+      "name": "Single remains armed without a trigger and freezes after a valid edge",
+      "pass": true
+    },
+    {
+      "name": "Probe Comp is wired through real patch terminals and reads 1 kHz / 3 Vpp",
+      "pass": true
+    },
+    {
+      "name": "3D uses the live panels, keeps camera return and displays both trace colors",
+      "pass": true
+    },
+    {
+      "name": "Mobile panels fit and every softkey and knob remains reachable",
+      "pass": true
+    },
+    {
+      "name": "No exceptions, rejected promises, failed assets or external requests",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "externalRequests": [],
+  "tracePixels": {
+    "yellow": 1893,
+    "green": 502
+  }
+}

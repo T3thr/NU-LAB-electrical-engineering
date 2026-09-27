@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "Walking translates a character at fixed eye height without editing the circuit",
+    "Scope close restores the exact original view, including switching instruments and Escape from an input",
+    "Closing during a focus animation cannot leave a later camera jump",
+    "Inspection, assembly and arrangement preserve their own return view",
+    "A reload during instrument inspection restores the saved walking view, not the zoomed-in camera",
+    "Walking stops at all four aisle edges, keeps constant height and normalizes diagonal speed",
+    "Tray spacing is explicit in pitches and millimeters; drag uses the chosen real pins",
+    "Resize preserves the first lead, changes the real netlist and supports Undo/Redo",
+    "Bracket adjustment and rotation update the snapped preview before committing",
+    "English toggle translates new controls without changing component geometry",
+    "Mobile spacing controls fit and changing them affects the same placement engine"
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "externalRequests": []
+}

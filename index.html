@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>ระบบสื่อการสอนและห้องปฏิบัติการวิศวกรรมไฟฟ้า · มหาวิทยาลัยนเรศวร</title>
+<style>
+/* ═══════════ พื้นฐานแบบตำราเรียนและเอกสารวิชาการ ═══════════ */
+:root {
+  --paper: #FBF8F1;
+  --paper2: #F5F0E4;
+  --ink: #22292F;
+  --ink-soft: #4B5563;
+  --rule: #D8CFBC;
+  --accent: #1E40AF;
+  --accent-hover: #1D4ED8;
+  --accent2: #B45309;
+  --green: #047857;
+  --green-bg: #ECFDF5;
+  --red: #B91C1C;
+  --red-bg: #FEF2F2;
+  --purple: #6D28D9;
+  --amber-bg: #FFFBEB;
+  --blue-bg: #EFF6FF;
+  --navy: #0F172A;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans Thai", "Sarabun", "Thonburi", "Noto Sans Thai", -apple-system, "Segoe UI", sans-serif;
+  font-size: 16.5px;
+  line-height: 1.85;
+}
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 40px 32px 90px;
+}
+
+/* ═══════════ ส่วนหัวกลางแบบวิชาการ ═══════════ */
+header.central-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.institute-line {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.chips-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 3px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--paper2);
+  letter-spacing: 0.04em;
+}
+
+.chip.highlight {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.chip.active-tag {
+  background: var(--green-bg);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+h1.portal-title {
+  font-size: 2.35rem;
+  line-height: 1.35;
+  margin: 12px 0 14px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.portal-subtitle {
+  color: var(--ink-soft);
+  font-size: 1.08rem;
+  max-width: 820px;
+  margin: 0 auto 24px;
+  line-height: 1.75;
+}
+
+.header-divider {
+  border: none;
+  border-bottom: 3px double var(--ink);
+  margin: 28px 0 36px;
+}
+
+/* ═══════════ กล่องเด่น Virtual Laboratory ═══════════ */
+.hero-virtual-lab {
+  border: 2px solid var(--ink);
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 32px 36px;
+  margin-bottom: 48px;
+  box-shadow: 7px 7px 0 var(--paper2);
+  position: relative;
+}
+
+.hero-virtual-lab::before {
+  content: "VIRTUAL BENCH SIMULATOR · แนะนำสำหรับการเตรียมตัวก่อนเข้าห้องปฏิบัติการ";
+  position: absolute;
+  top: -15px;
+  left: 28px;
+  background: var(--ink);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.80rem;
+  padding: 3px 18px;
+  letter-spacing: 0.08em;
+  border-radius: 4px;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.hero-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 12px;
+}
+
+.hero-title {
+  font-size: 1.60rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0;
+}
+
+.hero-desc {
+  font-size: 1.02rem;
+  color: var(--ink);
+  line-height: 1.8;
+  margin: 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+  margin: 12px 0 8px;
+}
+
+.feature-box {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+
+.feature-box .f-title {
+  font-size: 0.90rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.feature-box .f-desc {
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 22px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1.5px solid var(--ink);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #FFFFFF;
+  color: var(--ink);
+}
+
+.btn-secondary:hover {
+  background: var(--paper2);
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.btn-outline-accent {
+  background: var(--blue-bg);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-outline-accent:hover {
+  background: var(--accent);
+  color: #FFFFFF;
+}
+
+/* ═══════════ หัวข้อส่วนเนื้อหา ═══════════ */
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  border-bottom: 2.5px solid var(--ink);
+  padding-bottom: 8px;
+  margin: 48px 0 24px;
+}
+
+.sec-no {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 1.45rem;
+  margin: 0;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.sec-lead {
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  margin: -12px 0 24px;
+}
+
+/* ═══════════ การ์ดเลือกหมวดหมู่วิชา (Part 1 / Part 2) ═══════════ */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 26px;
+  margin-bottom: 48px;
+}
+
+.course-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 26px 28px;
+  box-shadow: 5px 5px 0 var(--paper2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.course-card:hover {
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.12);
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+
+.course-badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  gap: 10px;
+}
+
+.badge-tag {
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-active {
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid #A7F3D0;
+}
+
+.badge-prep {
+  background: var(--amber-bg);
+  color: var(--accent2);
+  border: 1px solid #FDE68A;
+}
+
+.card-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 0 0 10px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.card-desc {
+  font-size: 0.94rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 0 0 18px;
+}
+
+.card-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  border-top: 1px solid #F1ECE1;
+  padding-top: 14px;
+}
+
+.card-highlights li {
+  font-size: 0.88rem;
+  color: var(--ink);
+  padding: 5px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  line-height: 1.55;
+}
+
+.card-highlights li::before {
+  content: "·";
+  color: var(--accent2);
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.card-footer {
+  border-top: 1.5px solid var(--rule);
+  padding-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ═══════════ เมทริกซ์ข้อมูลและสเปก ═══════════ */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+  margin: 20px 0 40px;
+}
+
+.spec-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  padding: 18px 20px;
+  box-shadow: 3px 3px 0 var(--paper2);
+}
+
+.spec-card .spec-label {
+  font-size: 0.80rem;
+  font-weight: 800;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.spec-card .spec-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.spec-card .spec-detail {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ═══════════ ท้ายกระดาษ Colophon ═══════════ */
+footer.colophon {
+  margin-top: 70px;
+  border-top: 3px double var(--ink);
+  padding-top: 28px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-col {
+  flex: 1 1 300px;
+}
+
+.footer-col b {
+  color: var(--ink);
+}
+
+.footer-bottom {
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  font-size: 0.82rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  body { font-size: 15.5px; }
+  .page { padding: 24px 18px 60px; }
+  h1.portal-title { font-size: 1.85rem; }
+  .hero-virtual-lab { padding: 24px 20px; }
+  .hero-virtual-lab::before { position: static; display: inline-block; margin-bottom: 12px; }
+  .hero-title { font-size: 1.35rem; }
+  .course-grid { grid-template-columns: 1fr; }
+  .course-card { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ส่วนหัวกลางแบบวิชาการ -->
+  <header class="central-header">
+    <div class="institute-line">ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ · คณะวิศวกรรมศาสตร์ · มหาวิทยาลัยนเรศวร</div>
+    
+    <div class="chips-row">
+      <span class="chip highlight">NU ELECTRICAL ENGINEERING</span>
+      <span class="chip">LABORATORY PORTAL</span>
+      <span class="chip active-tag">OFFLINE-FIRST ARCHITECTURE</span>
+    </div>
+
+    <h1 class="portal-title">ระบบสื่อการสอนและห้องปฏิบัติการวิศวกรรมไฟฟ้า</h1>
+    <p class="portal-subtitle">ศูนย์รวมเอกสารคู่มือปฏิบัติการ การวิเคราะห์ผลการทดลองจริง และแบบจำลองโต๊ะทดลองเสมือนจริงระบบออฟไลน์ สำหรับนิสิตและคณาจารย์ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์</p>
+
+    <hr class="header-divider">
+  </header>
+
+  <!-- กล่องเด่น: ห้องปฏิบัติการเสมือนจริง Virtual Laboratory -->
+  <section class="hero-virtual-lab">
+    <div class="hero-content">
+      <div class="hero-title-row">
+        <h2 class="hero-title">ห้องปฏิบัติการเสมือนจริง (Interactive Virtual Laboratory)</h2>
+        <span class="chip">OFFLINE · ZERO BUILD</span>
+      </div>
+
+      <p class="hero-desc">
+        โต๊ะทดลองเสมือนจริงจำลองการเชื่อมต่อสายและเครื่องมือวัดจริง ทำงานบนเว็บบราวเซอร์ 100% โดยไม่ต้องติดตั้งโปรแกรมเพิ่มเติมและไม่พึ่งพาอินเทอร์เน็ต ประกอบด้วยแผงวงจร Breadboard (830 จุด), แหล่งจ่ายไฟตรง Siglent SPD3303C, มัลติมิเตอร์ HP 34401A, เครื่องกำเนิดสัญญาณ HP 33120A, ออสซิลโลสโคปดิจิทัล พร้อมระบบคำนวณวงจรด้วยระเบียบวิธี Complex Nodal Analysis และโหมดมุมมอง 3 มิติ (3D Simulator)
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="f-title">การจำลองวงจรแม่นยำสูง</div>
+          <p class="f-desc">คำนวณค่าแรงดันและกระแสจริงด้วย Admittance Matrix และ Pivoted Gaussian Elimination</p>
+        </div>
+        <div class="feature-box">
+          <div class="f-title">แผงหน้าปัดตามเครื่องจริง</div>
+          <p class="f-desc">ลูกบิด ปุ่มกด จอแสดงผล และโหมดเมนูเทียบเท่าอุปกรณ์จริงในห้องปฏิบัติการ</p>
+        </div>
+        <div class="feature-box">
+          <div class="f-title">ระบบความปลอดภัยและการทดลองผิดพร่อง</div>
+          <p class="f-desc">จำลองการต่อสายผิดขั้ว ตัวเก็บประจุเสียหาย หรือฟิวส์มัลติมิเตอร์ขาดได้อย่างปลอดภัย</p>
+        </div>
+        <div class="feature-box">
+          <div class="f-title">ทำงานออฟไลน์สมบูรณ์</div>
+          <p class="f-desc">เปิดใช้งานผ่านไฟล์ HTML ในบราวเซอร์ได้ทันที ไม่ส่งข้อมูลออกภายนอก</p>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="./virtual-lab/index.html" class="btn btn-primary">เข้าสู่ห้องปฏิบัติการเสมือนจริง (Launch Virtual Lab) →</a>
+        <a href="./part1/lab7/index.html" class="btn btn-secondary">ดูรายงานวิเคราะห์ผล Lab 7 ฉบับเต็ม</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- หมวดหมู่วิชาปฏิบัติการ -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">01</div>
+      <h2>เลือกหมวดหมู่วิชาปฏิบัติการ (Select Laboratory Course)</h2>
+    </div>
+    <p class="sec-lead">เลือกหลักสูตรปฏิบัติการเพื่อเข้าสู่สารบัญบทการทดลอง เอกสารคำแนะนำ และเอกสารประกอบการเรียน</p>
+
+    <div class="course-grid">
+
+      <!-- Course Card: Part 1 -->
+      <article class="course-card">
+        <div>
+          <div class="course-badge-row">
+            <span class="chip">EE LAB 1</span>
+            <span class="badge-tag badge-active">พร้อมใช้งาน (ACTIVE)</span>
+          </div>
+
+          <h3 class="card-title">ปฏิบัติการวิศวกรรมไฟฟ้า 1<br>(Part 1: Circuits & Measurement)</h3>
+          <p class="card-desc">
+            รหัสวิชา 305141 / 305142 ศึกษาพื้นฐานวงจรไฟฟ้ากระแสตรงและกระแสสลับ กฎพื้นฐานของวงจร การใช้เครื่องมือวัด การวัดสัญญาณด้วยออสซิลโลสโคป และผลตอบสนองวงจรอนุกรม RC
+          </p>
+
+          <ul class="card-highlights">
+            <li>ปฏิบัติการที่ 7 (Lab 07): ผลตอบสนองต่อไฟสลับในวงจรอนุกรม RC พร้อมภาพผลการทดลองจริง 10 รูป</li>
+            <li>คู่มือเครื่องมือวัด 4 ฉบับ (ออสซิลโลสโคป, มัลติมิเตอร์, พื้นฐานห้องปฏิบัติการ)</li>
+            <li>คลังภาพถ่ายอุปกรณ์จริงและตัวอย่างการต่อวงจรบนบอร์ดทดลอง</li>
+            <li>เชื่อมโยงโดยตรงกับชุดจำลองการทดลองบน Virtual Lab</li>
+          </ul>
+        </div>
+
+        <div class="card-footer">
+          <span style="font-size:0.84rem; color:var(--ink-soft); font-weight:600;">เนื้อหาและคู่มือครบถ้วน</span>
+          <a href="./part1/index.html" class="btn btn-primary">เข้าสู่บทเรียน Part 1 →</a>
+        </div>
+      </article>
+
+      <!-- Course Card: Part 2 -->
+      <article class="course-card">
+        <div>
+          <div class="course-badge-row">
+            <span class="chip">EE LAB 2</span>
+            <span class="badge-tag badge-prep">กำลังจัดเตรียม (IN PREPARATION)</span>
+          </div>
+
+          <h3 class="card-title">ปฏิบัติการวิศวกรรมไฟฟ้า 2<br>(Part 2: Power & Machinery)</h3>
+          <p class="card-desc">
+            รหัสวิชา 305241 ศึกษาวงจรไฟฟ้ากระแสสลับสามเฟส การวิเคราะห์กำลังไฟฟ้า หม้อแปลงไฟฟ้า 1 เฟส และ 3 เฟส เครื่องกำเนิดไฟฟ้าซิงโครนัส และมอเตอร์เหนี่ยวนำ
+          </p>
+
+          <ul class="card-highlights">
+            <li>วงจรไฟฟ้าสามเฟส: การต่อแบบ Star และ Delta การวัดกำลังไฟฟ้าด้วยทูวัตต์มิเตอร์</li>
+            <li>หม้อแปลงไฟฟ้า: การทดสอบ Open Circuit และ Short Circuit เพื่อหาค่าพารามิเตอร์</li>
+            <li>เครื่องจักรกลไฟฟ้า: มอเตอร์เหนี่ยวนำและการควบคุมความเร็วรอบ</li>
+            <li>โครงสร้างและแผนผังห้องปฏิบัติการเตรียมพร้อมสำหรับแบบจำลองใหม่</li>
+          </ul>
+        </div>
+
+        <div class="card-footer">
+          <span style="font-size:0.84rem; color:var(--accent2); font-weight:600;">เปิดดูโครงสร้างหลักสูตร</span>
+          <a href="./part2/index.html" class="btn btn-secondary">เข้าสู่บทเรียน Part 2 →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- สเปกและข้อมูลทางวิชาการ -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">02</div>
+      <h2>มาตรฐานทางวิชาการและเทคนิค (Academic Specifications)</h2>
+    </div>
+    <p class="sec-lead">ข้อมูลสถาปัตยกรรมระบบ การสอบเทียบเครื่องมือวัด และมาตรฐานการประมวลผล</p>
+
+    <div class="spec-grid">
+      <div class="spec-card">
+        <span class="spec-label">OFFLINE ARCHITECTURE</span>
+        <div class="spec-title">สถาปัตยกรรมแบบออฟไลน์ 100%</div>
+        <p class="spec-detail">
+          ระบบทั้งหมดทำงานบนฝั่งไคลเอนต์ (Client-Side Only) โดยไม่ใช้เซิร์ฟเวอร์ภายนอก เหมาะสำหรับห้องปฏิบัติการคอมพิวเตอร์ที่มีข้อจำกัดด้านเครือข่าย
+        </p>
+      </div>
+
+      <div class="spec-card">
+        <span class="spec-label">CIRCUIT SOLVER</span>
+        <div class="spec-title">แบบจำลองกายภาพและวงจรไฟฟ้า</div>
+        <p class="spec-detail">
+          วิเคราะห์วงจรด้วย Union-Find เพื่อรวมบัสตัวนำ และใช้วิธี Complex Nodal Solver คำนวณเฟสและแอมพลิจูดตามทฤษฎีไฟฟ้ากระแสสลับอย่างแท้จริง
+        </p>
+      </div>
+
+      <div class="spec-card">
+        <span class="spec-label">CURRICULUM ALIGNMENT</span>
+        <div class="spec-title">ตรงตามคู่มือปฏิบัติการ มหาวิทยาลัยนเรศวร</div>
+        <p class="spec-detail">
+          เรียบเรียงลำดับขั้นตอน ผลการทดลอง ตารางบันทึกผล และการคำนวณเปรียบเทียบตรงตามเอกสารคู่มือปฏิบัติการวิศวกรรมไฟฟ้าของภาควิชา
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ท้ายกระดาษ -->
+  <footer class="colophon">
+    <div class="footer-content">
+      <div class="footer-col">
+        <b>ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร</b><br>
+        99 หมู่ 9 ตำบลท่าโพธิ์ อำเภอเมือง จังหวัดพิษณุโลก 65000<br>
+        เอกสารและระบบสื่อการสอนสำหรับการศึกษาทางวิศวกรรมไฟฟ้า
+      </div>
+      <div class="footer-col" style="text-align: right;">
+        <b>คลังรหัสต้นฉบับ (GitHub Repository)</b><br>
+        <span style="font-family: monospace; font-size: 0.88rem;">https://github.com/T3thr/NU-LAB-electrical-engineering</span><br>
+        เผยแพร่เพื่อการศึกษาและการเรียนรู้แบบเปิด (Open Educational Resources)
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>ระบบปฏิบัติการเสมือนจริงและคลังเอกสารคำแนะนำประจำห้องปฏิบัติการ</span>
+      <span>OFFLINE CAPABLE · ZERO EXTERNAL TELEMETRY · GITHUB PAGES READY</span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

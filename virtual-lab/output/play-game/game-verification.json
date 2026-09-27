@@ -1,0 +1,273 @@
+{
+  "checks": [
+    "Local patch bay clips leads to the work area and masks every control",
+    "Mission starts empty with real validation; wrong step stays locked",
+    "Tray drag previews snapped leads, creates a real resistor, and supports both undo shortcuts",
+    "Failed attempt restores only current checkpoint and preserves the earlier resistor step",
+    "Patch labels and pin clicks wire source and grounded probes into the actual netlist",
+    "Each 3D instrument opens its own live panel and source settings produce the expected RC response",
+    "Measurement gate rejects guesses, accepts actual readings, and advances through all capacitances",
+    "Frequency chapter unlocks only after success and grades all six real measurements",
+    "Series chapter uses removable and draggable capacitors with real equivalent capacitance",
+    "Photo 10 fault cannot pass until CH2 is actually rewired; all 18 steps complete",
+    "Mission resumes working circuit and checkpoint after reload without awarding duplicate completion",
+    "Tabletop board drag moves geometry and wires, preserves electrical readings and is undoable",
+    "Component bodies drag to new holes; movement and deletion restore with undo",
+    "Direct mesh power and knob controls affect generator and group each drag into one undo command",
+    "Damage, repair state and activity history are included in undo; log exports valid JSON",
+    "Language changes retain campaign, history and circuit state; keyboard shortcuts do not steal text editing",
+    "Mobile mission and assembly remain usable without horizontal overflow"
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "externalRequests": [],
+  "finalState": {
+    "mode": "3d",
+    "assembly": false,
+    "coordinates": "board pins A–J rows; 1–63 columns; scene x right, y up, z toward operator",
+    "camera": {
+      "yaw": 0.06,
+      "pitch": 0.18,
+      "distance": 1.35,
+      "target": [
+        -0.8400000000000001,
+        0.94,
+        -0.23
+      ],
+      "fov": 1.0471975511965976
+    },
+    "player": {
+      "x": 0,
+      "z": 2.9
+    },
+    "navigation": "inspect",
+    "walkBounds": {
+      "minX": -1.65,
+      "maxX": 1.65,
+      "minZ": 1.08,
+      "maxZ": 3.4,
+      "eyeHeight": 1.65
+    },
+    "leadSpacing": [
+      "auto",
+      "auto",
+      "auto",
+      "auto"
+    ],
+    "board": [
+      0.37583870213566756,
+      0.11263655714775567
+    ],
+    "selected": null,
+    "drag": null,
+    "wires": [
+      {
+        "id": "w31",
+        "a": "psu.1-",
+        "b": "A49",
+        "color": "#c67845"
+      },
+      {
+        "id": "w32",
+        "a": "A49",
+        "b": "gen.gnd",
+        "color": "#c67845"
+      },
+      {
+        "id": "w33",
+        "a": "scope.ch1",
+        "b": "A12",
+        "color": "#c67845"
+      },
+      {
+        "id": "w34",
+        "a": "scope.g1",
+        "b": "A49",
+        "color": "#c67845"
+      },
+      {
+        "id": "w35",
+        "a": "scope.g2",
+        "b": "A49",
+        "color": "#c67845"
+      },
+      {
+        "id": "w36",
+        "a": "psu.1+",
+        "b": "A12",
+        "color": "#c67845"
+      },
+      {
+        "id": "w37",
+        "a": "dmm.hi",
+        "b": "A12",
+        "color": "#c67845"
+      },
+      {
+        "id": "w38",
+        "a": "dmm.lo",
+        "b": "A49",
+        "color": "#c67845"
+      }
+    ],
+    "parts": [
+      {
+        "id": "R1",
+        "type": "R",
+        "value": 1000,
+        "a": "E12",
+        "b": "E49",
+        "state": "good",
+        "rating": 0.25
+      }
+    ],
+    "source": {
+      "frequency": 300,
+      "vpp": 10.473615438028075,
+      "offset": 0,
+      "waveform": "sine",
+      "load": "Hi-Z",
+      "enabled": false,
+      "duty": 50,
+      "parameter": "frequency",
+      "digit": 1,
+      "shift": false,
+      "menu": null,
+      "entry": "",
+      "error": "",
+      "rotation": 0
+    },
+    "measured": {
+      "input": 0,
+      "output": 0,
+      "phase": null
+    },
+    "mission": {
+      "active": false,
+      "chapter": 2,
+      "step": 2,
+      "title": "Repair the photo 10 mistake",
+      "passed": false,
+      "unlocked": 3,
+      "completed": 18,
+      "checks": [],
+      "records": [
+        {
+          "chapter": 0,
+          "step": 6,
+          "frequency": 300,
+          "capacitance": 0.0000022,
+          "input": 10.025189102649174,
+          "peak": 1.175,
+          "phase": -76.43,
+          "time": 1790491217238
+        },
+        {
+          "chapter": 0,
+          "step": 7,
+          "frequency": 300,
+          "capacitance": 0.000001,
+          "input": 10.10326301721858,
+          "peak": 2.367,
+          "phase": -62.03,
+          "time": 1790491217935
+        },
+        {
+          "chapter": 0,
+          "step": 8,
+          "frequency": 300,
+          "capacitance": 1e-7,
+          "input": 10.480593220585709,
+          "peak": 5.145,
+          "phase": -10.66,
+          "time": 1790491218602
+        },
+        {
+          "chapter": 1,
+          "step": 0,
+          "frequency": 50,
+          "capacitance": 0.000001,
+          "input": 9.999999999999998,
+          "peak": 4.765,
+          "phase": null,
+          "time": 1790491219936
+        },
+        {
+          "chapter": 1,
+          "step": 1,
+          "frequency": 200,
+          "capacitance": 0.000001,
+          "input": 9.745259148380631,
+          "peak": 3.033,
+          "phase": null,
+          "time": 1790491220771
+        },
+        {
+          "chapter": 1,
+          "step": 2,
+          "frequency": 500,
+          "capacitance": 0.000001,
+          "input": 9.609181516864863,
+          "peak": 1.457,
+          "phase": null,
+          "time": 1790491221769
+        },
+        {
+          "chapter": 1,
+          "step": 3,
+          "frequency": 1000,
+          "capacitance": 0.000001,
+          "input": 9.578980229813165,
+          "peak": 0.753,
+          "phase": null,
+          "time": 1790491222836
+        },
+        {
+          "chapter": 1,
+          "step": 4,
+          "frequency": 2000,
+          "capacitance": 0.000001,
+          "input": 9.57076516981576,
+          "peak": 0.38,
+          "phase": null,
+          "time": 1790491223904
+        },
+        {
+          "chapter": 1,
+          "step": 5,
+          "frequency": 5000,
+          "capacitance": 0.000001,
+          "input": 9.5684128499319,
+          "peak": 0.152,
+          "phase": null,
+          "time": 1790491224802
+        },
+        {
+          "chapter": 2,
+          "step": 1,
+          "frequency": 300,
+          "capacitance": 6.875e-7,
+          "input": 10.177705195270322,
+          "peak": 3.108,
+          "phase": -52.31,
+          "time": 1790491228068
+        },
+        {
+          "chapter": 2,
+          "step": 2,
+          "frequency": 300,
+          "capacitance": 6.875e-7,
+          "input": 10.177705195270322,
+          "peak": 3.108,
+          "phase": -52.31,
+          "time": 1790491229020
+        }
+      ]
+    },
+    "history": {
+      "undo": 4,
+      "redo": 1
+    },
+    "faults": []
+  }
+}

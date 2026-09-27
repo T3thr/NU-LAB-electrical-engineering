@@ -1,0 +1,51 @@
+{
+  "checks": [
+    {
+      "name": "Header geometry and action positions stay fixed across repeated language switches",
+      "pass": true
+    },
+    {
+      "name": "Language switching preserves the main desktop instrument layout",
+      "pass": true
+    },
+    {
+      "name": "Entering 3D from a scrolled page never exposes a header gap or background heading",
+      "pass": true
+    },
+    {
+      "name": "Modal locks background wheel and restores scroll after close and Escape",
+      "pass": true
+    },
+    {
+      "name": "Nested assembly, scene and modal locks do not unlock one another",
+      "pass": true
+    },
+    {
+      "name": "Patch hover identifies the exact source, highlights the real jack and can locate it",
+      "pass": true
+    },
+    {
+      "name": "Floating mission remains reachable while scrolling 2D and through assembly/3D changes",
+      "pass": true
+    },
+    {
+      "name": "3D terminal hover identifies the same physical source without opening a drawer",
+      "pass": true
+    },
+    {
+      "name": "Desktop hover explains controls without modifying electrical state",
+      "pass": true
+    },
+    {
+      "name": "Mobile help mode intercepts taps and gestures without changing generator or wiring",
+      "pass": true
+    },
+    {
+      "name": "Offline console and assets remain clean",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "failed": []
+}

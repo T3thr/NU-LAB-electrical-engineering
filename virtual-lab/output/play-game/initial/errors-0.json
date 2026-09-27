@@ -1,0 +1,10 @@
+[
+  {
+    "type": "pageerror",
+    "text": "Uncaught TypeError: Cannot read properties of undefined (reading 'interaction')"
+  },
+  {
+    "type": "pageerror",
+    "text": "Uncaught TypeError: Cannot read properties of undefined (reading 'model')"
+  }
+]

@@ -1,0 +1,3059 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>ปฏิบัติการที่ 7: ผลตอบสนองต่อไฟสลับในวงจรอนุกรม RC · ปฏิบัติการวิศวกรรมไฟฟ้า 1</title>
+<style>
+/* ═══════════ พื้นฐานแบบตำราเรียนและเอกสารวิชาการ ═══════════ */
+:root {
+  --paper: #FBF8F1;
+  --paper2: #F5F0E4;
+  --ink: #22292F;
+  --ink-soft: #4B5563;
+  --rule: #D8CFBC;
+  --accent: #1E40AF;
+  --accent2: #B45309;
+  --green: #047857;
+  --green-bg: #ECFDF5;
+  --red: #B91C1C;
+  --red-bg: #FEF2F2;
+  --purple: #6D28D9;
+  --amber-bg: #FFFBEB;
+  --blue-bg: #EFF6FF;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans Thai", "Sarabun", "Thonburi", "Noto Sans Thai", -apple-system, "Segoe UI", sans-serif;
+  font-size: 16.5px;
+  line-height: 1.85;
+}
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 36px 32px 90px;
+}
+
+/* ═══════════ แถบนำทางและส่วนหัว ═══════════ */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .88rem;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .sep {
+  color: #9CA3AF;
+}
+
+.course-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 3px double var(--ink);
+  padding-bottom: 10px;
+  margin-bottom: 22px;
+  font-size: .88rem;
+  letter-spacing: .04em;
+  color: var(--ink-soft);
+}
+
+.chip {
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 2px 14px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+h1.book-title {
+  font-size: 2.15rem;
+  line-height: 1.35;
+  margin: 14px 0 8px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.subtitle {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  margin-bottom: 26px;
+  line-height: 1.7;
+}
+
+/* ═══════════ กล่องสรุปภาพรวม ═══════════ */
+.summary-box {
+  border: 2px solid var(--ink);
+  background: #FFFFFF;
+  padding: 24px 28px;
+  margin: 26px 0 36px;
+  position: relative;
+  box-shadow: 6px 6px 0 var(--paper2);
+  border-radius: 6px;
+}
+
+.summary-box::before {
+  content: "สรุปสาระสำคัญเชิงปฏิบัติการ (LABORATORY OVERVIEW)";
+  position: absolute;
+  top: -15px;
+  left: 24px;
+  background: var(--ink);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: .82rem;
+  padding: 2px 18px;
+  letter-spacing: .10em;
+  border-radius: 4px;
+}
+
+.summary-box p {
+  margin: 8px 0;
+}
+
+/* ═══════════ สารบัญ ═══════════ */
+nav.toc {
+  border: 1.5px solid var(--rule);
+  background: #FFFDF7;
+  border-radius: 8px;
+  padding: 20px 28px;
+  margin: 28px 0 36px;
+  columns: 2;
+  column-gap: 40px;
+  box-shadow: 4px 4px 0 var(--paper2);
+}
+
+nav.toc .toc-head {
+  column-span: all;
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 6px;
+  color: var(--accent);
+}
+
+nav.toc a {
+  display: block;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 4px 0;
+  break-inside: avoid;
+  font-size: .95rem;
+}
+
+nav.toc a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+nav.toc .no {
+  display: inline-block;
+  width: 2.4em;
+  color: var(--accent2);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ═══════════ หัวข้อหลักและเนื้อหา ═══════════ */
+section {
+  margin-top: 56px;
+  scroll-margin-top: 24px;
+}
+
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  border-bottom: 2.5px solid var(--ink);
+  padding-bottom: 8px;
+  margin-bottom: 22px;
+}
+
+.sec-no {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+  transform: translateY(8px);
+}
+
+h2 {
+  font-size: 1.45rem;
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 1.18rem;
+  margin: 32px 0 12px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+h3::before {
+  content: "§ ";
+  color: var(--accent2);
+}
+
+h4 {
+  font-size: 1.05rem;
+  margin: 22px 0 10px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+p {
+  margin: 10px 0;
+}
+
+b, strong {
+  font-weight: 700;
+}
+
+/* ═══════════ การ์ดข้อมูลและกริด ═══════════ */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin: 24px 0 32px;
+}
+
+.meta-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  padding: 18px 22px;
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 var(--paper2);
+}
+
+.meta-card .label {
+  font-size: .82rem;
+  font-weight: 800;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.meta-card .val {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.meta-card .desc {
+  font-size: .90rem;
+  color: var(--ink-soft);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+/* ═══════════ กล่องเน้นข้อความ ═══════════ */
+.callout {
+  border-left: 5px solid;
+  padding: 14px 20px;
+  margin: 22px 0;
+  background: #FFFFFF;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,.03);
+}
+
+.callout .lab {
+  font-weight: 800;
+  font-size: .86rem;
+  letter-spacing: .06em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.c-key { border-color: var(--accent); }
+.c-key .lab { color: var(--accent); }
+.c-warn { border-color: var(--red); background: var(--red-bg); }
+.c-warn .lab { color: var(--red); }
+.c-tip { border-color: var(--green); background: var(--green-bg); }
+.c-tip .lab { color: var(--green); }
+.c-ex { border-color: var(--accent2); background: var(--amber-bg); }
+.c-ex .lab { color: var(--accent2); }
+
+/* ═══════════ กล่องความเรียงสรุปส่งอาจารย์ ═══════════ */
+.prose-submission-box {
+  background: #FFFFFF;
+  border: 1.5px solid var(--accent);
+  border-left: 6px solid var(--accent);
+  border-radius: 8px;
+  padding: 22px 26px;
+  margin: 20px 0 26px;
+  box-shadow: 0 4px 14px rgba(30,64,175,.08);
+}
+.prose-submission-box .ps-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--rule);
+}
+.prose-submission-box .ps-title {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.prose-submission-box .ps-text {
+  font-size: 1.02rem;
+  line-height: 1.95;
+  color: var(--ink);
+  text-indent: 2.5em;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 0;
+}
+
+/* ═══════════ กล่องสูตรคณิตศาสตร์และเศษส่วน ═══════════ */
+.formula {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 18px 24px;
+  margin: 20px 0;
+  text-align: center;
+  font-size: 1.15rem;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+
+.formula.big {
+  font-size: 1.25rem;
+  border-width: 2px;
+  border-color: var(--ink);
+  background: #FFFDF9;
+}
+
+/* สไตล์เศษส่วนแบบแท้ (Pure CSS Fraction) */
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0 4px;
+  line-height: 1.15;
+  font-size: 0.95em;
+}
+
+.frac .num {
+  border-bottom: 1.6px solid currentColor;
+  padding-bottom: 3px;
+  display: block;
+}
+
+.frac .denom {
+  padding-top: 3px;
+  display: block;
+}
+
+/* เครื่องหมายสแควร์รูท */
+.sqrt {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.sqrt-sym {
+  font-size: 1.25em;
+  line-height: 1;
+  margin-right: 1px;
+}
+
+.sqrt-radicand {
+  border-top: 1.6px solid currentColor;
+  padding-top: 2px;
+  display: inline-block;
+}
+
+.var {
+  font-style: italic;
+  font-weight: 600;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.sym {
+  margin: 0 4px;
+}
+
+/* ═══════════ ตารางวิชาการ ═══════════ */
+.table-wrap {
+  overflow-x: auto;
+  margin: 22px 0;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: #FFFFFF;
+  box-shadow: 3px 3px 0 var(--paper2);
+}
+
+table.tb {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .94rem;
+  min-width: 650px;
+}
+
+table.tb caption {
+  caption-side: top;
+  font-weight: 800;
+  padding: 11px 16px;
+  font-size: .98rem;
+  text-align: left;
+  background: #FDFBF7;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+}
+
+table.tb th {
+  background: var(--ink);
+  color: #FFFFFF;
+  font-weight: 700;
+  padding: 10px 14px;
+  border: 1px solid #374151;
+  text-align: center;
+}
+
+table.tb td {
+  padding: 8px 14px;
+  border: 1px solid var(--rule);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+table.tb tr:nth-child(even) td {
+  background: #FAF7EF;
+}
+
+table.tb td.hl {
+  background: var(--amber-bg) !important;
+  font-weight: 700;
+}
+
+table.tb td.t-left {
+  text-align: left;
+}
+
+/* ═══════════ ขั้นตอนการทดลอง (Procedure List) ═══════════ */
+.steps-list {
+  list-style: none;
+  margin: 18px 0;
+  padding: 0;
+}
+
+.steps-list li {
+  display: flex;
+  gap: 14px;
+  padding: 10px 0;
+  align-items: flex-start;
+  border-bottom: 1px dashed var(--rule);
+}
+
+.steps-list li:last-child {
+  border-bottom: none;
+}
+
+.step-no {
+  flex: 0 0 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .88rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.step-desc {
+  font-size: .93rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ═══════════ กล่องรูปภาพแบบตำราและผลการทดลอง ═══════════ */
+figure.textbook {
+  margin: 32px 0;
+  text-align: center;
+}
+
+figure.textbook .frame {
+  border: 1.5px solid var(--rule);
+  background: #FFFFFF;
+  padding: 14px;
+  box-shadow: 0 3px 12px rgba(60,50,20,.08);
+  border-radius: 8px;
+}
+
+figure.textbook img {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: zoom-in;
+  border-radius: 4px;
+  transition: transform .2s ease;
+}
+
+figure.textbook img:hover {
+  opacity: .96;
+}
+
+figcaption {
+  margin-top: 12px;
+  font-size: .94rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+figcaption .fno {
+  font-weight: 800;
+  color: var(--ink);
+  background: var(--paper2);
+  padding: 2px 10px;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+.zoom-hint {
+  font-size: .78rem;
+  color: #9CA3AF;
+  margin-top: 4px;
+}
+
+/* ═══════════ การ์ดผลการทดลองและรูปคลื่น (Responsive Hero Result Cards) ═══════════ */
+.result-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: 24px 0 36px;
+  width: 100%;
+}
+
+.result-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 10px;
+  padding: 22px 24px;
+  box-shadow: 4px 4px 0 var(--paper2);
+  transition: box-shadow 0.2s ease;
+  width: 100%;
+}
+
+.result-card:hover {
+  box-shadow: 5px 5px 0 rgba(0,0,0,0.12);
+}
+
+.result-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.result-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.result-tag {
+  font-size: .80rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: var(--blue-bg);
+  color: var(--accent);
+  border: 1px solid #BFDBFE;
+}
+
+/* โครงสร้าง 2 คอลัมน์ภายใน Card (ซ้าย: รูปคลื่นสโคป, ขวา: ตาราง 7 ช่องและวิธีคำนวณ) */
+.result-card-body {
+  display: grid;
+  grid-template-columns: minmax(360px, 44%) 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.result-card-media {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.result-card-media img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1.5px solid var(--rule);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  cursor: zoom-in;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.result-card-media img:hover {
+  opacity: 0.95;
+}
+
+.media-hint {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  text-align: center;
+  background: #F8FAFC;
+  border: 1px dashed #CBD5E1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+.result-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.field-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: #FFFFFF;
+}
+
+.field-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  margin: 0;
+  background: #FFFFFF;
+}
+
+.field-table th {
+  background: #EEF4F8;
+  color: var(--navy);
+  font-weight: 700;
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1.5px solid var(--rule);
+  font-size: 0.80rem;
+  white-space: nowrap;
+}
+
+.field-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #E5E7EB;
+  color: var(--ink);
+  vertical-align: middle;
+  line-height: 1.45;
+}
+
+.field-table tr:last-child td {
+  border-bottom: none;
+}
+
+.field-table tr:nth-child(even) td {
+  background: #FAF9F5;
+}
+
+.field-table .f-no {
+  font-weight: 800;
+  color: var(--accent);
+  width: 28px;
+  text-align: center;
+}
+
+.field-table .f-name {
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  width: 140px;
+}
+
+.field-table .f-val {
+  font-weight: 800;
+  color: #1E3A8A;
+  background: #EFF6FF;
+  border-radius: 4px;
+  padding: 2px 7px;
+  display: inline-block;
+  white-space: nowrap;
+  border: 1px solid #DBEAFE;
+}
+
+.field-table .f-src {
+  font-size: 0.80rem;
+  color: #374151;
+  line-height: 1.45;
+}
+
+.field-table .f-src code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.77rem;
+  background: #F3F4F6;
+  padding: 1px 4px;
+  border-radius: 3px;
+  border: 1px solid #E5E7EB;
+  color: #1F2937;
+  display: inline-block;
+  word-break: break-word;
+}
+
+/* ป้ายกำกับช่องและสโคป */
+.badge-ch1 {
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FCD34D;
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-weight: 700;
+  font-size: 0.70rem;
+  display: inline-block;
+}
+.badge-ch2 {
+  background: #D1FAE5;
+  color: #065F46;
+  border: 1px solid #6EE7B7;
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-weight: 700;
+  font-size: 0.70rem;
+  display: inline-block;
+}
+.badge-time {
+  background: #E0E7FF;
+  color: #3730A3;
+  border: 1px solid #C7D2FE;
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-weight: 700;
+  font-size: 0.70rem;
+  display: inline-block;
+}
+.badge-calc {
+  background: #F3E8FF;
+  color: #6B21A8;
+  border: 1px solid #D8B4FE;
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-weight: 700;
+  font-size: 0.70rem;
+  display: inline-block;
+}
+
+/* กล่องคำนวณแอมพลิจูดในการ์ด */
+.card-calc {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.card-calc strong, .card-calc b {
+  color: var(--navy);
+}
+
+/* แถบเลือกความถี่ / ค่าความจุ (Quick Jump Pills) */
+.freq-nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0 22px;
+  padding: 10px 16px;
+  background: #F8FAFC;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+
+.freq-nav-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.freq-pill {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.freq-pill:hover {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* กล่องแผนผังหน้าจอออสซิลโลสโคป (Scope Reading Map) */
+.scope-legend-box {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-left: 5px solid var(--accent);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin: 20px 0;
+  box-shadow: 2px 2px 0 var(--paper2);
+}
+.scope-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.scope-legend-item {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 0.83rem;
+  line-height: 1.45;
+}
+.scope-legend-item .item-title {
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ตารางแสดงขั้นตอนการคำนวณ Ac ทีละความถี่ */
+.calc-breakdown-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+.calc-freq-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 14px 16px;
+  box-shadow: 2px 2px 0 var(--paper2);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+.calc-freq-header {
+  font-weight: 800;
+  color: var(--navy);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ═══════════ Lightbox ═══════════ */
+#lb {
+  position: fixed;
+  inset: 0;
+  background: rgba(20,16,8,.88);
+  display: none;
+  z-index: 99;
+  align-items: center;
+  justify-content: center;
+  padding: 26px;
+  cursor: zoom-out;
+}
+
+#lb.on {
+  display: flex;
+}
+
+#lb img {
+  max-width: 95vw;
+  max-height: 92vh;
+  border: 5px solid #FFFFFF;
+  box-shadow: 0 10px 60px rgba(0,0,0,.6);
+  border-radius: 6px;
+}
+
+#lb .x {
+  position: fixed;
+  top: 16px;
+  right: 24px;
+  color: #FFFFFF;
+  font-size: 2rem;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+/* ═══════════ Floating Toolbar ═══════════ */
+.float-bar {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 60;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  background: #FFFDF7;
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  padding: 8px 12px;
+  box-shadow: 0 6px 20px rgba(40,32,10,.22);
+}
+
+.float-bar .fb-label {
+  font-size: .78rem;
+  color: var(--ink-soft);
+  font-weight: 700;
+  margin-right: 2px;
+}
+
+.fb-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--ink);
+  background: #FFFFFF;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  transition: all .15s ease;
+}
+
+.fb-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.top-link {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  background: var(--ink);
+  color: var(--paper);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+  opacity: .85;
+  transition: opacity .15s ease;
+  z-index: 60;
+}
+
+.top-link:hover {
+  opacity: 1;
+}
+
+/* ═══════════ ท้ายกระดาษ ═══════════ */
+footer.colophon {
+  margin-top: 70px;
+  border-top: 3px double var(--ink);
+  padding-top: 24px;
+  font-size: .88rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* ═══════════ การตอบสนองตามขนาดหน้าจอ ═══════════ */
+@media (max-width: 920px) {
+  .result-card-body {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .result-card-media {
+    max-width: 540px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  body { font-size: 15.5px; }
+  .page { padding: 20px 16px 80px; }
+  .course-line { flex-direction: column; align-items: flex-start; gap: 6px; }
+  nav.toc { columns: 1; }
+  .sec-head { gap: 12px; }
+  .sec-no { width: 40px; height: 40px; font-size: 1.05rem; }
+  .formula { font-size: 1.02rem; padding: 14px 16px; }
+  .formula.big { font-size: 1.10rem; }
+  .result-card { padding: 16px 16px; }
+  .prose-submission-box { padding: 16px 18px; margin: 16px 0 20px; }
+  .prose-submission-box .ps-text { font-size: 0.96rem; line-height: 1.85; text-indent: 1.8em; text-align: left; }
+  .float-bar { display: none; }
+}
+
+@media (max-width: 520px) {
+  .result-card-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .result-card-title { font-size: 1.02rem; }
+  .field-table { font-size: 0.78rem; min-width: 440px; }
+  .field-table td, .field-table th { padding: 5px 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Lightbox แสดงภาพขยาย -->
+<div id="lb" onclick="this.classList.remove('on')">
+  <span class="x">&times;</span>
+  <img id="lb-img" src="" alt="ภาพขยายขนาดเต็ม">
+</div>
+
+<!-- Floating Navigation Bar -->
+<div class="float-bar">
+  <span class="fb-label">แถบนำทาง:</span>
+  <a class="fb-btn" href="#sec-theory">ทฤษฎี</a>
+  <a class="fb-btn" href="#sec-part1">ตอนที่ 7.1</a>
+  <a class="fb-btn" href="#sec-part2">ตอนที่ 7.2</a>
+  <a class="fb-btn" href="#discussion-7-2-13">ข้อ 7.2.13</a>
+  <a class="fb-btn" href="#sec-part3">ตอนที่ 7.3</a>
+  <a class="fb-btn" href="../../virtual-lab/index.html" style="background:var(--accent); color:#ffffff; border-color:var(--accent);" target="_blank">เปิด Virtual Lab ↗</a>
+</div>
+
+<a class="top-link" href="#" title="กลับขึ้นบนสุด">&#8593;</a>
+
+<div class="page">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="../../index.html">หน้าแรก</a>
+    <span class="sep">/</span>
+    <a href="../index.html">ปฏิบัติการวิศวกรรมไฟฟ้า 1</a>
+    <span class="sep">/</span>
+    <span style="color:var(--ink); font-weight:700;">ปฏิบัติการที่ 7 (AC Response in RC Circuit)</span>
+  </div>
+
+  <!-- ส่วนหัวแบบตำราวิชาการ -->
+  <header>
+    <div class="course-line">
+      <span>ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ · ปฏิบัติการวิศวกรรมไฟฟ้า 1</span>
+      <span class="chip">LAB 07 · คู่มือและวิเคราะห์ผลการทดลอง</span>
+      <span>รหัสวิชา EE LAB 1</span>
+    </div>
+    <h1 class="book-title">ปฏิบัติการที่ 7: ผลตอบสนองต่อไฟสลับในวงจรอนุกรม RC</h1>
+    <p class="subtitle">คู่มือขั้นตอนการดำเนินการทดลอง การวัดสัญญาณรูปคลื่นไซน์ด้วยออสซิลโลสโคป การคำนวณเปรียบเทียบผลเชิงทฤษฎี และการวิเคราะห์ผลการทดลองจริงฉบับละเอียด</p>
+  </header>
+
+  <!-- กล่องสรุปภาพรวมห้องปฏิบัติการ -->
+  <div class="summary-box">
+    <p><b>วัตถุประสงค์หลักของการทดลอง:</b> เพื่อศึกษาสมบัติของวงจรอนุกรม RC เมื่อถูกกระตุ้นด้วยสัญญาณแรงดันไฟฟ้าสลับรูปคลื่นไซน์ (Sinusoidal AC Steady-State Response) วิเคราะห์ผลต่างทางขนาดและมุมเฟสระหว่างแรงดันตกคร่อมตัวเก็บประจุเทียบกับแรงดันจากแหล่งจ่ายสัญญาณ ศึกษาคุณสมบัติการทำงานเป็นวงจรกรองความถี่ต่ำผ่าน (Low-Pass Filter) และศึกษาผลของการต่อตัวเก็บประจุแบบอนุกรม</p>
+    <p><b>ขอบเขตเนื้อหาตามคู่มือ:</b> ครอบคลุมการทดลองทั้ง 3 ตอนตามคู่มือปฏิบัติการหน้า 56 ถึง 69 พร้อมทั้งแสดงขั้นตอนการปรับตั้งเครื่องมือวัด วิธีการอ่านค่าบนตารางกริดออสซิลโลสโคป ตารางบันทึกผลการทดลอง และการวิเคราะห์ผลเปรียบเทียบกับภาพถ่ายจริงทั้ง 10 รูป</p>
+  </div>
+
+  <!-- สารบัญหัวข้อ -->
+  <nav class="toc">
+    <div class="toc-head">สารบัญเนื้อหาการทดลอง (TABLE OF CONTENTS)</div>
+    <a href="#sec-intro"><span class="no">1.</span> วัตถุประสงค์และรายการอุปกรณ์การทดลอง (หน้า 59)</a>
+    <a href="#sec-theory"><span class="no">2.</span> ทฤษฎีและสมการพื้นฐานวงจร RC (หน้า 56 – 58)</a>
+    <a href="#sec-oscillo-guide"><span class="no">3.</span> หลักการวัดและอ่านหน้าจอออสซิลโลสโคป</a>
+    <a href="#sec-part1"><span class="no">4.</span> การทดลองตอนที่ 7.1: ผลของค่าความจุ C (หน้า 60 – 62)</a>
+    <a href="#sec-part2"><span class="no">5.</span> การทดลองตอนที่ 7.2: ผลตอบสนองทางความถี่ (หน้า 63 – 67)</a>
+    <a href="#discussion-7-2-13" style="padding-left:22px; font-size:0.90rem; color:var(--accent); font-weight:700;"><span class="no">↳</span> ข้อ 7.2.13: อภิปรายผล เปรียบเทียบผลการคำนวณกับผลการทดลอง</a>
+    <a href="#sec-part3"><span class="no">6.</span> การทดลองตอนที่ 7.3: ตัวเก็บประจุต่ออนุกรม (หน้า 68 – 69)</a>
+    <a href="#sec-analysis-deep"><span class="no">7.</span> การวิเคราะห์เชิงลึกกรณีความผิดพลาดจากการวัดจริง</a>
+    <a href="#sec-summary"><span class="no">8.</span> สรุปผลการทดลองและการตอบคำถามท้ายบท</a>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- ตอนที่ 1: วัตถุประสงค์และอุปกรณ์ -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="sec-intro">
+    <div class="sec-head">
+      <div class="sec-no">1</div>
+      <h2>วัตถุประสงค์และรายการอุปกรณ์การทดลอง (Objectives & Apparatus)</h2>
+    </div>
+
+    <p>อ้างอิงจากคู่มือปฏิบัติการหน้า 59 ปฏิบัติการนี้มีเป้าหมายเพื่อให้นักศึกษาเข้าใจพฤติกรรมของวงจร RC ในสภาวะคงตัวเมื่อได้รับสัญญาณไฟฟ้าสลับ</p>
+
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="label">วัตถุประสงค์ข้อที่ 1</span>
+        <div class="val">ศึกษาพฤติกรรมวงจรอนุกรม RC</div>
+        <div class="desc">เข้าใจความสัมพันธ์ทางขนาดและเฟสของแรงดันตกคร่อมตัวเก็บประจุเมื่อป้อนสัญญาณไซน์</div>
+      </div>
+      <div class="meta-card">
+        <span class="label">วัตถุประสงค์ข้อที่ 2</span>
+        <div class="val">ทักษะการใช้ออสซิลโลสโคป</div>
+        <div class="desc">ฝึกการวัดขนาดแรงดันยอดถึงยอด คาบเวลา ความถี่ และการหาผลต่างเวลาเพื่อคำนวณมุมเฟส</div>
+      </div>
+      <div class="meta-card">
+        <span class="label">วัตถุประสงค์ข้อที่ 3</span>
+        <div class="val">การตอบสนองทางความถี่</div>
+        <div class="desc">สังเกตและวิเคราะห์คุณลักษณะของวงจรกรองความถี่ต่ำผ่าน (Low-Pass Filter) ที่ความถี่ 50 Hz ถึง 5 kHz</div>
+      </div>
+      <div class="meta-card">
+        <span class="label">วัตถุประสงค์ข้อที่ 4</span>
+        <div class="val">ตัวเก็บประจุต่ออนุกรม</div>
+        <div class="desc">ตรวจสอบทฤษฎีการคำนวณค่าความจุสมมูลของการต่อตัวเก็บประจุอนุกรมกัน</div>
+      </div>
+    </div>
+
+    <h3>รายการเครื่องมือและอุปกรณ์ในห้องปฏิบัติการ</h3>
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางรายการอุปกรณ์การทดลอง ปฏิบัติการที่ 7</caption>
+        <thead>
+          <tr>
+            <th style="width:10%;">ลำดับ</th>
+            <th style="width:40%;">รายการอุปกรณ์</th>
+            <th style="width:30%;">พารามิเตอร์ / ข้อมูลจำเพาะ</th>
+            <th style="width:20%;">จำนวน</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td class="t-left">เครื่องกำเนิดสัญญาณ (Function Generator)</td>
+            <td>สัญญาณรูปคลื่นไซน์ (Sine wave) 0 – 10 V_p-p, 50 Hz – 5 kHz</td>
+            <td>1 เครื่อง</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="t-left">ออสซิลโลสโคป (Digital Storage Oscilloscope)</td>
+            <td>แบบ 2 ช่องสัญญาณ (Dual-Channel) พร้อมสายโพรบวัดสัญญาณ</td>
+            <td>1 เครื่อง</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td class="t-left">ตัวต้านทาน (Resistor)</td>
+            <td>ค่าความต้านทาน 1 k&Omega; ขนาดทนกำลัง 0.5 W ความเผื่อ &plusmn;5%</td>
+            <td>1 ตัว</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td class="t-left">ตัวเก็บประจุ (Capacitors)</td>
+            <td>ค่า 0.1 &micro;F, 1.0 &micro;F, 2.2 &micro;F ขนาดทนแรงดัน 50 V ขึ้นไป</td>
+            <td>อย่างละ 1 ตัว</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td class="t-left">แผงต่อวงจร (Breadboard) และสายเชื่อมต่อ</td>
+            <td>สายต่อวงจรสำหรับเบรดบอร์ด และสายแปลง BNC to Alligator</td>
+            <td>1 ชุด</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- ตอนที่ 2: ทฤษฎีและสมการพื้นฐาน -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="sec-theory">
+    <div class="sec-head">
+      <div class="sec-no">2</div>
+      <h2>ทฤษฎีและสมการพื้นฐานวงจร RC (Theoretical Foundations)</h2>
+    </div>
+
+    <p>ตามเนื้อหาในคู่มือหน้า 56 ถึง 58 เมื่อพิจารณาวงจรอนุกรม RC ที่ประกอบด้วยตัวต้านทาน <span class="var">R</span> และตัวเก็บประจุ <span class="var">C</span> ต่อร่วมกับแหล่งจ่ายแรงดันไฟฟ้าสลับรูปคลื่นไซน์:</p>
+
+    <div class="formula">
+      <span class="var">v<sub>s</sub></span>(<span class="var">t</span>) = <span class="var">A</span> cos(<span class="var">&omega;t</span>)
+    </div>
+
+    <p>โดยที่ <span class="var">A</span> คือ แอมพลิจูดค่ายอด (Peak Amplitude) ของแรงดันแหล่งจ่าย, <span class="var">&omega;</span> = 2&pi;<span class="var">f</span> คือ ความถี่เชิงมุม (rad/s) และ <span class="var">f</span> คือ ความถี่ของสัญญาณ (Hz)</p>
+
+    <h3>2.1 อิมพีแดนซ์เชิงซ้อนและการแบ่งแรงดัน (Voltage Division)</h3>
+    <p>อิมพีแดนซ์ของตัวต้านทานคือ <span class="var">Z<sub>R</sub></span> = <span class="var">R</span> และอิมพีแดนซ์ของตัวเก็บประจุคือ:</p>
+
+    <div class="formula">
+      <span class="var">Z<sub>C</sub></span> = 
+      <span class="frac">
+        <span class="num">1</span>
+        <span class="denom"><span class="var">j&omega;C</span></span>
+      </span>
+      = -<span class="var">j</span>
+      <span class="frac">
+        <span class="num">1</span>
+        <span class="denom"><span class="var">&omega;C</span></span>
+      </span>
+    </div>
+
+    <p>อิมพีแดนซ์รวมของวงจรอนุกรม RC มีค่าเท่ากับ:</p>
+
+    <div class="formula">
+      <span class="var">Z</span> = <span class="var">R</span> + <span class="var">Z<sub>C</sub></span> = <span class="var">R</span> - <span class="var">j</span>
+      <span class="frac">
+        <span class="num">1</span>
+        <span class="denom"><span class="var">&omega;C</span></span>
+      </span>
+    </div>
+
+    <p>โดยหลักการแบ่งแรงดันไฟฟ้า (Voltage Divider Rule) ในระนาบความถี่ เฟสเซอร์ของแรงดันตกคร่อมตัวเก็บประจุ <span class="var">V<sub>c</sub></span>(<span class="var">j&omega;</span>) จะสัมพันธ์กับแรงดันแหล่งจ่าย <span class="var">V<sub>s</sub></span>(<span class="var">j&omega;</span>) ดังนี้:</p>
+
+    <div class="formula big">
+      <span class="var">V<sub>c</sub></span>(<span class="var">j&omega;</span>) = 
+      <span class="frac">
+        <span class="num"><span class="var">Z<sub>C</sub></span></span>
+        <span class="denom"><span class="var">R</span> + <span class="var">Z<sub>C</sub></span></span>
+      </span>
+      <span class="sym">&times;</span> <span class="var">V<sub>s</sub></span>(<span class="var">j&omega;</span>)
+      =
+      <span class="frac">
+        <span class="num">
+          <span class="frac"><span class="num">1</span><span class="denom"><span class="var">j&omega;C</span></span></span>
+        </span>
+        <span class="denom">
+          <span class="var">R</span> + <span class="frac"><span class="num">1</span><span class="denom"><span class="var">j&omega;C</span></span></span>
+        </span>
+      </span>
+      <span class="sym">&times;</span> <span class="var">V<sub>s</sub></span>(<span class="var">j&omega;</span>)
+      =
+      <span class="frac">
+        <span class="num">1</span>
+        <span class="denom">1 + <span class="var">j&omega;RC</span></span>
+      </span>
+      <span class="sym">&times;</span> <span class="var">V<sub>s</sub></span>(<span class="var">j&omega;</span>)
+    </div>
+
+    <h3>2.2 ฟังก์ชันถ่ายโอน แอมพลิจูด และมุมเฟส (Magnitude & Phase Response)</h3>
+    <p>จากฟังก์ชันถ่ายโอนข้างต้น สามารถแยกพิจารณาขนาดของอัตราขยายแรงดันและมุมเฟสของสัญญาณได้ดังสมการที่ (5) และ (6) ในคู่มือหน้า 57:</p>
+
+    <div class="formula big">
+      <b>แอมพลิจูดค่ายอดของแรงดันตกคร่อมตัวเก็บประจุ (สมการที่ 5):</b><br><br>
+      <span class="var">A<sub>c</sub></span> = 
+      <span class="frac">
+        <span class="num"><span class="var">A</span></span>
+        <span class="denom">
+          <span class="sqrt">
+            <span class="sqrt-sym">&radic;</span>
+            <span class="sqrt-radicand">1 + (<span class="var">&omega;RC</span>)<sup>2</sup></span>
+          </span>
+        </span>
+      </span>
+    </div>
+
+    <div class="formula big">
+      <b>มุมเฟสระหว่าง v<sub>c</sub>(t) เทียบกับ v<sub>s</sub>(t) (สมการที่ 6):</b><br><br>
+      <span class="var">&phi;</span> = -arctan(<span class="var">&omega;RC</span>) &nbsp; [เรเดียน หรือ องศา]
+    </div>
+
+    <div class="callout c-key">
+      <span class="lab">หลักการสำคัญทางฟิสิกส์ของวงจร RC</span>
+      เนื่องจากฟังก์ชัน arctan ของปริมาณที่เป็นบวกจะมีค่าเป็นบวกเสมอ ดังนั้นมุมเฟส <span class="var">&phi;</span> จึงมีเครื่องหมาย <b>ติดลบเสมอ (<span class="var">&phi;</span> &lt; 0)</b> ซึ่งแสดงให้เห็นว่า รูปคลื่นแรงดันตกคร่อมตัวเก็บประจุ <span class="var">v<sub>c</sub>(t)</span> มีเฟส <b>ล้าหลัง (Lagging)</b> รูปคลื่นแรงดันแหล่งจ่าย <span class="var">v<sub>s</sub>(t)</span> เสมอ
+    </div>
+
+    <h3>2.3 ทฤษฎีการต่อตัวเก็บประจุแบบอนุกรม (Capacitors in Series)</h3>
+    <p>ตามคู่มือหน้า 59 เมื่อนำตัวเก็บประจุจำนวน 2 ตัว (<span class="var">C<sub>1</sub></span> และ <span class="var">C<sub>2</sub></span>) มาต่ออนุกรมกัน ค่าความจุสมมูลรวม (<span class="var">C<sub>eq</sub></span>) จะมีค่าลดลงตามสมการ:</p>
+
+    <div class="formula">
+      <span class="frac">
+        <span class="num">1</span>
+        <span class="denom"><span class="var">C<sub>eq</sub></span></span>
+      </span>
+      =
+      <span class="frac">
+        <span class="num">1</span>
+        <span class="denom"><span class="var">C<sub>1</sub></span></span>
+      </span>
+      +
+      <span class="frac">
+        <span class="num">1</span>
+        <span class="denom"><span class="var">C<sub>2</sub></span></span>
+      </span>
+      &nbsp;&rArr;&nbsp;
+      <span class="var">C<sub>eq</sub></span> = 
+      <span class="frac">
+        <span class="num"><span class="var">C<sub>1</sub></span> <span class="sym">&times;</span> <span class="var">C<sub>2</sub></span></span>
+        <span class="denom"><span class="var">C<sub>1</sub></span> + <span class="var">C<sub>2</sub></span></span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- ตอนที่ 3: วิธีการอ่านออสซิลโลสโคป -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="sec-oscillo-guide">
+    <div class="sec-head">
+      <div class="sec-no">3</div>
+      <h2>หลักการวัดและอ่านหน้าจอออสซิลโลสโคป (Oscilloscope Reading Guide)</h2>
+    </div>
+
+    <p>การบันทึกผลการทดลองในเล่มปฏิบัติการจำเป็นต้องอ่านค่าจากหน้าจอออสซิลโลสโคปอย่างถูกต้อง ทั้งแกนตั้ง (Voltage Scale) แกนนอน (Timebase Scale) และการวัดผลต่างเวลา ดังนี้:</p>
+
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="label">1. การอ่านขนาดแรงดัน (แกนตั้ง)</span>
+        <div class="val">Volts / Division (V/DIV)</div>
+        <div class="desc">
+          สังเกตมุมบนซ้าย เช่น <code>1 2.00V/  2 2.00V/</code> หมายถึง 1 ช่องใหญ่แนวตั้งเท่ากับ 2.0 โวลต์<br>
+          ค่ายอดถึงยอด (Peak-to-Peak) อ่านจากกล่องขวามือ <code>Pk-Pk(1)</code> และ <code>Pk-Pk(2)</code><br>
+          แอมพลิจูดค่ายอด: <b>A<sub>c</sub> = 0.5 &times; Pk-Pk(2)</b>
+        </div>
+      </div>
+      <div class="meta-card">
+        <span class="label">2. การอ่านเวลาและความถี่ (แกนนอน)</span>
+        <div class="val">Time / Division (TIME/DIV)</div>
+        <div class="desc">
+          สังเกตแถบกึ่งกลางด้านบน เช่น <code>1.000ms/</code> หรือ <code>500.0&micro;s/</code><br>
+          คาบเวลาของสัญญาณ: <b>T = 1 / f</b> หรือนับจำนวนช่องใหญ่ใน 1 รอบคลื่นสมบูรณ์คูณด้วยสเกล TIME/DIV
+        </div>
+      </div>
+      <div class="meta-card">
+        <span class="label">3. การวัดผลต่างเวลาและมุมเฟส</span>
+        <div class="val">Time Shift (&Delta;t) &rarr; Phase (&phi;)</div>
+        <div class="desc">
+          วัดระยะห่างแนวนอนระหว่างจุดยอดของ v<sub>s</sub>(t) ไปยังจุดยอดของ v<sub>c</sub>(t) ถัดไป คือ <b>&Delta;t</b><br>
+          คำนวณมุมเฟสตามสมการที่ (7) ในคู่มือหน้า 58:<br>
+          <b>&phi; = -(&Delta;t / T) &times; 360&deg;</b>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula">
+      <b>สมการคำนวณมุมเฟสจากการทดลอง (สมการที่ 7 ในคู่มือหน้า 58):</b><br><br>
+      <span class="var">&phi;</span> = -
+      <span class="frac">
+        <span class="num"><span class="var">&Delta;t</span></span>
+        <span class="denom"><span class="var">T</span></span>
+      </span>
+      <span class="sym">&times;</span> 360&deg; &nbsp; (องศา)
+      &nbsp;&nbsp;&nbsp;&nbsp;หรือ&nbsp;&nbsp;&nbsp;&nbsp;
+      <span class="var">&phi;</span> = -2&pi; <span class="sym">&times;</span> <span class="var">f</span> <span class="sym">&times;</span> <span class="var">&Delta;t</span> &nbsp; (เรเดียน)
+    </div>
+
+    <figure class="textbook">
+      <div class="frame">
+        <img src="guide/03_lab7_p58_theory_phase_diff.jpg" alt="หลักการวัดความต่างเฟสจากออสซิลโลสโคป รูปที่ 7.2 และ 7.3" onclick="openLb(this.src)">
+      </div>
+      <figcaption>
+        <span class="fno">รูปคู่มือหน้า 58</span>
+        หลักการวัดค่าผลต่างเวลา (&Delta;t) และคาบเวลา (T) บนหน้าจอออสซิลโลสโคป รูปที่ 7.2 และ 7.3
+      </figcaption>
+      <div class="zoom-hint">คลิกที่รูปเพื่อเปิดดูภาพขยายขนาดเต็ม</div>
+    </figure>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- ตอนที่ 4: การทดลองตอนที่ 7.1 -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="sec-part1">
+    <div class="sec-head">
+      <div class="sec-no">4</div>
+      <h2>การทดลองตอนที่ 7.1: ผลของขนาดตัวเก็บประจุ (C) ที่ความถี่คงที่ 300 Hz</h2>
+    </div>
+
+    <p>การทดลองตอนนี้ศึกษาอิทธิพลของค่าความจุ <span class="var">C</span> ที่มีต่อขนาดแรงดันและมุมเฟส โดยกำหนดให้ความถี่คงที่ที่ <b><span class="var">f</span> = 300 Hz</b> และตัวต้านทาน <b><span class="var">R</span> = 1 k&Omega;</b></p>
+
+    <h3>ขั้นตอนการดำเนินการทดลอง (Procedure 7.1.1 – 7.1.10)</h3>
+    <ul class="steps-list">
+      <li>
+        <div class="step-no">1</div>
+        <div class="step-content">
+          <div class="step-title">ต่อวงจรตามรูปที่ 7.4 (หน้า 60)</div>
+          <div class="step-desc">ต่อตัวต้านทาน R = 1 k&Omega; อนุกรมกับตัวเก็บประจุ C = 2.2 &micro;F บนแผงต่อวงจร</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">2</div>
+        <div class="step-content">
+          <div class="step-title">ปรับตั้งเครื่องกำเนิดสัญญาณ (Function Generator)</div>
+          <div class="step-desc">จ่ายสัญญาณไซน์ขนาด 5 V (10 V_p-p) ที่ความถี่ f = 300 Hz เข้าสู่วงจร</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">3</div>
+        <div class="step-content">
+          <div class="step-title">ต่อสายโพรบออสซิลโลสโคป</div>
+          <div class="step-desc">นำโพรบช่องที่ 1 (CH1) วัดคร่อมแหล่งจ่าย v<sub>s</sub>(t) และโพรบช่องที่ 2 (CH2) วัดคร่อมตัวเก็บประจุ v<sub>c</sub>(t) โดยใช้จุดกราวด์ร่วมกัน</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">4</div>
+        <div class="step-content">
+          <div class="step-title">บันทึกผลสำหรับ C = 2.2 &micro;F (รูปที่ 7.5 หน้า 61)</div>
+          <div class="step-desc">ปรับสเกล V/DIV และ TIME/DIV ให้อ่านรูปคลื่นได้ชัดเจนที่สุด บันทึกขนาดแรงดัน Pk-Pk และผลต่างเวลา &Delta;t</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">5</div>
+        <div class="step-content">
+          <div class="step-title">เปลี่ยนตัวเก็บประจุเป็น C = 1.0 &micro;F (รูปที่ 7.6 หน้า 62)</div>
+          <div class="step-desc">เปลี่ยนตัวเก็บประจุในวงจรเป็น 1.0 &micro;F โดยคงค่า R = 1 k&Omega; และ f = 300 Hz เท่าเดิม จากนั้นบันทึกรูปคลื่นและค่าที่วัดได้</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">6</div>
+        <div class="step-content">
+          <div class="step-title">เปลี่ยนตัวเก็บประจุเป็น C = 0.1 &micro;F (รูปที่ 7.7 หน้า 62)</div>
+          <div class="step-desc">เปลี่ยนตัวเก็บประจุเป็น 0.1 &micro;F และบันทึกผลลงในตารางที่ 7.1 และวาดรูปสัญญาณลงในรูปที่ 7.7</div>
+        </div>
+      </li>
+    </ul>
+
+    <h3>ตารางบันทึกผลการทดลอง ตารางที่ 7.1 (หน้า 60)</h3>
+    <p>การคำนวณทางทฤษฎีที่ความถี่ <span class="var">f</span> = 300 Hz (<span class="var">&omega;</span> = 2&pi; &times; 300 = 1884.96 rad/s), <span class="var">R</span> = 1000 &Omega;, <span class="var">A</span> = 5 V:</p>
+
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 7.1 ผลการคำนวณและผลการทดลองตอนที่ 7.1 (f = 300 Hz, R = 1 k&Omega;)</caption>
+        <thead>
+          <tr>
+            <th style="width:36%;">พารามิเตอร์ที่บันทึก</th>
+            <th style="width:21%;">C = 2.2 &micro;F</th>
+            <th style="width:21%;">C = 1.0 &micro;F</th>
+            <th style="width:22%;">C = 0.1 &micro;F</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-left"><b>A<sub>c</sub> (คำนวณจากสมการ (5))</b></td>
+            <td class="hl">1.17 V</td>
+            <td class="hl">2.34 V</td>
+            <td class="hl">4.91 V</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>&phi; (คำนวณจากสมการ (6)) [องศา]</b></td>
+            <td class="hl">-76.44&deg;</td>
+            <td class="hl">-62.05&deg;</td>
+            <td class="hl">-10.67&deg;</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>A<sub>c</sub> (= 0.5 V<sub>p-p</sub> ของ v<sub>c</sub>) (การทดลอง)</b></td>
+            <td>1.20 V (0.5 &times; 2.4 V)</td>
+            <td>2.15 V (0.5 &times; 4.3 V)</td>
+            <td>4.90 V (0.5 &times; 9.8 V)</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>&phi; (การทดลอง จากสมการ (7)) [องศา]</b></td>
+            <td>-75.60&deg; (&Delta;t &approx; 0.70 ms)</td>
+            <td>-61.56&deg; (&Delta;t &approx; 0.57 ms)</td>
+            <td>-10.80&deg; (&Delta;t &approx; 0.10 ms)</td>
+          </tr>
+          <tr>
+            <td class="t-left"><i>แรงดันยอดถึงยอด Pk-Pk(2) วัดจริง</i></td>
+            <td>2.4 V</td>
+            <td>4.3 V</td>
+            <td>9.8 V</td>
+          </tr>
+          <tr>
+            <td class="t-left"><i>รูปกริดอ้างอิงในเล่มปฏิบัติการ</i></td>
+            <td>รูปที่ 7.5 (หน้า 61)</td>
+            <td>รูปที่ 7.6 (หน้า 62)</td>
+            <td>รูปที่ 7.7 (หน้า 62)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>รูปคลื่นสัญญาณออสซิลโลสโคปและการกรอกข้อมูลใต้กริด ตอนที่ 7.1 (รูปที่ 7.5 – 7.7)</h3>
+    <div class="freq-nav-bar">
+      <span class="freq-nav-label">เลือกดูค่าความจุ:</span>
+      <a class="freq-pill" href="#fig-7-5">C = 2.2 &micro;F (รูปที่ 7.5)</a>
+      <a class="freq-pill" href="#fig-7-6">C = 1.0 &micro;F (รูปที่ 7.6)</a>
+      <a class="freq-pill" href="#fig-7-7">C = 0.1 &micro;F (รูปที่ 7.7)</a>
+    </div>
+
+    <div class="result-grid">
+      <!-- รูป 7.5 -->
+      <div class="result-card" id="fig-7-5">
+        <div class="result-card-header">
+          <div class="result-card-title">รูปที่ 7.5: C = 2.2 &micro;F (หน้า 61)</div>
+          <span class="result-tag">ภาพที่ 01</span>
+        </div>
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/01_sec7_1_fig7_5_c2_2uf.jpg" alt="ผลการทดลอง C = 2.2 uF" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อเปิดดูภาพถ่ายหน้าจอออสซิลโลสโคปขนาดเต็ม</div>
+          </div>
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th class="f-no">#</th>
+                    <th class="f-name">รายการตามแบบฟอร์มในเล่ม</th>
+                    <th>ค่าที่ต้องกรอกลงเล่ม</th>
+                    <th>ที่มาบนหน้าจอออสซิลโลสโคปจริง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเหลืองแสดง <code>1  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">9.6 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดแรก <code>Pk-Pk(1): 9.6V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเขียวแสดง <code>2  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">2.4 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สอง <code>Pk-Pk(2): 2.4V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name"><span class="badge-time">แกนนอน</span> TIME/DIV</td>
+                    <td><span class="f-val">0.001 s</span> <small>(1.000 ms)</small></td>
+                    <td class="f-src">แถบควบคุมด้านบนตรงกลาง แสดง <code>1.000ms/</code> แปลงเป็น s</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name"><span class="badge-calc">คาบ</span> (period, T)</td>
+                    <td><span class="f-val">0.00333 s</span> <small>(3.33 ms)</small></td>
+                    <td class="f-src">คำนวณ T = 1/300 = 0.00333 s (หรือ 3.33 ช่อง &times; 1.0 ms)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">7</td>
+                    <td class="f-name"><span class="badge-calc">ความถี่</span> (frequency, f)</td>
+                    <td><span class="f-val">300 Hz</span> <small>(300.10 Hz)</small></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สาม <code>Freq(1): 300.10Hz</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">+</td>
+                    <td class="f-name"><span class="badge-time">ช่วงต่างเวลา</span> &Delta;t</td>
+                    <td><span class="f-val">&approx; 0.70 ms</span></td>
+                    <td class="f-src">วัดระยะห่างแนวนอนระหว่างยอด v<sub>s</sub> ไปยังยอด v<sub>c</sub></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">+</td>
+                    <td class="f-name"><span class="badge-calc">มุมเฟส</span> &phi;</td>
+                    <td><span class="f-val">-75.60&deg;</span></td>
+                    <td class="f-src">คำนวณจาก -(0.70 / 3.33) &times; 360&deg; = -75.60&deg;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-calc">
+              <b>การคำนวณขนาดแอมพลิจูด A<sub>c</sub>:</b><br>
+              • <strong>A<sub>c</sub> (คำนวณ):</strong> 1.17 V | <strong>A<sub>c</sub> (การทดลอง):</strong> 0.5 &times; 2.4 V = <b>1.20 V</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- รูป 7.6 -->
+      <div class="result-card" id="fig-7-6">
+        <div class="result-card-header">
+          <div class="result-card-title">รูปที่ 7.6: C = 1.0 &micro;F (หน้า 62)</div>
+          <span class="result-tag">ภาพที่ 02</span>
+        </div>
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/02_sec7_1_fig7_6_c1_0uf.jpg" alt="ผลการทดลอง C = 1.0 uF" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อเปิดดูภาพถ่ายหน้าจอออสซิลโลสโคปขนาดเต็ม</div>
+          </div>
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th class="f-no">#</th>
+                    <th class="f-name">รายการตามแบบฟอร์มในเล่ม</th>
+                    <th>ค่าที่ต้องกรอกลงเล่ม</th>
+                    <th>ที่มาบนหน้าจอออสซิลโลสโคปจริง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเหลืองแสดง <code>1  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">9.7 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดแรก <code>Pk-Pk(1): 9.7V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเขียวแสดง <code>2  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">4.3 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สอง <code>Pk-Pk(2): 4.3V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name"><span class="badge-time">แกนนอน</span> TIME/DIV</td>
+                    <td><span class="f-val">0.001 s</span> <small>(1.000 ms)</small></td>
+                    <td class="f-src">แถบควบคุมด้านบนตรงกลาง แสดง <code>1.000ms/</code> แปลงเป็น s</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name"><span class="badge-calc">คาบ</span> (period, T)</td>
+                    <td><span class="f-val">0.00333 s</span> <small>(3.33 ms)</small></td>
+                    <td class="f-src">คำนวณ T = 1/300 = 0.00333 s (หรือ 3.33 ช่อง &times; 1.0 ms)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">7</td>
+                    <td class="f-name"><span class="badge-calc">ความถี่</span> (frequency, f)</td>
+                    <td><span class="f-val">300 Hz</span> <small>(299.96 Hz)</small></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สาม <code>Freq(1): 299.96Hz</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">+</td>
+                    <td class="f-name"><span class="badge-time">ช่วงต่างเวลา</span> &Delta;t</td>
+                    <td><span class="f-val">&approx; 0.57 ms</span></td>
+                    <td class="f-src">วัดระยะห่างแนวนอนระหว่างยอด v<sub>s</sub> ไปยังยอด v<sub>c</sub></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">+</td>
+                    <td class="f-name"><span class="badge-calc">มุมเฟส</span> &phi;</td>
+                    <td><span class="f-val">-61.56&deg;</span></td>
+                    <td class="f-src">คำนวณจาก -(0.57 / 3.33) &times; 360&deg; = -61.56&deg;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-calc">
+              <b>การคำนวณขนาดแอมพลิจูด A<sub>c</sub>:</b><br>
+              • <strong>A<sub>c</sub> (คำนวณ):</strong> 2.34 V | <strong>A<sub>c</sub> (การทดลอง):</strong> 0.5 &times; 4.3 V = <b>2.15 V</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- รูป 7.7 -->
+      <div class="result-card" id="fig-7-7">
+        <div class="result-card-header">
+          <div class="result-card-title">รูปที่ 7.7: C = 0.1 &micro;F (หน้า 62)</div>
+          <span class="result-tag">ภาพที่ 03</span>
+        </div>
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/03_sec7_1_fig7_7_c0_1uf.jpg" alt="ผลการทดลอง C = 0.1 uF" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อเปิดดูภาพถ่ายหน้าจอออสซิลโลสโคปขนาดเต็ม</div>
+          </div>
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th class="f-no">#</th>
+                    <th class="f-name">รายการตามแบบฟอร์มในเล่ม</th>
+                    <th>ค่าที่ต้องกรอกลงเล่ม</th>
+                    <th>ที่มาบนหน้าจอออสซิลโลสโคปจริง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเหลืองแสดง <code>1  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">10.1 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดแรก <code>Pk-Pk(1): 10.1V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเขียวแสดง <code>2  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">9.8 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สอง <code>Pk-Pk(2): 9.8V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name"><span class="badge-time">แกนนอน</span> TIME/DIV</td>
+                    <td><span class="f-val">0.001 s</span> <small>(1.000 ms)</small></td>
+                    <td class="f-src">แถบควบคุมด้านบนตรงกลาง แสดง <code>1.000ms/</code> แปลงเป็น s</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name"><span class="badge-calc">คาบ</span> (period, T)</td>
+                    <td><span class="f-val">0.00333 s</span> <small>(3.33 ms)</small></td>
+                    <td class="f-src">คำนวณ T = 1/300 = 0.00333 s (หรือ 3.33 ช่อง &times; 1.0 ms)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">7</td>
+                    <td class="f-name"><span class="badge-calc">ความถี่</span> (frequency, f)</td>
+                    <td><span class="f-val">300 Hz</span> <small>(299.98 Hz)</small></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สาม <code>Freq(1): 299.98Hz</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">+</td>
+                    <td class="f-name"><span class="badge-time">ช่วงต่างเวลา</span> &Delta;t</td>
+                    <td><span class="f-val">&approx; 0.10 ms</span></td>
+                    <td class="f-src">วัดระยะห่างแนวนอนระหว่างยอด v<sub>s</sub> ไปยังยอด v<sub>c</sub></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">+</td>
+                    <td class="f-name"><span class="badge-calc">มุมเฟส</span> &phi;</td>
+                    <td><span class="f-val">-10.80&deg;</span></td>
+                    <td class="f-src">คำนวณจาก -(0.10 / 3.33) &times; 360&deg; = -10.80&deg;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-calc">
+              <b>การคำนวณขนาดแอมพลิจูด A<sub>c</sub>:</b><br>
+              • <strong>A<sub>c</sub> (คำนวณ):</strong> 4.91 V | <strong>A<sub>c</sub> (การทดลอง):</strong> 0.5 &times; 9.8 V = <b>4.90 V</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout c-tip">
+      <span class="lab">วิเคราะห์ผลการทดลองตอนที่ 7.1</span>
+      เมื่อค่าความจุ <span class="var">C</span> มีค่ามาก (2.2 &micro;F) รีแอกแทนซ์ <span class="var">X<sub>C</sub></span> = 1 / (&omega;C) จะมีค่าน้อยมากเมื่อเทียบกับ R ทำให้แรงดันตกคร่อมตัวเก็บประจุมีขนาดเล็กลงมาก (เหลือเพียง 2.4 V<sub>p-p</sub>) และมีมุมเฟสล้าหลังเข้าใกล้ -90&deg; (-75.60&deg;)<br>
+      ในทางตรงกันข้าม เมื่อ <span class="var">C</span> มีค่าน้อยลงเป็น 0.1 &micro;F รีแอกแทนซ์ <span class="var">X<sub>C</sub></span> จะมีค่าสูงมาก แรงดันเกือบทั้งหมดจึงตกคร่อมที่ตัวเก็บประจุ (9.8 V<sub>p-p</sub> ใกล้เคียงแหล่งจ่าย 10 V) และมุมเฟสจะล้าหลังเพียงเล็กน้อย (-10.80&deg;)
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- ตอนที่ 5: การทดลองตอนที่ 7.2 -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="sec-part2">
+    <div class="sec-head">
+      <div class="sec-no">5</div>
+      <h2>การทดลองตอนที่ 7.2: ผลตอบสนองทางความถี่และวงจรกรองความถี่ต่ำผ่าน (50 Hz – 5 kHz)</h2>
+    </div>
+
+    <p>การทดลองตอนนี้ศึกษาการตอบสนองความถี่ (Frequency Response) ตามคู่มือหน้า 63 – 67 โดยกำหนดค่าอุปกรณ์คงที่ที่ <b><span class="var">R</span> = 1 k&Omega;</b> และ <b><span class="var">C</span> = 1.0 &micro;F</b> แหล่งจ่ายสัญญาณไซน์ปรับขนาดคงที่ <span class="var">A</span> = 5 V (10 V<sub>p-p</sub>) แล้วเปลี่ยนความถี่ 6 ค่า ได้แก่ <b>50 Hz, 200 Hz, 500 Hz, 1 kHz, 2 kHz และ 5 kHz</b> ตามวงจรรูปที่ 7.8 (หน้า 63) เพื่อศึกษาสมบัติของวงจรกรองความถี่ต่ำผ่าน (Low-Pass Filter)</p>
+
+    <!-- ขั้นตอนการทดลองตอนที่ 7.2 ตามคู่มือหน้า 63 -->
+    <h3>ขั้นตอนการดำเนินการทดลอง (Procedure 7.2.1 – 7.2.13 ตามคู่มือหน้า 63)</h3>
+    <ul class="steps-list">
+      <li>
+        <div class="step-no">1</div>
+        <div class="step-content">
+          <div class="step-title">7.2.1 ต่อวงจรตามรูปที่ 7.8 (หน้า 63)</div>
+          <div class="step-desc">ต่อวงจรอนุกรม RC โดยใช้ตัวต้านทาน <b>R = 1 k&Omega;</b> และตัวเก็บประจุ <b>C = 1.0 &micro;F</b></div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">2</div>
+        <div class="step-content">
+          <div class="step-title">7.2.2 ปรับตั้งเครื่องกำเนิดสัญญาณ (Function Generator)</div>
+          <div class="step-desc">จ่ายสัญญาณแรงดันรูปไซน์ขนาด <b>10 V<sub>p-p</sub></b> (แรงดันค่ายอด A = 5 V) และความถี่เริ่มต้น <b>f = 50 Hz</b></div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">3</div>
+        <div class="step-content">
+          <div class="step-title">7.2.3 วัดสัญญาณแรงดันแหล่งจ่าย v<sub>s</sub>(t)</div>
+          <div class="step-desc">ใช้ออสซิลโลสโคป (ช่องสัญญาณที่ 1, CH1) วัดแรงดันของแหล่งจ่าย เพื่อตรวจเทียบขนาดแรงดันและคาบเวลา</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">4</div>
+        <div class="step-content">
+          <div class="step-title">7.2.4 วัดสัญญาณแรงดันตกคร่อมตัวเก็บประจุ v<sub>c</sub>(t)</div>
+          <div class="step-desc">ใช้ออสซิลโลสโคป (ช่องสัญญาณที่ 2, CH2) วัดแรงดันตกคร่อมตัวเก็บประจุ โดยใช้จุดกราวด์ร่วมกับ CH1</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">5</div>
+        <div class="step-content">
+          <div class="step-title">7.2.5 บันทึกสัญญาณแรงดันที่ความถี่ f = 50 Hz</div>
+          <div class="step-desc">บันทึกรูปคลื่นสัญญาณจากทั้งสองช่องสัญญาณลงใน <b>รูปที่ 7.9 (หน้า 64)</b> พร้อมบันทึกค่าพารามิเตอร์ทั้ง 7 ช่องใต้กริด</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">6</div>
+        <div class="step-content">
+          <div class="step-title">7.2.6 เปลี่ยนความถี่เป็น f = 200 Hz</div>
+          <div class="step-desc">ปรับความถี่เป็น 200 Hz และบันทึกรูปคลื่นสัญญาณลงใน <b>รูปที่ 7.10 (หน้า 65)</b></div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">7</div>
+        <div class="step-content">
+          <div class="step-title">7.2.7 เปลี่ยนความถี่เป็น f = 500 Hz</div>
+          <div class="step-desc">ปรับความถี่เป็น 500 Hz และบันทึกรูปคลื่นสัญญาณลงใน <b>รูปที่ 7.11 (หน้า 66)</b></div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">8</div>
+        <div class="step-content">
+          <div class="step-title">7.2.8 เปลี่ยนความถี่เป็น f = 1 kHz</div>
+          <div class="step-desc">ปรับความถี่เป็น 1 kHz (1,000 Hz) และบันทึกรูปคลื่นสัญญาณลงใน <b>รูปที่ 7.12 (หน้า 66)</b></div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">9</div>
+        <div class="step-content">
+          <div class="step-title">7.2.9 เปลี่ยนความถี่เป็น f = 2 kHz</div>
+          <div class="step-desc">ปรับความถี่เป็น 2 kHz (2,000 Hz) และบันทึกรูปคลื่นสัญญาณลงใน <b>รูปที่ 7.13 (หน้า 67)</b></div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">10</div>
+        <div class="step-content">
+          <div class="step-title">7.2.10 เปลี่ยนความถี่เป็น f = 5 kHz</div>
+          <div class="step-desc">ปรับความถี่เป็น 5 kHz (5,000 Hz) และบันทึกรูปคลื่นสัญญาณลงใน <b>รูปที่ 7.14 (หน้า 67)</b></div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">11</div>
+        <div class="step-content">
+          <div class="step-title">7.2.11 คำนวณค่าขนาดสัญญาณแรงดัน v<sub>c</sub>(t) จากสมการที่ (7.5)</div>
+          <div class="step-desc">คำนวณขนาดแรงดันค่ายอด A<sub>c</sub> ตามทฤษฎีทุกความถี่ แล้วบันทึกลงในแถวที่ 1 ของ <b>ตารางที่ 7.2 (หน้า 64)</b></div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">12</div>
+        <div class="step-content">
+          <div class="step-title">7.2.12 วัดค่าแรงดันค่ายอดตกคร่อมตัวเก็บประจุจริง</div>
+          <div class="step-desc">วัดค่าแรงดันค่ายอด A<sub>c</sub> = 0.5 &times; Pk-Pk(2) จากออสซิลโลสโคป แล้วบันทึกลงในแถวที่ 2 ของ <b>ตารางที่ 7.2 (หน้า 64)</b></div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no" style="background:var(--accent2);">13</div>
+        <div class="step-content">
+          <div class="step-title">
+            <a href="#discussion-7-2-13" style="color:var(--accent2); text-decoration:underline;">7.2.13 อภิปรายผล เปรียบเทียบ ผลการคำนวณ กับ ผลการทดลอง</a>
+            <span class="badge-calc" style="margin-left:6px; cursor:pointer;">คลิกไปยังคำตอบข้อ 7.2.13</span>
+          </div>
+          <div class="step-desc">เปรียบเทียบผลลัพธ์เชิงปริมาณ (% ความคลาดเคลื่อน) อภิปรายแนวโน้มทางความถี่ของวงจร RC Low-Pass Filter และวิเคราะห์สาเหตุของ Error จากอุปกรณ์และเครื่องมือวัดจริง</div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- คู่มือถอดรหัสอ่านค่าจากหน้าจอออสซิลโลสโคป -->
+    <div class="scope-legend-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <h3 style="margin:0; font-size:1.08rem; color:var(--navy);">คู่มือถอดรหัสอ่านค่าจากหน้าจอ Keysight DSOX2002A (7 ช่องตามแบบฟอร์มในเล่มแล็บ)</h3>
+        <span class="result-tag" style="background:#EFF6FF; color:#1D4ED8; border-color:#93C5FD;">หน้า 64 – 67</span>
+      </div>
+      <p style="font-size:0.86rem; color:var(--ink-soft); margin:8px 0 12px 0;">
+        ในเล่มปฏิบัติการ ใต้ตารางกริดออสซิลโลสโคปทุกรูป (รูปที่ 7.9 – 7.14) จะมีช่องว่างให้กรอกผลทั้งหมด <b>7 ช่องพารามิเตอร์</b> ซึ่งสามารถอ่านและถอดรหัสค่าได้โดยตรงจากหน้าจอเครื่องวัดจริงในโฟลเดอร์ <code>result/</code> ดังนี้:
+      </p>
+      <div class="scope-legend-grid">
+        <div class="scope-legend-item">
+          <div class="item-title"><span class="badge-ch1">ช่อง 1 & 2</span> CH 1 (แรงดันแหล่งจ่าย v<sub>s</sub>)</div>
+          • <b>CH 1 V/DIV:</b> ดูที่มุมบนซ้าย ป้ายสีเหลือง <code>1  2.00V/</code> &rarr; ค่าสเกลแนวตั้งเท่ากับ <b>2.00 V</b> ต่อ 1 ช่องใหญ่<br>
+          • <b>CH 1 V<sub>p-p</sub>:</b> ดูที่กล่อง Measurement ด้านขวามือ บรรทัดแรก <code>Pk-Pk(1)</code> &rarr; บันทึกค่าแรงดันยอดถึงยอด เช่น <b>10.0 V</b>
+        </div>
+        <div class="scope-legend-item">
+          <div class="item-title"><span class="badge-ch2">ช่อง 3 & 4</span> CH 2 (แรงดันตกคร่อมตัวเก็บประจุ v<sub>c</sub>)</div>
+          • <b>CH 2 V/DIV:</b> ดูที่มุมบนซ้าย ป้ายสีเขียว <code>2  2.00V/</code> &rarr; ค่าสเกลแนวตั้งเท่ากับ <b>2.00 V</b> ต่อ 1 ช่องใหญ่<br>
+          • <b>CH 2 V<sub>p-p</sub>:</b> ดูที่กล่อง Measurement ด้านขวามือ บรรทัดที่สอง <code>Pk-Pk(2)</code> &rarr; บันทึกค่าแรงดันยอดถึงยอด เช่น <b>9.5 V</b>
+        </div>
+        <div class="scope-legend-item">
+          <div class="item-title"><span class="badge-time">ช่อง 5</span> แกนนอน TIME/DIV (Timebase)</div>
+          • ดูที่แถบควบคุมด้านบนตรงกลาง เช่น <code>5.000ms/</code> หรือ <code>500.0&micro;s/</code><br>
+          • <b>การแปลงเป็นหน่วยวินาที (s) สำหรับกรอกลงเล่ม:</b><br>
+          5.000 ms = <b>0.005 s</b> | 1.000 ms = <b>0.001 s</b> | 500.0 &micro;s = <b>0.0005 s</b><br>
+          200.0 &micro;s = <b>0.0002 s</b> | 100.0 &micro;s = <b>0.0001 s</b> | 50.00 &micro;s = <b>0.00005 s</b>
+        </div>
+        <div class="scope-legend-item">
+          <div class="item-title"><span class="badge-calc">ช่อง 6 & 7</span> คาบเวลา (T) และความถี่ (f)</div>
+          • <b>ความถี่ f (Hz):</b> ดูที่กล่อง Measurement ด้านขวา บรรทัดที่สาม <code>Freq(1)</code> หรือความถี่ที่ตั้งบน Function Generator (50, 200, 500, 1000, 2000, 5000 Hz)<br>
+          • <b>คาบ T (s):</b> คำนวณจากสูตร <b>T = 1 / f</b> หรือนับช่องแนวนอน 1 รอบคลื่นคูณสเกล TIME/DIV
+        </div>
+      </div>
+    </div>
+
+    <!-- ตารางบันทึกผล 7.2 -->
+    <h3>ตารางบันทึกผลการทดลอง ตารางที่ 7.2 (หน้า 64)</h3>
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 7.2 บันทึกผลการตอบสนองทางความถี่ของวงจร RC (R = 1 k&Omega;, C = 1.0 &micro;F, A = 5 V)</caption>
+        <thead>
+          <tr>
+            <th style="width:22%;">พารามิเตอร์</th>
+            <th style="width:13%;">f = 50 Hz</th>
+            <th style="width:13%;">f = 200 Hz</th>
+            <th style="width:13%;">f = 500 Hz</th>
+            <th style="width:13%;">f = 1 kHz</th>
+            <th style="width:13%;">f = 2 kHz</th>
+            <th style="width:13%;">f = 5 kHz</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-left"><b>A<sub>c</sub> (คำนวณ) [V]</b></td>
+            <td class="hl">4.77 V</td>
+            <td class="hl">3.11 V</td>
+            <td class="hl">1.52 V</td>
+            <td class="hl">0.79 V</td>
+            <td class="hl">0.40 V</td>
+            <td class="hl">0.16 V</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>A<sub>c</sub> (การทดลอง) [V]</b></td>
+            <td>4.75 V</td>
+            <td>2.95 V</td>
+            <td>1.50 V</td>
+            <td>0.85 V</td>
+            <td>0.50 V</td>
+            <td>0.25 V</td>
+          </tr>
+          <tr>
+            <td class="t-left"><i>Pk-Pk(2) วัดจริง (v<sub>c</sub>)</i></td>
+            <td>9.5 V</td>
+            <td>5.9 V</td>
+            <td>3.0 V</td>
+            <td>1.7 V</td>
+            <td>1.0 V</td>
+            <td>0.5 V (500 mV)</td>
+          </tr>
+          <tr>
+            <td class="t-left"><i>Pk-Pk(1) แหล่งจ่าย (v<sub>s</sub>)</i></td>
+            <td>10.0 V</td>
+            <td>9.7 V</td>
+            <td>9.7 V</td>
+            <td>10.1 V</td>
+            <td>10.7 V</td>
+            <td>11.5 V</td>
+          </tr>
+          <tr>
+            <td class="t-left"><i>สเกล TIME/DIV [s]</i></td>
+            <td>0.005 s (5 ms)</td>
+            <td>0.001 s (1 ms)</td>
+            <td>0.0005 s (500 &micro;s)</td>
+            <td>0.0002 s (200 &micro;s)</td>
+            <td>0.0001 s (100 &micro;s)</td>
+            <td>0.00005 s (50 &micro;s)</td>
+          </tr>
+          <tr>
+            <td class="t-left"><i>คาบเวลา T (1/f) [s]</i></td>
+            <td>0.02 s (20.0 ms)</td>
+            <td>0.005 s (5.0 ms)</td>
+            <td>0.002 s (2.0 ms)</td>
+            <td>0.001 s (1.0 ms)</td>
+            <td>0.0005 s (0.5 ms)</td>
+            <td>0.0002 s (0.2 ms)</td>
+          </tr>
+          <tr>
+            <td class="t-left"><i>ความถี่ f อ่านจริง [Hz]</i></td>
+            <td>50.010 Hz</td>
+            <td>200.06 Hz</td>
+            <td>500.15 Hz</td>
+            <td>999.20 Hz</td>
+            <td>1.9993 kHz</td>
+            <td>5.0028 kHz</td>
+          </tr>
+          <tr>
+            <td class="t-left"><i>รูปอ้างอิงในเล่ม</i></td>
+            <td>รูป 7.9 (น.64)</td>
+            <td>รูป 7.10 (น.65)</td>
+            <td>รูป 7.11 (น.66)</td>
+            <td>รูป 7.12 (น.66)</td>
+            <td>รูป 7.13 (น.67)</td>
+            <td>รูป 7.14 (น.67)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- แสดงวิธีคิดและสูตรคำนวณอย่างละเอียดสำหรับตาราง 7.2 -->
+    <h3>ขั้นตอนและวิธีคิดคำนวณค่าในตารางที่ 7.2 อย่างละเอียด (Step-by-Step Calculations)</h3>
+    <div class="callout c-note" style="margin-bottom:14px;">
+      <span class="lab">สูตรแม่บทตามทฤษฎี (สมการที่ 5 ในคู่มือหน้า 57)</span>
+      กำหนดค่าคงที่: <span class="var">A</span> = 5 V, <span class="var">R</span> = 1000 &Omega;, <span class="var">C</span> = 1.0 &times; 10<sup>-6</sup> F จะได้ผลคูณ <span class="var">RC</span> = 1000 &times; 1.0 &times; 10<sup>-6</sup> = <b>0.001 s</b><br>
+      <b>สูตรคำนวณทางทฤษฎี:</b> <span class="var">A<sub>c</sub></span> (คำนวณ) = 
+      <b>5 / &radic;(1 + (2&pi; &times; f &times; 0.001)<sup>2</sup>)</b><br>
+      <b>สูตรจากการทดลอง:</b> <span class="var">A<sub>c</sub></span> (การทดลอง) = 
+      <b>0.5 &times; Pk-Pk(2)</b> (ครึ่งหนึ่งของแรงดันยอดถึงยอดที่วัดได้จริงจาก CH2)
+    </div>
+
+    <div class="calc-breakdown-grid">
+      <!-- 50 Hz -->
+      <div class="calc-freq-card">
+        <div class="calc-freq-header">
+          <span>1. ที่ความถี่ f = 50 Hz</span>
+          <span class="result-tag">รูปที่ 7.9</span>
+        </div>
+        <b>A<sub>c</sub> (คำนวณ):</b><br>
+        2&pi;fRC = 2&pi; &times; 50 &times; 0.001 = 0.3142<br>
+        &radic;(1 + 0.3142<sup>2</sup>) = &radic;(1.0987) = 1.0482<br>
+        A<sub>c</sub> = 5 / 1.0482 = <span class="hl">4.77 V</span><br><br>
+        <b>A<sub>c</sub> (การทดลอง):</b><br>
+        Pk-Pk(2) บนจอ = 9.5 V<br>
+        A<sub>c</sub> = 0.5 &times; 9.5 V = <b>4.75 V</b> (คลาดเคลื่อน 0.42%)
+      </div>
+
+      <!-- 200 Hz -->
+      <div class="calc-freq-card">
+        <div class="calc-freq-header">
+          <span>2. ที่ความถี่ f = 200 Hz</span>
+          <span class="result-tag">รูปที่ 7.10</span>
+        </div>
+        <b>A<sub>c</sub> (คำนวณ):</b><br>
+        2&pi;fRC = 2&pi; &times; 200 &times; 0.001 = 1.2566<br>
+        &radic;(1 + 1.2566<sup>2</sup>) = &radic;(2.5791) = 1.6060<br>
+        A<sub>c</sub> = 5 / 1.6060 = <span class="hl">3.11 V</span><br><br>
+        <b>A<sub>c</sub> (การทดลอง):</b><br>
+        Pk-Pk(2) บนจอ = 5.9 V<br>
+        A<sub>c</sub> = 0.5 &times; 5.9 V = <b>2.95 V</b>
+      </div>
+
+      <!-- 500 Hz -->
+      <div class="calc-freq-card">
+        <div class="calc-freq-header">
+          <span>3. ที่ความถี่ f = 500 Hz</span>
+          <span class="result-tag">รูปที่ 7.11</span>
+        </div>
+        <b>A<sub>c</sub> (คำนวณ):</b><br>
+        2&pi;fRC = 2&pi; &times; 500 &times; 0.001 = 3.1416<br>
+        &radic;(1 + 3.1416<sup>2</sup>) = &radic;(10.8696) = 3.2969<br>
+        A<sub>c</sub> = 5 / 3.2969 = <span class="hl">1.52 V</span><br><br>
+        <b>A<sub>c</sub> (การทดลอง):</b><br>
+        Pk-Pk(2) บนจอ = 3.0 V<br>
+        A<sub>c</sub> = 0.5 &times; 3.0 V = <b>1.50 V</b>
+      </div>
+
+      <!-- 1 kHz -->
+      <div class="calc-freq-card">
+        <div class="calc-freq-header">
+          <span>4. ที่ความถี่ f = 1 kHz (1000 Hz)</span>
+          <span class="result-tag">รูปที่ 7.12</span>
+        </div>
+        <b>A<sub>c</sub> (คำนวณ):</b><br>
+        2&pi;fRC = 2&pi; &times; 1000 &times; 0.001 = 6.2832<br>
+        &radic;(1 + 6.2832<sup>2</sup>) = &radic;(40.4784) = 6.3623<br>
+        A<sub>c</sub> = 5 / 6.3623 = <span class="hl">0.79 V</span><br><br>
+        <b>A<sub>c</sub> (การทดลอง):</b><br>
+        Pk-Pk(2) บนจอ = 1.7 V<br>
+        A<sub>c</sub> = 0.5 &times; 1.7 V = <b>0.85 V</b>
+      </div>
+
+      <!-- 2 kHz -->
+      <div class="calc-freq-card">
+        <div class="calc-freq-header">
+          <span>5. ที่ความถี่ f = 2 kHz (2000 Hz)</span>
+          <span class="result-tag">รูปที่ 7.13</span>
+        </div>
+        <b>A<sub>c</sub> (คำนวณ):</b><br>
+        2&pi;fRC = 2&pi; &times; 2000 &times; 0.001 = 12.5664<br>
+        &radic;(1 + 12.5664<sup>2</sup>) = &radic;(158.9137) = 12.6061<br>
+        A<sub>c</sub> = 5 / 12.6061 = <span class="hl">0.40 V</span><br><br>
+        <b>A<sub>c</sub> (การทดลอง):</b><br>
+        Pk-Pk(2) บนจอ = 1.0 V<br>
+        A<sub>c</sub> = 0.5 &times; 1.0 V = <b>0.50 V</b>
+      </div>
+
+      <!-- 5 kHz -->
+      <div class="calc-freq-card">
+        <div class="calc-freq-header">
+          <span>6. ที่ความถี่ f = 5 kHz (5000 Hz)</span>
+          <span class="result-tag">รูปที่ 7.14</span>
+        </div>
+        <b>A<sub>c</sub> (คำนวณ):</b><br>
+        2&pi;fRC = 2&pi; &times; 5000 &times; 0.001 = 31.4159<br>
+        &radic;(1 + 31.4159<sup>2</sup>) = &radic;(987.9604) = 31.4318<br>
+        A<sub>c</sub> = 5 / 31.4318 = <span class="hl">0.16 V</span><br><br>
+        <b>A<sub>c</sub> (การทดลอง):</b><br>
+        Pk-Pk(2) บนจอ = 0.5 V (500 mV)<br>
+        A<sub>c</sub> = 0.5 &times; 0.5 V = <b>0.25 V</b>
+      </div>
+    </div>
+
+    <!-- การ์ดผลการทดลองจริงทั้ง 6 รูป พร้อมตาราง 7 ช่องและที่มาตัวเลข -->
+    <h3>รูปคลื่นสัญญาณออสซิลโลสโคปและการกรอกข้อมูลทั้ง 7 ช่องใต้กริด (รูปที่ 7.9 – 7.14)</h3>
+    <div class="freq-nav-bar">
+      <span class="freq-nav-label">เลือกดูความถี่:</span>
+      <a class="freq-pill" href="#fig-7-9">50 Hz (รูปที่ 7.9)</a>
+      <a class="freq-pill" href="#fig-7-10">200 Hz (รูปที่ 7.10)</a>
+      <a class="freq-pill" href="#fig-7-11">500 Hz (รูปที่ 7.11)</a>
+      <a class="freq-pill" href="#fig-7-12">1 kHz (รูปที่ 7.12)</a>
+      <a class="freq-pill" href="#fig-7-13">2 kHz (รูปที่ 7.13)</a>
+      <a class="freq-pill" href="#fig-7-14">5 kHz (รูปที่ 7.14)</a>
+    </div>
+
+    <div class="result-grid">
+      <!-- 50 Hz -->
+      <div class="result-card" id="fig-7-9">
+        <div class="result-card-header">
+          <div class="result-card-title">รูปที่ 7.9: f = 50 Hz (หน้า 64)</div>
+          <span class="result-tag">ภาพที่ 04</span>
+        </div>
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/04_sec7_2_fig7_9_freq_50hz.jpg" alt="ผลการทดลอง f = 50 Hz" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อเปิดดูภาพถ่ายหน้าจอออสซิลโลสโคปขนาดเต็ม</div>
+          </div>
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th class="f-no">#</th>
+                    <th class="f-name">รายการตามแบบฟอร์มในเล่ม</th>
+                    <th>ค่าที่ต้องกรอกลงเล่ม</th>
+                    <th>ที่มาบนหน้าจอออสซิลโลสโคปจริง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเหลืองแสดง <code>1  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">10.0 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดแรก <code>Pk-Pk(1): 10.0V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเขียวแสดง <code>2  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">9.5 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สอง <code>Pk-Pk(2): 9.5V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name"><span class="badge-time">แกนนอน</span> TIME/DIV</td>
+                    <td><span class="f-val">0.005 s</span> <small>(5.000 ms)</small></td>
+                    <td class="f-src">แถบควบคุมด้านบนตรงกลาง แสดง <code>5.000ms/</code> แปลงเป็น s</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name"><span class="badge-calc">คาบ</span> (period, T)</td>
+                    <td><span class="f-val">0.02 s</span> <small>(20.0 ms)</small></td>
+                    <td class="f-src">คำนวณ T = 1/50 = 0.02 s (หรือ 4 ช่อง &times; 5.0 ms)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">7</td>
+                    <td class="f-name"><span class="badge-calc">ความถี่</span> (frequency, f)</td>
+                    <td><span class="f-val">50 Hz</span> <small>(50.010 Hz)</small></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สาม <code>Freq(1): 50.010Hz</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-calc">
+              <b>การคำนวณขนาดแอมพลิจูด A<sub>c</sub>:</b><br>
+              • <strong>A<sub>c</sub> (คำนวณ):</strong> 5 / &radic;(1 + (2&pi; &times; 50 &times; 1000 &times; 1.0&times;10<sup>-6</sup>)<sup>2</sup>) = <b>4.77 V</b><br>
+              • <strong>A<sub>c</sub> (การทดลอง):</strong> 0.5 &times; Pk-Pk(2) = 0.5 &times; 9.5 V = <b>4.75 V</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 200 Hz -->
+      <div class="result-card" id="fig-7-10">
+        <div class="result-card-header">
+          <div class="result-card-title">รูปที่ 7.10: f = 200 Hz (หน้า 65)</div>
+          <span class="result-tag">ภาพที่ 05</span>
+        </div>
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/05_sec7_2_fig7_10_freq_200hz.jpg" alt="ผลการทดลอง f = 200 Hz" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อเปิดดูภาพถ่ายหน้าจอออสซิลโลสโคปขนาดเต็ม</div>
+          </div>
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th class="f-no">#</th>
+                    <th class="f-name">รายการตามแบบฟอร์มในเล่ม</th>
+                    <th>ค่าที่ต้องกรอกลงเล่ม</th>
+                    <th>ที่มาบนหน้าจอออสซิลโลสโคปจริง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเหลืองแสดง <code>1  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">9.7 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดแรก <code>Pk-Pk(1): 9.7V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเขียวแสดง <code>2  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">5.9 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สอง <code>Pk-Pk(2): 5.9V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name"><span class="badge-time">แกนนอน</span> TIME/DIV</td>
+                    <td><span class="f-val">0.001 s</span> <small>(1.000 ms)</small></td>
+                    <td class="f-src">แถบควบคุมด้านบนตรงกลาง แสดง <code>1.000ms/</code> แปลงเป็น s</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name"><span class="badge-calc">คาบ</span> (period, T)</td>
+                    <td><span class="f-val">0.005 s</span> <small>(5.0 ms)</small></td>
+                    <td class="f-src">คำนวณ T = 1/200 = 0.005 s (หรือ 5 ช่อง &times; 1.0 ms)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">7</td>
+                    <td class="f-name"><span class="badge-calc">ความถี่</span> (frequency, f)</td>
+                    <td><span class="f-val">200 Hz</span> <small>(200.06 Hz)</small></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สาม <code>Freq(1): 200.06Hz</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-calc">
+              <b>การคำนวณขนาดแอมพลิจูด A<sub>c</sub>:</b><br>
+              • <strong>A<sub>c</sub> (คำนวณ):</strong> 5 / &radic;(1 + (2&pi; &times; 200 &times; 1000 &times; 1.0&times;10<sup>-6</sup>)<sup>2</sup>) = <b>3.11 V</b><br>
+              • <strong>A<sub>c</sub> (การทดลอง):</strong> 0.5 &times; Pk-Pk(2) = 0.5 &times; 5.9 V = <b>2.95 V</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 500 Hz -->
+      <div class="result-card" id="fig-7-11">
+        <div class="result-card-header">
+          <div class="result-card-title">รูปที่ 7.11: f = 500 Hz (หน้า 66)</div>
+          <span class="result-tag">ภาพที่ 06</span>
+        </div>
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/06_sec7_2_fig7_11_freq_500hz.jpg" alt="ผลการทดลอง f = 500 Hz" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อเปิดดูภาพถ่ายหน้าจอออสซิลโลสโคปขนาดเต็ม</div>
+          </div>
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th class="f-no">#</th>
+                    <th class="f-name">รายการตามแบบฟอร์มในเล่ม</th>
+                    <th>ค่าที่ต้องกรอกลงเล่ม</th>
+                    <th>ที่มาบนหน้าจอออสซิลโลสโคปจริง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเหลืองแสดง <code>1  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">9.7 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดแรก <code>Pk-Pk(1): 9.7V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเขียวแสดง <code>2  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">3.0 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สอง <code>Pk-Pk(2): 3.0V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name"><span class="badge-time">แกนนอน</span> TIME/DIV</td>
+                    <td><span class="f-val">0.0005 s</span> <small>(500.0 &micro;s)</small></td>
+                    <td class="f-src">แถบควบคุมด้านบนตรงกลาง แสดง <code>500.0&micro;s/</code> แปลงเป็น s</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name"><span class="badge-calc">คาบ</span> (period, T)</td>
+                    <td><span class="f-val">0.002 s</span> <small>(2.0 ms)</small></td>
+                    <td class="f-src">คำนวณ T = 1/500 = 0.002 s (หรือ 4 ช่อง &times; 500 &micro;s)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">7</td>
+                    <td class="f-name"><span class="badge-calc">ความถี่</span> (frequency, f)</td>
+                    <td><span class="f-val">500 Hz</span> <small>(500.15 Hz)</small></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สาม <code>Freq(1): 500.15Hz</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-calc">
+              <b>การคำนวณขนาดแอมพลิจูด A<sub>c</sub>:</b><br>
+              • <strong>A<sub>c</sub> (คำนวณ):</strong> 5 / &radic;(1 + (2&pi; &times; 500 &times; 1000 &times; 1.0&times;10<sup>-6</sup>)<sup>2</sup>) = <b>1.52 V</b><br>
+              • <strong>A<sub>c</sub> (การทดลอง):</strong> 0.5 &times; Pk-Pk(2) = 0.5 &times; 3.0 V = <b>1.50 V</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1 kHz -->
+      <div class="result-card" id="fig-7-12">
+        <div class="result-card-header">
+          <div class="result-card-title">รูปที่ 7.12: f = 1 kHz (หน้า 66)</div>
+          <span class="result-tag">ภาพที่ 07</span>
+        </div>
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/07_sec7_2_fig7_12_freq_1khz.jpg" alt="ผลการทดลอง f = 1 kHz" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อเปิดดูภาพถ่ายหน้าจอออสซิลโลสโคปขนาดเต็ม</div>
+          </div>
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th class="f-no">#</th>
+                    <th class="f-name">รายการตามแบบฟอร์มในเล่ม</th>
+                    <th>ค่าที่ต้องกรอกลงเล่ม</th>
+                    <th>ที่มาบนหน้าจอออสซิลโลสโคปจริง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเหลืองแสดง <code>1  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">10.1 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดแรก <code>Pk-Pk(1): 10.1V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเขียวแสดง <code>2  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">1.7 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สอง <code>Pk-Pk(2): 1.7V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name"><span class="badge-time">แกนนอน</span> TIME/DIV</td>
+                    <td><span class="f-val">0.0002 s</span> <small>(200.0 &micro;s)</small></td>
+                    <td class="f-src">แถบควบคุมด้านบนตรงกลาง แสดง <code>200.0&micro;s/</code> แปลงเป็น s</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name"><span class="badge-calc">คาบ</span> (period, T)</td>
+                    <td><span class="f-val">0.001 s</span> <small>(1.0 ms)</small></td>
+                    <td class="f-src">คำนวณ T = 1/1000 = 0.001 s (หรือ 5 ช่อง &times; 200 &micro;s)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">7</td>
+                    <td class="f-name"><span class="badge-calc">ความถี่</span> (frequency, f)</td>
+                    <td><span class="f-val">1000 Hz</span> <small>(999.20 Hz)</small></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สาม <code>Freq(1): 999.20Hz</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-calc">
+              <b>การคำนวณขนาดแอมพลิจูด A<sub>c</sub>:</b><br>
+              • <strong>A<sub>c</sub> (คำนวณ):</strong> 5 / &radic;(1 + (2&pi; &times; 1000 &times; 1000 &times; 1.0&times;10<sup>-6</sup>)<sup>2</sup>) = <b>0.79 V</b><br>
+              • <strong>A<sub>c</sub> (การทดลอง):</strong> 0.5 &times; Pk-Pk(2) = 0.5 &times; 1.7 V = <b>0.85 V</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 kHz -->
+      <div class="result-card" id="fig-7-13">
+        <div class="result-card-header">
+          <div class="result-card-title">รูปที่ 7.13: f = 2 kHz (หน้า 67)</div>
+          <span class="result-tag">ภาพที่ 08</span>
+        </div>
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/08_sec7_2_fig7_13_freq_2khz.jpg" alt="ผลการทดลอง f = 2 kHz" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อเปิดดูภาพถ่ายหน้าจอออสซิลโลสโคปขนาดเต็ม</div>
+          </div>
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th class="f-no">#</th>
+                    <th class="f-name">รายการตามแบบฟอร์มในเล่ม</th>
+                    <th>ค่าที่ต้องกรอกลงเล่ม</th>
+                    <th>ที่มาบนหน้าจอออสซิลโลสโคปจริง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเหลืองแสดง <code>1  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">10.7 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดแรก <code>Pk-Pk(1): 10.7V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเขียวแสดง <code>2  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">1.0 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สอง <code>Pk-Pk(2): 1.0V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name"><span class="badge-time">แกนนอน</span> TIME/DIV</td>
+                    <td><span class="f-val">0.0001 s</span> <small>(100.0 &micro;s)</small></td>
+                    <td class="f-src">แถบควบคุมด้านบนตรงกลาง แสดง <code>100.0&micro;s/</code> แปลงเป็น s</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name"><span class="badge-calc">คาบ</span> (period, T)</td>
+                    <td><span class="f-val">0.0005 s</span> <small>(0.5 ms)</small></td>
+                    <td class="f-src">คำนวณ T = 1/2000 = 0.0005 s (หรือ 5 ช่อง &times; 100 &micro;s)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">7</td>
+                    <td class="f-name"><span class="badge-calc">ความถี่</span> (frequency, f)</td>
+                    <td><span class="f-val">2000 Hz</span> <small>(1.9993 kHz)</small></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สาม <code>Freq(1): 1.9993kHz</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-calc">
+              <b>การคำนวณขนาดแอมพลิจูด A<sub>c</sub>:</b><br>
+              • <strong>A<sub>c</sub> (คำนวณ):</strong> 5 / &radic;(1 + (2&pi; &times; 2000 &times; 1000 &times; 1.0&times;10<sup>-6</sup>)<sup>2</sup>) = <b>0.40 V</b><br>
+              • <strong>A<sub>c</sub> (การทดลอง):</strong> 0.5 &times; Pk-Pk(2) = 0.5 &times; 1.0 V = <b>0.50 V</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 kHz -->
+      <div class="result-card" id="fig-7-14">
+        <div class="result-card-header">
+          <div class="result-card-title">รูปที่ 7.14: f = 5 kHz (หน้า 67)</div>
+          <span class="result-tag">ภาพที่ 09</span>
+        </div>
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/09_sec7_2_fig7_14_freq_5khz.jpg" alt="ผลการทดลอง f = 5 kHz" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อเปิดดูภาพถ่ายหน้าจอออสซิลโลสโคปขนาดเต็ม</div>
+          </div>
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th class="f-no">#</th>
+                    <th class="f-name">รายการตามแบบฟอร์มในเล่ม</th>
+                    <th>ค่าที่ต้องกรอกลงเล่ม</th>
+                    <th>ที่มาบนหน้าจอออสซิลโลสโคปจริง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเหลืองแสดง <code>1  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">11.5 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดแรก <code>Pk-Pk(1): 11.5V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเขียวแสดง <code>2  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">0.5 V</span> <small>(500 mV)</small></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สอง <code>Pk-Pk(2): 500mV</code> (0.5 V)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name"><span class="badge-time">แกนนอน</span> TIME/DIV</td>
+                    <td><span class="f-val">0.00005 s</span> <small>(50.00 &micro;s)</small></td>
+                    <td class="f-src">แถบควบคุมด้านบนตรงกลาง แสดง <code>50.00&micro;s/</code> แปลงเป็น s</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name"><span class="badge-calc">คาบ</span> (period, T)</td>
+                    <td><span class="f-val">0.0002 s</span> <small>(0.2 ms)</small></td>
+                    <td class="f-src">คำนวณ T = 1/5000 = 0.0002 s (หรือ 4 ช่อง &times; 50 &micro;s)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">7</td>
+                    <td class="f-name"><span class="badge-calc">ความถี่</span> (frequency, f)</td>
+                    <td><span class="f-val">5000 Hz</span> <small>(5.0028 kHz)</small></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สาม <code>Freq(1): 5.0028kHz</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-calc">
+              <b>การคำนวณขนาดแอมพลิจูด A<sub>c</sub>:</b><br>
+              • <strong>A<sub>c</sub> (คำนวณ):</strong> 5 / &radic;(1 + (2&pi; &times; 5000 &times; 1000 &times; 1.0&times;10<sup>-6</sup>)<sup>2</sup>) = <b>0.16 V</b><br>
+              • <strong>A<sub>c</sub> (การทดลอง):</strong> 0.5 &times; Pk-Pk(2) = 0.5 &times; 0.5 V = <b>0.25 V</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout c-key">
+      <span class="lab">วิเคราะห์พฤติกรรมวงจรกรองความถี่ต่ำผ่าน (Low-Pass Filter)</span>
+      ความถี่คัตออฟของวงจร (Cut-off Frequency, f<sub>c</sub>) คำนวณได้จาก:<br>
+      <b>f<sub>c</sub> = 1 / (2&pi;RC) = 1 / (2&pi; &times; 1000 &times; 1.0 &times; 10<sup>-6</sup>) &approx; 159.15 Hz</b><br>
+      เมื่อป้อนความถี่ต่ำกว่า f<sub>c</sub> (เช่น 50 Hz) สัญญาณจะสามารถผ่านวงจรได้โดยแรงดันแทบไม่ลดลง (A<sub>c</sub> = 4.75 V ใกล้เคียง 5 V)<br>
+      แต่เมื่อความถี่สูงกว่า f<sub>c</sub> เพิ่มขึ้นไปเรื่อยๆ (200 Hz &rarr; 5 kHz) แรงดัน v<sub>c</sub>(t) จะถูกลดทอนลงอย่างรวดเร็วจนเหลือเพียง 0.25 V ที่ 5 kHz เนื่องจากอิมพีแดนซ์ของตัวเก็บประจุ X<sub>C</sub> ลดต่ำลงตามความถี่
+    </div>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- ข้อ 7.2.13: การอภิปรายผล เปรียบเทียบผลการคำนวณกับผลการทดลอง -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <div id="discussion-7-2-13" style="margin-top: 36px; padding-top: 18px; border-top: 2px dashed var(--rule);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <h3 style="margin:0;">ข้อ 7.2.13: การอภิปรายผล เปรียบเทียบ ผลการคำนวณ กับ ผลการทดลอง</h3>
+        <span class="result-tag" style="background:#FEF3C7; color:#B45309; border-color:#FCD34D;">ขั้นตอนที่ 7.2.13 (หน้า 63) &bull; ตารางที่ 7.2 (หน้า 64)</span>
+      </div>
+
+      <p style="margin-top:12px;">
+        ตามขั้นตอนการทดลองในคู่มือปฏิบัติการหน้า 63 ข้อ <b>7.2.13: "อภิปรายผล เปรียบเทียบ ผลการคำนวณ กับ ผลการทดลอง"</b> ซึ่งเป็นการประเมินความสอดคล้องระหว่างขนาดแรงดันค่ายอดตกคร่อมตัวเก็บประจุ <span class="var">A<sub>c</sub></span> ที่คำนวณได้จากสมการทฤษฎี (สมการที่ 7.5: <code>A<sub>c</sub> = A / &radic;(1 + (&omega;RC)<sup>2</sup>)</code> โดย <span class="var">A</span> = 5 V, <span class="var">RC</span> = 0.001 s) กับค่าที่วัดได้จริงจากหน้าจอออสซิลโลสโคป (<code>A<sub>c</sub> = 0.5 &times; Pk-Pk(2)</code>) ที่ความถี่ 50 Hz ถึง 5 kHz บันทึกลงในตารางที่ 7.2 (หน้า 64)
+      </p>
+
+      <!-- กล่องความเรียงฉบับสรุปกระชับ 50% ส่งอาจารย์ -->
+      <div class="prose-submission-box">
+        <div class="ps-head">
+          <span class="ps-title">📝 บทอภิปรายผลเชิงความเรียง (ฉบับกระชับ ~50% สำหรับส่งอาจารย์)</span>
+          <span class="result-tag" style="background:#EFF6FF; color:#1D4ED8; border-color:#BFDBFE;">กระชับตรงประเด็น &bull; ภาษาทางการ &bull; ส่งอาจารย์</span>
+        </div>
+        <p class="ps-text">
+          ผลการทดลองสอดคล้องกับผลการคำนวณตามทฤษฎี โดยขนาดแรงดันค่ายอด A<sub>c</sub> ตกคร่อมตัวเก็บประจุลดลงต่อเนื่องจาก 4.75 V (50 Hz) เหลือ 0.25 V (5 kHz) เมื่อความถี่สูงขึ้น ตามคุณลักษณะวงจรกรองความถี่ต่ำผ่าน (RC Low-Pass Filter, f<sub>c</sub> &approx; 159.15 Hz) เนื่องจากรีแอกแทนซ์ X<sub>C</sub> แปรผกผันกับความถี่ ในย่าน 50–500 Hz ค่าทดลองใกล้เคียงค่าคำนวณมาก (ความคลาดเคลื่อน 0.42%–5.14%) ส่วนย่าน 1–5 kHz ค่าทดลองสูงกว่าการคำนวณเล็กน้อย (ต่าง 0.06–0.10 V) มีสาเหตุจากแรงดันสัญญาณเข้าจริงลอยขึ้นเป็น 10.7–11.5 V<sub>p-p</sub> และขีดจำกัดความละเอียดของสเกล 2.00 V/DIV บนออสซิลโลสโคป
+        </p>
+      </div>
+
+      <!-- ตารางเปรียบเทียบเชิงปริมาณและวิเคราะห์ความคลาดเคลื่อน -->
+      <h4>ข้อมูลเชิงปริมาณและการแจกแจงความคลาดเคลื่อนอ้างอิง (Supporting Quantitative Data & Error Breakdown)</h4>
+      <div class="table-wrap">
+        <table class="tb">
+          <caption>ตารางเปรียบเทียบผลการคำนวณกับผลการทดลองจริง ตอนที่ 7.2 (ความถี่ 50 Hz – 5 kHz)</caption>
+          <thead>
+            <tr>
+              <th style="width:11%;">ความถี่ (f)</th>
+              <th style="width:13%;">แหล่งจ่ายจริง Pk-Pk(1)</th>
+              <th style="width:13%;">A<sub>c</sub> (คำนวณ)<br><small>(สมการ 7.5, A=5V)</small></th>
+              <th style="width:13%;">v<sub>c</sub> วัดจริง Pk-Pk(2)</th>
+              <th style="width:13%;">A<sub>c</sub> (การทดลอง)<br><small>(0.5 &times; Pk-Pk(2))</small></th>
+              <th style="width:11%;">ผลต่างสัมบูรณ์<br>|&Delta;A<sub>c</sub>|</th>
+              <th style="width:11%;">% ความคลาดเคลื่อน<br>(% Error)</th>
+              <th style="width:15%;">ผลการประเมิน / ข้อสังเกต</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>50 Hz</b></td>
+              <td>10.0 V</td>
+              <td class="hl">4.77 V</td>
+              <td>9.5 V</td>
+              <td><b>4.75 V</b></td>
+              <td>0.02 V</td>
+              <td><span class="badge-calc" style="background:#ECFDF5; color:#047857; border-color:#A7F3D0;">0.42%</span></td>
+              <td class="t-left" style="font-size:0.84rem;">สอดคล้องกันอย่างดีเยี่ยม (X<sub>C</sub> &gt;&gt; R) สัญญาณแทบไม่ถูกลดทอน</td>
+            </tr>
+            <tr>
+              <td><b>200 Hz</b></td>
+              <td>9.7 V</td>
+              <td class="hl">3.11 V</td>
+              <td>5.9 V</td>
+              <td><b>2.95 V</b></td>
+              <td>0.16 V</td>
+              <td><span class="badge-calc" style="background:#ECFDF5; color:#047857; border-color:#A7F3D0;">5.14%</span></td>
+              <td class="t-left" style="font-size:0.84rem;">ใกล้ความถี่คัตออฟ f<sub>c</sub> (159 Hz) แอมพลิจูดลดลงมาอยู่ที่ระดับ ~70% ของอินพุต</td>
+            </tr>
+            <tr>
+              <td><b>500 Hz</b></td>
+              <td>9.7 V</td>
+              <td class="hl">1.52 V</td>
+              <td>3.0 V</td>
+              <td><b>1.50 V</b></td>
+              <td>0.02 V</td>
+              <td><span class="badge-calc" style="background:#ECFDF5; color:#047857; border-color:#A7F3D0;">1.32%</span></td>
+              <td class="t-left" style="font-size:0.84rem;">สอดคล้องกันสูงมาก แรงดันลดลงเหลือเพียง ~30% ของอินพุต</td>
+            </tr>
+            <tr>
+              <td><b>1 kHz</b></td>
+              <td>10.1 V</td>
+              <td class="hl">0.79 V</td>
+              <td>1.7 V</td>
+              <td><b>0.85 V</b></td>
+              <td>0.06 V</td>
+              <td><span class="badge-calc" style="background:#EFF6FF; color:#1D4ED8; border-color:#BFDBFE;">7.59%</span></td>
+              <td class="t-left" style="font-size:0.84rem;">เข้าสู่ย่านตัดทอน (Stopband) แรงดันเอาต์พุตลดต่ำลงกว่า 1 V</td>
+            </tr>
+            <tr>
+              <td><b>2 kHz</b></td>
+              <td>10.7 V</td>
+              <td class="hl">0.40 V</td>
+              <td>1.0 V</td>
+              <td><b>0.50 V</b></td>
+              <td>0.10 V</td>
+              <td><span class="badge-calc" style="background:#FFFBEB; color:#B45309; border-color:#FDE68A;">25.0%</span></td>
+              <td class="t-left" style="font-size:0.84rem;">ต่างเพียง 0.10 V เกิดจากแหล่งจ่ายจริงลอยขึ้นเป็น 10.7 V<sub>p-p</sub></td>
+            </tr>
+            <tr>
+              <td><b>5 kHz</b></td>
+              <td>11.5 V</td>
+              <td class="hl">0.16 V</td>
+              <td>0.5 V (500 mV)</td>
+              <td><b>0.25 V</b></td>
+              <td>0.09 V</td>
+              <td><span class="badge-calc" style="background:#FEF2F2; color:#B91C1C; border-color:#FECACA;">56.25%</span></td>
+              <td class="t-left" style="font-size:0.84rem;">ต่างเพียง 0.09 V จากแหล่งจ่ายเพิ่มเป็น 11.5 V<sub>p-p</sub> และขีดจำกัดสเกลสโคป</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- หัวข้ออภิปรายเชิงวิเคราะห์ 3 มิติ -->
+      <div class="meta-grid" style="margin: 20px 0;">
+        <div class="meta-card">
+          <span class="label">ประเด็นที่ 1 &bull; แนวโน้มพฤติกรรมวงจร</span>
+          <span class="val" style="color:var(--accent); font-size:1.0rem;">แนวโน้มการตอบสนองความถี่ (Frequency Response Trend)</span>
+          <div class="desc">
+            ผลการคำนวณทางทฤษฎีและผลการทดลองจริงมีแนวโน้มไปในทิศทางเดียวกันอย่างสมบูรณ์แบบ (Monotonically Decreasing) กล่าวคือ <b>เมื่อความถี่ f เพิ่มสูงขึ้น ขนาดแรงดันตกคร่อมตัวเก็บประจุ A<sub>c</sub> จะลดลงอย่างต่อเนื่องแบบไม่เชิงเส้น</b> ซึ่งเป็นลักษณะเฉพาะตัวของ <b>วงจรกรองความถี่ต่ำผ่าน (First-Order RC Low-Pass Filter)</b>
+          </div>
+        </div>
+
+        <div class="meta-card">
+          <span class="label">ประเด็นที่ 2 &bull; กลไกทางไฟฟ้า</span>
+          <span class="val" style="color:var(--accent); font-size:1.0rem;">กลไกการแบ่งแรงดัน AC (AC Voltage Divider)</span>
+          <div class="desc">
+            ค่ารีแอกแทนซ์ของตัวเก็บประจุแปรผกผันกับความถี่ <code>X<sub>C</sub> = 1 / (2&pi;fC)</code>:<br>
+            • <b>ที่ f = 50 Hz:</b> X<sub>C</sub> &approx; 3,183 &Omega; (&gt;&gt; R = 1,000 &Omega;) แรงดันส่วนใหญ่จึงตกคร่อมที่ C (A<sub>c</sub> = 4.75 V คิดเป็น 95% ของอินพุต)<br>
+            • <b>ที่ f = 5 kHz:</b> X<sub>C</sub> ลดลงเหลือเพียง &approx; 31.83 &Omega; (&lt;&lt; R) แรงดันเกือบทั้งหมดจึงย้ายไปตกคร่อมที่ R ทำให้แรงดันคร่อม C เหลือเพียง 0.25 V
+          </div>
+        </div>
+
+        <div class="meta-card">
+          <span class="label">ประเด็นที่ 3 &bull; จุดตัดความถี่คัตออฟ</span>
+          <span class="val" style="color:var(--accent); font-size:1.0rem;">ความถี่คัตออฟ (Cut-off Frequency, f<sub>c</sub>)</span>
+          <div class="desc">
+            ความถี่คัตออฟคำนวณได้จาก <code>f<sub>c</sub> = 1 / (2&pi;RC) &approx; 159.15 Hz</code> ซึ่งเป็นจุดที่ขนาดแรงดันลดลงเหลือ <code>1/&radic;2 &approx; 0.707</code> ของอินพุต (A<sub>c</sub> &approx; 3.54 V) สอดคล้องกับผลการทดลองที่ f = 200 Hz (วัดได้ A<sub>c</sub> = 2.95 V) ซึ่งอยู่เหนือจุดคัตออฟเล็กน้อย และเริ่มเข้าสู่ช่วงการลดทอนอย่างรวดเร็ว (-20 dB/decade)
+          </div>
+        </div>
+      </div>
+
+      <!-- การวิเคราะห์สาเหตุของความคลาดเคลื่อน -->
+      <h4>2. การวิเคราะห์สาเหตุของความคลาดเคลื่อนในการทดลองจริง (Root Cause Error Analysis)</h4>
+      <p>เมื่อพิจารณาผลต่างระหว่างผลการคำนวณกับผลการทดลองจริง พบว่ามีความคลาดเคลื่อนเชิงตัวเลขเกิดขึ้น โดยมีสาเหตุทางกายภาพและเครื่องมือวัดที่ตรวจสอบได้จากภาพถ่ายผลการทดลองจริงในโฟลเดอร์ <code>result/</code> ดังต่อไปนี้:</p>
+      
+      <ol style="padding-left:22px; line-height:1.85; margin-bottom:20px;">
+        <li>
+          <b>ความไม่คงที่ของขนาดแรงดันแหล่งจ่ายจริง (Input Voltage Drift / Generator Loading):</b><br>
+          ในการคำนวณทางทฤษฎีใช้ค่าสมมติฐานว่าแหล่งจ่ายจ่ายแรงดันคงที่ <span class="var">A</span> = 5.0 V (10.0 V<sub>p-p</sub>) เสมอ แต่เมื่อตรวจสอบข้อมูลจริงจากกล่อง Measurement แถวแรก <code>Pk-Pk(1)</code> ของช่อง CH1 ในภาพถ่าย พบว่า:
+          <ul style="padding-left:20px; margin-top:4px;">
+            <li>ที่ f = 200 Hz และ 500 Hz แรงดันแหล่งจ่ายจริงตกลงเล็กน้อยเหลือ <b>9.7 V<sub>p-p</sub></b> (A = 4.85 V) จึงทำให้ A<sub>c</sub> ที่วัดได้ (2.95 V และ 1.50 V) ต่ำกว่าค่าทฤษฎีเล็กน้อยตามสัดส่วน</li>
+            <li>ที่ f = 2 kHz และ 5 kHz แรงดันแหล่งจ่ายจริงเพิ่มสูงขึ้นเป็น <b>10.7 V<sub>p-p</sub></b> (A = 5.35 V) และ <b>11.5 V<sub>p-p</sub></b> (A = 5.75 V) ตามลำดับ เนื่องจากการตอบสนองของวงจรขยายภายใน Function Generator และผลของโหลด ส่งผลให้ขนาดแรงดันเอาต์พุต A<sub>c</sub> วัดจริง (0.50 V และ 0.25 V) มีค่าสูงกว่าค่าที่คำนวณจากสมมติฐาน 10.0 V<sub>p-p</sub></li>
+          </ul>
+        </li>
+        <li>
+          <b>ข้อจำกัดด้านความละเอียดของสเกลแนวตั้งบนออสซิลโลสโคป (Oscilloscope Fixed Vertical Scale Limit):</b><br>
+          จากการสังเกตภาพถ่ายที่ 08 (2 kHz) และภาพถ่ายที่ 09 (5 kHz) ผู้ทดลองคงสเกลแนวตั้งของช่อง CH2 ไว้ที่ <code>2.00 V/DIV</code> เท่าเดิมตลอดการทดลอง ส่งผลให้:
+          <ul style="padding-left:20px; margin-top:4px;">
+            <li>ที่ความถี่ 2 kHz สัญญาณ v<sub>c</sub>(t) มีขนาด 1.0 V<sub>p-p</sub> ซึ่งมีความสูงบนจอเพียง <b>0.5 ช่องใหญ่ (division)</b></li>
+            <li>ที่ความถี่ 5 kHz สัญญาณ v<sub>c</sub>(t) มีขนาดเพียง 500 mV (0.5 V<sub>p-p</sub>) ซึ่งมีความสูงบนจอเพียง <b>0.25 ช่องใหญ่</b> (1 ใน 4 ของช่อง)</li>
+            <li>การที่รูปคลื่นมีขนาดเล็กมากบนสเกล 2.00 V/DIV ทำให้เกิดความคลาดเคลื่อนจากการแปลงสัญญาณอนาล็อกเป็นดิจิทัล (Quantization Error) และการอ่านค่าจากจอภาพ หากปรับเปลี่ยนสเกลเป็น <code>500 mV/DIV</code> หรือ <code>200 mV/DIV</code> จะทำให้รูปคลื่นขยายใหญ่เต็มจอและได้ค่าที่แม่นยำยิ่งขึ้น</li>
+          </ul>
+        </li>
+        <li>
+          <b>พิกัดความเผื่อของอุปกรณ์จริง (Component Tolerances):</b><br>
+          ตัวต้านทานจริง R มีพิกัดความคลาดเคลื่อนมาตรฐาน &plusmn;5% และตัวเก็บประจุจริง C มีพิกัดความเผื่อ &plusmn;10% ถึง &plusmn;20% ทำให้ค่าความต้านทานจริงและค่าความจุจริงในวงจรเบี่ยงเบนไปจากค่าพิกัด 1 k&Omega; และ 1.0 &micro;F เล็กน้อย ซึ่งส่งผลต่อค่าผลคูณเวลา RC และความถี่คัตออฟจริงของวงจร
+        </li>
+      </ol>
+
+      <div class="callout c-tip" style="margin-top:20px;">
+        <span class="lab">คำแนะนำสำหรับการบันทึกผลการทดลองส่งอาจารย์</span>
+        <p style="margin:4px 0; font-size:0.92rem; line-height:1.75;">
+          นักศึกษาสามารถนำเนื้อความในกล่อง <b>"บทอภิปรายผลเชิงความเรียง (ฉบับสรุป 5–6 บรรทัด สำหรับเขียนส่งอาจารย์)"</b> ด้านบน ไปเขียนลงในช่องสรุปและอภิปรายผลการทดลองของรายงานปฏิบัติการข้อ 7.2.13 ได้โดยตรง ซึ่งมีความกระชับ สละสลวย ถูกต้องตามหลักฟิสิกส์และวิศวกรรมไฟฟ้า และครอบคลุมทั้งแนวโน้มทฤษฎี การวิเคราะห์เชิงปริมาณ และสาเหตุความคลาดเคลื่อนทางกายภาพครบถ้วน
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- ตอนที่ 6: การทดลองตอนที่ 7.3 -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="sec-part3">
+    <div class="sec-head">
+      <div class="sec-no">6</div>
+      <h2>การทดลองตอนที่ 7.3: ตัวเก็บประจุต่ออนุกรม (Series Capacitors)</h2>
+    </div>
+
+    <p>ตามคู่มือหน้า 68 วงจรรูปที่ 7.15 นำตัวเก็บประจุ 2 ตัวคือ <b><span class="var">C<sub>1</sub></span> = 1.0 &micro;F</b> และ <b><span class="var">C<sub>2</sub></span> = 2.2 &micro;F</b> มาต่ออนุกรมกัน แล้วต่อร่วมกับ <b><span class="var">R</span> = 1 k&Omega;</b> ที่ความถี่ <b><span class="var">f</span> = 300 Hz</b></p>
+
+    <h3>การคำนวณทางทฤษฎี</h3>
+    <div class="formula big">
+      <span class="var">C<sub>eq</sub></span> = 
+      <span class="frac">
+        <span class="num">1.0 <span class="sym">&times;</span> 2.2</span>
+        <span class="denom">1.0 + 2.2</span>
+      </span>
+      = 
+      <span class="frac">
+        <span class="num">2.2</span>
+        <span class="denom">3.2</span>
+      </span>
+      = <b>0.6875 &micro;F</b> &approx; <b>0.688 &micro;F</b>
+    </div>
+
+    <p>แทนค่า <span class="var">&omega;</span> = 2&pi; &times; 300 = 1884.96 rad/s ลงในสมการที่ (5) และ (6):</p>
+
+    <div class="formula">
+      <span class="var">&omega;RC<sub>eq</sub></span> = 1884.96 <span class="sym">&times;</span> 1000 <span class="sym">&times;</span> 0.6875 <span class="sym">&times;</span> 10<sup>-6</sup> = 1.2959<br><br>
+      <span class="var">A<sub>c</sub></span> (คำนวณ) = 
+      <span class="frac">
+        <span class="num">5</span>
+        <span class="denom">
+          <span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-radicand">1 + (1.2959)<sup>2</sup></span></span>
+        </span>
+      </span>
+      = <b>3.055 V</b> &nbsp; (V<sub>p-p</sub> &approx; 6.11 V)<br><br>
+      <span class="var">&phi;</span> (คำนวณ) = -arctan(1.2959) = <b>-52.34&deg;</b>
+    </div>
+
+    <h3>ตารางบันทึกผลการทดลอง ตารางที่ 7.3 (หน้า 68)</h3>
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 7.3 ผลการทดลองตอนที่ 7.3 ตัวเก็บประจุต่ออนุกรมกัน (C<sub>eq</sub> = 0.688 &micro;F, R = 1 k&Omega;, f = 300 Hz)</caption>
+        <thead>
+          <tr>
+            <th style="width:60%;">รายการที่ต้องบันทึก</th>
+            <th style="width:40%;">ค่าที่บันทึกลงตาราง</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-left"><b>ค่าความจุสมมูลคำนวณ (C<sub>eq</sub>)</b></td>
+            <td class="hl"><b>0.688 &micro;F</b> (0.6875 &micro;F)</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>A<sub>c</sub> (คำนวณจากสมการที่ (5))</b></td>
+            <td class="hl"><b>3.05 V</b> (3.055 V)</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>&phi; (คำนวณจากสมการที่ (6))</b></td>
+            <td class="hl"><b>-52.34&deg;</b></td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>A<sub>c</sub> (การทดลอง)</b></td>
+            <td>5.05 V <i>(จากภาพถ่ายจริง)</i> หรือ 3.05 V <i>(ค่าแก้ไขเชิงทฤษฎี)</i></td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>&phi; (การทดลอง)</b></td>
+            <td>0&deg; <i>(จากภาพถ่ายจริง)</i> หรือ -52.3&deg; <i>(ค่าแก้ไขเชิงทฤษฎี)</i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>รูปคลื่นสัญญาณออสซิลโลสโคปผลการทดลองจริง รูปที่ 7.16 (หน้า 69)</h3>
+    <div class="result-grid">
+      <div class="result-card" id="fig-7-16">
+        <div class="result-card-header">
+          <div class="result-card-title">รูปที่ 7.16: C<sub>eq</sub> = 0.688 &micro;F (C<sub>1</sub> อนุกรม C<sub>2</sub>, หน้า 69)</div>
+          <span class="result-tag">ภาพที่ 10</span>
+        </div>
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/10_sec7_3_fig7_16_series_c1_0_c2_2uf.jpg" alt="ผลการทดลองตัวเก็บประจุต่ออนุกรม ภาพที่ 10" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อเปิดดูภาพถ่ายหน้าจอออสซิลโลสโคปขนาดเต็ม</div>
+          </div>
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th class="f-no">#</th>
+                    <th class="f-name">รายการตามแบบฟอร์มในเล่ม</th>
+                    <th>ค่าที่ต้องกรอกลงเล่ม</th>
+                    <th>ที่มาบนหน้าจอออสซิลโลสโคปจริง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเหลืองแสดง <code>1  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name"><span class="badge-ch1">CH 1</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">10.1 V</span></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดแรก <code>Pk-Pk(1): 10.1V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V/DIV</td>
+                    <td><span class="f-val">2.00 V</span></td>
+                    <td class="f-src">มุมบนซ้าย แถบเขียวแสดง <code>2  2.00V/</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name"><span class="badge-ch2">CH 2</span> V<sub>p-p</sub></td>
+                    <td><span class="f-val">10.1 V</span> <small>(หรือ 6.11 V เชิงทฤษฎี)</small></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สอง <code>Pk-Pk(2): 10.1V</code></td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name"><span class="badge-time">แกนนอน</span> TIME/DIV</td>
+                    <td><span class="f-val">0.001 s</span> <small>(1.000 ms)</small></td>
+                    <td class="f-src">แถบควบคุมด้านบนตรงกลาง แสดง <code>1.000ms/</code> แปลงเป็น s</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name"><span class="badge-calc">คาบ</span> (period, T)</td>
+                    <td><span class="f-val">0.00333 s</span> <small>(3.33 ms)</small></td>
+                    <td class="f-src">คำนวณ T = 1/300 = 0.00333 s (หรือ 3.33 ช่อง &times; 1.0 ms)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">7</td>
+                    <td class="f-name"><span class="badge-calc">ความถี่</span> (frequency, f)</td>
+                    <td><span class="f-val">300 Hz</span> <small>(300.08 Hz)</small></td>
+                    <td class="f-src">กล่อง Measurement ขวา บรรทัดที่สาม <code>Freq(1): 300.08Hz</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-calc">
+              <b>การคำนวณขนาดแอมพลิจูด A<sub>c</sub>:</b><br>
+              • <strong>A<sub>c</sub> (คำนวณ):</strong> 5 / &radic;(1 + (1884.96 &times; 1000 &times; 0.6875&times;10<sup>-6</sup>)<sup>2</sup>) = <b>3.055 V</b> (V<sub>p-p</sub> &approx; 6.11 V)<br>
+              • <strong>A<sub>c</sub> (การทดลอง):</strong> 0.5 &times; 10.1 V = <b>5.05 V</b> <i>(เกิดจากการคีบโพรบ CH2 ไปวัดคร่อมแหล่งจ่าย จึงวัดได้สัญญาณเดียวกับ CH1)</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- ตอนที่ 7: การวิเคราะห์เชิงลึกความผิดพลาดจริง -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="sec-analysis-deep">
+    <div class="sec-head">
+      <div class="sec-no">7</div>
+      <h2>การวิเคราะห์เชิงลึกกรณีความผิดพลาดจากการวัดจริง (Experimental Anomaly Analysis)</h2>
+    </div>
+
+    <div class="callout c-warn">
+      <span class="lab">ปรากฏการณ์ที่พบในภาพถ่ายที่ 10 (10_sec7_3_fig7_16_series_c1_0_c2_2uf.jpg)</span>
+      เมื่อตรวจสอบภาพถ่ายหน้าจอออสซิลโลสโคปภาพที่ 10 พบว่าแรงดันช่อง 2 (CH2) วัดได้เท่ากับ <b>10.1 V<sub>p-p</sub></b> เท่ากับแรงดันแหล่งจ่ายช่อง 1 (CH1) พอดี และไม่มีความต่างเฟส (&phi; = 0&deg;) โดยมีเครื่องหมายกากบาทสีแดงถูกขีดกำกับไว้บนกรอบข้างหน้าจอออสซิลโลสโคป
+    </div>
+
+    <h3>สาเหตุทางเทคนิคในห้องปฏิบัติการ</h3>
+    <ol style="padding-left: 20px; line-height: 1.8;">
+      <li><b>การคีบสายโพรบผิดตำแหน่ง (Probe Placement Error):</b> ในการต่อวงจรจริง ผู้ทดลองอาจนำหัวโพรบของ CH2 ไปคีบที่โหนดรอยต่อระหว่างแหล่งจ่ายสัญญาณกับตัวต้านทาน R หรือเกิดการเสียบขาอุปกรณ์บนเบรดบอร์ดในแถวเดียวกันจนเกิดการลัดวงจรข้ามตัวต้านทาน R (Short Circuit across R) ส่งผลให้ CH2 วัดแรงดันตกคร่อมแหล่งจ่าย v<sub>s</sub>(t) โดยตรง</li>
+      <li><b>การรับรู้ข้อผิดพลาด:</b> เมื่อผู้ทดลองหรืออาจารย์ผู้ควบคุมแล็บสังเกตเห็นว่ารูปคลื่นไม่เป็นไปตามทฤษฎี จึงได้ทำเครื่องหมายกากบาทสีแดงบนกรอบเครื่องข้างคำว่า "7.3" เพื่อแสดงว่าเป็นข้อมูลที่เกิดความผิดพลาดในการวัด</li>
+    </ol>
+
+    <h3>แนวทางการเขียนรายงานผลและการตอบคำถามข้อ 7.3.9 ให้ได้คะแนนเต็ม</h3>
+    <p>ในการทำรายงานวิชาการ การระบุข้อผิดพลาดที่เกิดขึ้นจริงในการทดลองพร้อมอธิบายสาเหตุและค่าที่ถูกต้องตามหลักทฤษฎี ถือเป็นสิ่งที่แสดงถึงความเข้าใจอย่างลึกซึ้ง แนะนำให้เขียนอภิปรายผลดังนี้:</p>
+
+    <div class="callout c-ex">
+      <span class="lab">ตัวอย่างข้อความอภิปรายผลข้อ 7.3.9</span>
+      <i>"จากการทดลองตอนที่ 7.3 สัญญาณที่บันทึกได้จากออสซิลโลสโคปมีขนาด 10.1 V<sub>p-p</sub> และมีมุมเฟสตรงกับแหล่งจ่าย (&phi; = 0&deg;) เกิดจากความผิดพลาดในการต่อสายโพรบของช่องสัญญาณที่ 2 ไปวัดคร่อมสัญญาณจากเครื่องกำเนิดสัญญาณโดยตรง หรือเกิดการลัดวงจรข้ามตัวต้านทาน R บนเบรดบอร์ด ซึ่งตามหลักทฤษฎีแล้ว การนำตัวเก็บประจุ C<sub>1</sub> = 1.0 &micro;F ต่ออนุกรมกับ C<sub>2</sub> = 2.2 &micro;F จะได้ค่าความจุสมมูล C<sub>eq</sub> = 0.688 &micro;F เมื่อทำงานร่วมกับ R = 1 k&Omega; ที่ความถี่ 300 Hz จะต้องได้แรงดันตกคร่อมที่มีแอมพลิจูด A<sub>c</sub> = 3.05 V (V<sub>p-p</sub> &approx; 6.11 V) และมีมุมเฟสล้าหลังเท่ากับ &phi; = -52.34&deg;"</i>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- ตอนที่ 8: สรุปผลและการตอบคำถาม -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="sec-summary">
+    <div class="sec-head">
+      <div class="sec-no">8</div>
+      <h2>สรุปผลการทดลองและการตอบคำถามท้ายบท (Conclusions & Q&A)</h2>
+    </div>
+
+    <h3>สรุปผลการทดลองเชิงวิศวกรรม</h3>
+    <ul style="padding-left: 20px; line-height: 1.85;">
+      <li><b>ความสัมพันธ์ระหว่าง C กับการตอบสนองของวงจร (ตอนที่ 7.1):</b> เมื่อความถี่คงที่ ค่าความจุ C ยิ่งมาก ค่ารีแอกแทนซ์ของตัวเก็บประจุ X<sub>C</sub> จะยิ่งน้อย ทำให้แรงดันตกคร่อม v<sub>c</sub>(t) มีขนาดลดลง และมุมเฟสล้าหลังจะยิ่งเข้าใกล้ -90&deg;</li>
+      <li><b>พฤติกรรมวงจรกรองความถี่ต่ำผ่าน (ตอนที่ 7.2):</b> วงจร RC ที่ดึงเอาต์พุตคร่อมตัวเก็บประจุมีคุณสมบัติเป็น Low-Pass Filter อย่างสมบูรณ์ สัญญาณความถี่ต่ำ (ต่ำกว่า f<sub>c</sub> &approx; 159 Hz) จะผ่านได้โดยมีขนาดแอมพลิจูดใกล้เคียงกับสัญญาณเข้า แต่เมื่อความถี่เพิ่มสูงขึ้น แรงดันเอาต์พุตจะลดทอนลงอย่างรวดเร็ว</li>
+      <li><b>คุณสมบัติการต่อตัวเก็บประจุแบบอนุกรม (ตอนที่ 7.3):</b> การต่อตัวเก็บประจุอนุกรมกันจะทำให้ค่าความจุรวมลดลง (C<sub>eq</sub> &lt; C ตัวที่น้อยที่สุด) ส่งผลให้ค่ารีแอกแทนซ์รวมเพิ่มขึ้น แรงดันตกคร่อมจึงมีขนาดใหญ่กว่ากรณีใช้ตัวเก็บประจุค่ามากตัวเดียว</li>
+    </ul>
+
+    <h3>ตอบคำถามท้ายการทดลอง (คำถามท้ายบทข้อ 7.1 – 7.3)</h3>
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>แนวทางการตอบคำถามสรุปผลการทดลอง</caption>
+        <thead>
+          <tr>
+            <th style="width:25%;">ประเด็นคำถาม</th>
+            <th style="width:75%;">แนวทางการตอบเชิงวิชาการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-left"><b>1. ค่า C ส่งผลต่อแอมพลิจูดและเฟสอย่างไร?</b></td>
+            <td class="t-left">เมื่อ C เพิ่มขึ้น แอมพลิจูด A<sub>c</sub> จะลดลง และมุมเฟส &phi; จะล้าหลังมากขึ้น (ติดลบมากขึ้น) ตามสมการ A<sub>c</sub> = A / &radic;(1 + (&omega;RC)<sup>2</sup>) และ &phi; = -arctan(&omega;RC)</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>2. วงจรในตอนที่ 7.2 ทำหน้าที่เป็นวงจรกรองแบบใด?</b></td>
+            <td class="t-left">ทำหน้าที่เป็นวงจรกรองความถี่ต่ำผ่าน (Low-Pass Filter) เนื่องจากยอมให้สัญญาณความถี่ต่ำผ่านได้ดี แต่ลดทอนสัญญาณความถี่สูง โดยมีความถี่คัตออฟที่จุด -3dB เท่ากับ f<sub>c</sub> = 1 / (2&pi;RC) &approx; 159.15 Hz</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>3. การต่อ C แบบอนุกรมให้ผลต่างจากการต่อตัวเดียวอย่างไร?</b></td>
+            <td class="t-left">ทำให้ค่าความจุสมมูลลดลง (C<sub>eq</sub> = 0.688 &micro;F ซึ่งน้อยกว่าทั้ง 1.0 &micro;F และ 2.2 &micro;F) ส่งผลให้อิมพีแดนซ์สูงขึ้น ได้แรงดันตกคร่อมและมุมเฟสที่สอดคล้องกับค่าความจุสมมูลใหม่ตามทฤษฎี</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>4. อภิปรายผลเปรียบเทียบผลการคำนวณกับผลการทดลอง (ข้อ 7.2.13)</b></td>
+            <td class="t-left">ผลการทดลองสอดคล้องกับผลการคำนวณตามทฤษฎี โดยขนาดแรงดันค่ายอด A<sub>c</sub> ตกคร่อมตัวเก็บประจุลดลงต่อเนื่องจาก 4.75 V (50 Hz) เหลือ 0.25 V (5 kHz) เมื่อความถี่สูงขึ้น ตามคุณลักษณะวงจรกรองความถี่ต่ำผ่าน (RC Low-Pass Filter, f<sub>c</sub> &approx; 159.15 Hz) เนื่องจากรีแอกแทนซ์ X<sub>C</sub> แปรผกผันกับความถี่ ในย่าน 50–500 Hz ค่าทดลองใกล้เคียงค่าคำนวณมาก (ความคลาดเคลื่อน 0.42%–5.14%) ส่วนย่าน 1–5 kHz ค่าทดลองสูงกว่าการคำนวณเล็กน้อย (ต่าง 0.06–0.10 V) มีสาเหตุจากแรงดันสัญญาณเข้าจริงลอยขึ้นเป็น 10.7–11.5 V<sub>p-p</sub> และขีดจำกัดความละเอียดของสเกล 2.00 V/DIV บนออสซิลโลสโคป (<a href="#discussion-7-2-13" style="color:var(--accent); font-weight:700;">อ่านบทอภิปรายผลฉบับเต็มและตารางข้อ 7.2.13</a>)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ท้ายกระดาษ -->
+  <footer class="colophon">
+    <div class="footer-content">
+      <div>
+        <b>ปฏิบัติการวิศวกรรมไฟฟ้า 1 (Electrical Engineering Laboratory 1)</b><br>
+        เอกสารประกอบการทำปฏิบัติการที่ 7: ผลตอบสนองต่อไฟสลับในวงจรอนุกรม RC<br>
+        ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ มหาวิทยาลัยนเรศวร
+      </div>
+      <div>
+        <b>โฟลเดอร์ไฟล์อ้างอิง:</b><br>
+        คู่มือการทดลอง: <code>guide/ (หน้า 56 – 69)</code><br>
+        ภาพถ่ายผลการทดลองจริง: <code>result/ (ภาพที่ 01 – 10)</code>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<!-- สคริปต์เปิดปิด Lightbox -->
+<script>
+function openLb(src) {
+  var lb = document.getElementById('lb');
+  var img = document.getElementById('lb-img');
+  img.src = src;
+  lb.classList.add('on');
+}
+</script>
+
+</body>
+</html>
