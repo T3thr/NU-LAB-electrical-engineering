@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 390" width="100%" height="auto" style="background:#FFFDF9; font-family:'IBM Plex Sans Thai', Sarabun, sans-serif;">
+<rect width="820" height="390" rx="8" fill="#FFFDF9" stroke="#D8CFBC" stroke-width="1.5"/>
+<text x="410" y="32" fill="#0F172A" font-size="15" font-weight="800" text-anchor="middle">รูปที่ 9.3 วงจรตามแรงดัน หรือ บัฟเฟอร์ (Voltage Follower / Buffer Amplifier)</text>
+<text x="410" y="52" fill="#64748B" font-size="12" text-anchor="middle">สมการอัตราขยาย: V_out = V_in  |  A_v = +1  (R_in ≈ ∞, R_out ≈ 0 ป้องกันผลการโหลด)</text>
+<!-- Op-Amp Symbol -->
+<polygon points="405,155 405,245 495,200" fill="#FFFFFF" stroke="#0F172A" stroke-width="2.5"/>
+<text x="414" y="182" fill="#0F172A" font-size="16" font-weight="900">-</text>
+<text x="414" y="226" fill="#0F172A" font-size="16" font-weight="900">+</text>
+<text x="440" y="205" fill="#64748B" font-size="11" font-weight="700">LM741</text>
+<line x1="450" y1="167" x2="450" y2="140" stroke="#0F172A" stroke-width="1.8"/>
+<text x="450" y="134" fill="#DC2626" font-size="11" font-weight="800" text-anchor="middle">+15V (Pin 7)</text>
+<line x1="450" y1="233" x2="450" y2="260" stroke="#0F172A" stroke-width="1.8"/>
+<text x="450" y="273" fill="#2563EB" font-size="11" font-weight="800" text-anchor="middle">-15V (Pin 4)</text>
+<!-- Input Terminal Vin -->
+<circle cx="160" cy="222" r="4" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+<text x="148" y="227" fill="#0F172A" font-size="13" font-weight="800" text-anchor="end">V_in (v_s)</text>
+<line x1="164" y1="222" x2="405" y2="222" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="405" y1="178" x2="350" y2="178" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="350" y1="178" x2="350" y2="100" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="350" y1="100" x2="550" y2="100" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="550" y1="100" x2="550" y2="200" stroke="#0F172A" stroke-width="2.2"/>
+<text x="450" y="90" fill="#0284C7" font-size="12" font-weight="800" text-anchor="middle">สายป้อนกลับโดยตรง (R_F = 0, R_S = ∞)</text>
+<line x1="495" y1="200" x2="680" y2="200" stroke="#0F172A" stroke-width="2.2"/>
+<circle cx="550" cy="200" r="4" fill="#0F172A"/>
+<circle cx="680" cy="200" r="4" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+<text x="694" y="205" fill="#0F172A" font-size="14" font-weight="800">V_out = V_in</text>
+<g transform="translate(40, 325)">
+  <rect width="740" height="38" rx="5" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="16" y="24" fill="#334155" font-size="11"><b>คุณสมบัติสำคัญ:</b> อัตราขยายแรงดันเท่ากับ 1 พอดี สัญญาณเอาต์พุตมีขนาดและเฟสเหมือนสัญญาณอินพุตทุกประการ (ตามแรงดัน)</text>
+</g>
+</svg>

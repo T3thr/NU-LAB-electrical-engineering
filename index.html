@@ -29,7 +29,12 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
 body {
   margin: 0;
   background: var(--paper);
@@ -37,12 +42,17 @@ body {
   font-family: "IBM Plex Sans Thai", "Sarabun", "Thonburi", "Noto Sans Thai", -apple-system, "Segoe UI", sans-serif;
   font-size: 16.5px;
   line-height: 1.85;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 .page {
   max-width: 1120px;
   margin: 0 auto;
   padding: 40px 32px 90px;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* ═══════════ ส่วนหัวกลางแบบวิชาการ ═══════════ */
@@ -474,8 +484,19 @@ footer.colophon {
 }
 
 @media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
   body { font-size: 15.5px; }
-  .page { padding: 24px 18px 60px; }
+  .page {
+    padding: 24px 18px 60px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
   h1.portal-title { font-size: 1.85rem; }
   .hero-virtual-lab { padding: 24px 20px; }
   .hero-virtual-lab::before { position: static; display: inline-block; margin-bottom: 12px; }
@@ -570,7 +591,7 @@ footer.colophon {
           </p>
 
           <ul class="card-highlights">
-            <li>ปฏิบัติการที่ 7 (Lab 07): ผลตอบสนองต่อไฟสลับในวงจรอนุกรม RC พร้อมภาพผลการทดลองจริง 10 รูป</li>
+            <li>บทปฏิบัติการฉบับสมบูรณ์: Lab 06 (ออสซิลโลสโคป), Lab 07 (วงจร RC), Lab 08 (ไดโอด/เรียงกระแส), Lab 09 (ออปแอมป์)</li>
             <li>คู่มือเครื่องมือวัด 4 ฉบับ (ออสซิลโลสโคป, มัลติมิเตอร์, พื้นฐานห้องปฏิบัติการ)</li>
             <li>คลังภาพถ่ายอุปกรณ์จริงและตัวอย่างการต่อวงจรบนบอร์ดทดลอง</li>
             <li>เชื่อมโยงโดยตรงกับชุดจำลองการทดลองบน Virtual Lab</li>

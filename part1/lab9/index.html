@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>ปฏิบัติการที่ 9: วงจรขยายเชิงปฏิบัติการ (Op-Amp) · ปฏิบัติการวิศวกรรมไฟฟ้า 1</title>
+<link rel="stylesheet" href="../../assets/css/site-header.css">
+<script src="../../assets/js/site-header.js"></script>
+<style>
+/* ═══════════ พื้นฐานแบบตำราเรียนและเอกสารวิชาการ ═══════════ */
+:root {
+  --paper: #FBF8F1;
+  --paper2: #F5F0E4;
+  --ink: #22292F;
+  --ink-soft: #4B5563;
+  --rule: #D8CFBC;
+  --accent: #1E40AF;
+  --accent2: #B45309;
+  --green: #047857;
+  --green-bg: #ECFDF5;
+  --red: #B91C1C;
+  --red-bg: #FEF2F2;
+  --purple: #6D28D9;
+  --amber-bg: #FFFBEB;
+  --blue-bg: #EFF6FF;
+}
+
+* { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans Thai", "Sarabun", "Thonburi", "Noto Sans Thai", -apple-system, "Segoe UI", sans-serif;
+  font-size: 16.5px;
+  line-height: 1.85;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 36px 32px 90px;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ═══════════ แถบนำทางและส่วนหัว ═══════════ */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .88rem;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .sep {
+  color: #9CA3AF;
+}
+
+/* ═══════════ ส่วนหัวกลางประจำบทปฏิบัติการ (สมมาตร) ═══════════ */
+header.lab-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.lab-pill-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.lab-pill {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 3px 20px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  font-family: monospace, sans-serif;
+}
+
+h1.book-title {
+  font-size: 2.15rem;
+  line-height: 1.35;
+  margin: 8px auto 12px;
+  font-weight: 800;
+  color: var(--ink);
+  text-align: center;
+  max-width: 900px;
+}
+
+.subtitle {
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  margin: 0 auto 20px;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 840px;
+}
+
+.lab-header-rule {
+  border: none;
+  border-bottom: 3px double var(--ink);
+  width: 100%;
+  margin: 22px auto 0;
+}
+
+/* ═══════════ กล่องสรุปภาพรวม ═══════════ */
+.summary-box {
+  border: 2px solid var(--ink);
+  background: #FFFFFF;
+  padding: 24px 28px;
+  margin: 26px 0 36px;
+  position: relative;
+  box-shadow: 6px 6px 0 var(--paper2);
+  border-radius: 6px;
+  max-width: 100%;
+}
+
+.summary-box::before {
+  content: "สรุปสาระสำคัญเชิงปฏิบัติการ (LABORATORY OVERVIEW)";
+  position: absolute;
+  top: -15px;
+  left: 24px;
+  background: var(--ink);
+  color: #FFFFFF;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  padding: 3px 12px;
+  border-radius: 3px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.summary-item {
+  border-left: 3px solid var(--accent);
+  padding-left: 12px;
+}
+
+.summary-item .title {
+  font-weight: 700;
+  color: var(--accent2);
+  font-size: .9rem;
+  display: block;
+}
+
+.summary-item .desc {
+  font-size: .88rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+/* ═══════════ สารบัญนำทางด่วน ═══════════ */
+nav.toc {
+  background: var(--paper2);
+  border: 1.5px solid var(--rule);
+  padding: 20px 24px;
+  border-radius: 6px;
+  margin-bottom: 40px;
+}
+
+nav.toc h3 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  color: var(--ink);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+nav.toc ol {
+  margin: 0;
+  padding-left: 22px;
+  columns: 2;
+  column-gap: 32px;
+}
+
+nav.toc li {
+  margin-bottom: 6px;
+}
+
+nav.toc a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: .95rem;
+}
+
+nav.toc a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+nav.toc .no {
+  display: inline-block;
+  width: 2.4em;
+  color: var(--accent2);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ═══════════ หัวข้อหลักและเนื้อหา ═══════════ */
+section {
+  margin-top: 56px;
+  scroll-margin-top: 24px;
+}
+
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 2.5px solid var(--ink);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+.sec-no {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 1.45rem;
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 1.18rem;
+  margin: 32px 0 12px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+h4 {
+  font-size: 1.05rem;
+  margin: 22px 0 10px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+p {
+  margin: 10px 0;
+}
+
+b, strong {
+  font-weight: 700;
+}
+
+/* ═══════════ การ์ดข้อมูลและกริด ═══════════ */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 18px;
+  margin: 24px 0 32px;
+  width: 100%;
+}
+
+.meta-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  padding: 18px 22px;
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 var(--paper2);
+}
+
+.meta-card .label {
+  font-size: .82rem;
+  font-weight: 800;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.meta-card .val {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ═══════════ กล่องข้อความเน้นพิเศษ ═══════════ */
+.note-box, .warning-box, .tip-box, .formula-box {
+  padding: 18px 22px;
+  border-radius: 6px;
+  margin: 20px 0;
+  position: relative;
+  font-size: .95rem;
+}
+
+.note-box {
+  background: var(--blue-bg);
+  border: 1.5px solid #93C5FD;
+  border-left: 5px solid var(--accent);
+}
+
+.warning-box {
+  background: var(--red-bg);
+  border: 1.5px solid #FCA5A5;
+  border-left: 5px solid var(--red);
+}
+
+.tip-box {
+  background: var(--green-bg);
+  border: 1.5px solid #86EFAC;
+  border-left: 5px solid var(--green);
+}
+
+.formula-box {
+  background: var(--amber-bg);
+  border: 1.5px solid #FDE68A;
+  border-left: 5px solid var(--accent2);
+}
+
+.box-title {
+  font-weight: 800;
+  margin-bottom: 6px;
+  font-size: .95rem;
+  display: block;
+}
+
+/* ═══════════ การจัดแสดงสูตรคณิตศาสตร์ (Pure CSS, No LaTeX) ═══════════ */
+.formula {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  padding: 18px 24px;
+  border-radius: 6px;
+  margin: 18px 0;
+  font-size: 1.08rem;
+  text-align: center;
+  overflow-x: auto;
+  box-shadow: 3px 3px 0 var(--paper2);
+  width: 100%;
+  max-width: 100%;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0 4px;
+  line-height: 1.15;
+}
+
+.frac .num {
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 2px;
+  font-size: .92em;
+}
+
+.frac .den {
+  padding-top: 2px;
+  font-size: .92em;
+}
+
+/* ═══════════ ตารางผลการทดลอง ═══════════ */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 24px 0 32px;
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  background: #FFFFFF;
+  box-shadow: 4px 4px 0 var(--paper2);
+  width: 100%;
+  max-width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .92rem;
+  min-width: 640px;
+}
+
+th, td {
+  padding: 12px 14px;
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+}
+
+th:last-child, td:last-child {
+  border-right: none;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+th {
+  background: var(--paper2);
+  color: var(--ink);
+  font-weight: 800;
+  font-size: .88rem;
+  letter-spacing: .02em;
+}
+
+th.group-head {
+  background: #EAE3D2;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+tr:nth-child(even) td {
+  background: #FCFBF7;
+}
+
+tr.highlight-row td {
+  background: #EFF6FF !important;
+  font-weight: 700;
+}
+
+tr.saturated-row td {
+  background: #FEF2F2 !important;
+  color: #991B1B;
+}
+
+/* ═══════════ แกลเลอรีภาพและออสซิลโลสโคป ═══════════ */
+.fig-container {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 18px;
+  margin: 26px 0;
+  box-shadow: 4px 4px 0 var(--paper2);
+}
+
+.fig-container .img-box {
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background: #080E18;
+  cursor: zoom-in;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.fig-container .img-box.light-schematic {
+  background: #FFFDF9;
+}
+
+.fig-container .img-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.fig-container img, .fig-container svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fig-caption {
+  font-size: .88rem;
+  color: var(--ink-soft);
+  margin-top: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.fig-caption b {
+  color: var(--ink);
+}
+
+.fig-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr));
+  gap: 20px;
+  margin: 24px 0;
+  width: 100%;
+}
+
+/* ═══════════ แกลเลอรีภาพถ่ายสมุดแล็บจริง ═══════════ */
+.real-doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 16px;
+  margin: 22px 0;
+  width: 100%;
+}
+
+.real-doc-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  padding: 10px;
+  cursor: zoom-in;
+  box-shadow: 3px 3px 0 var(--paper2);
+  transition: transform 0.15s ease;
+}
+
+.real-doc-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.real-doc-card img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 4px;
+  border: 1px solid #E2E8F0;
+  display: block;
+}
+
+.real-doc-card .caption {
+  font-size: .78rem;
+  font-weight: 700;
+  margin-top: 8px;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ═══════════ เฉลยคำถามท้ายการทดลอง ═══════════ */
+.qa-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-left: 5px solid var(--accent);
+  border-radius: 6px;
+  padding: 24px;
+  margin: 26px 0;
+  box-shadow: 4px 4px 0 var(--paper2);
+}
+
+.qa-card.accent2 {
+  border-left-color: var(--accent2);
+}
+
+.qa-card.green {
+  border-left-color: var(--green);
+}
+
+.qa-q {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.qa-badge {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: .8rem;
+  font-weight: 800;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.qa-ans {
+  font-size: .96rem;
+  line-height: 1.85;
+  color: var(--ink);
+}
+
+/* ═══════════ หน้าต่างขยายภาพ (Lightbox Modal) ═══════════ */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(10, 15, 29, 0.92);
+  backdrop-filter: blur(4px);
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+
+.lightbox.on { display: flex; }
+
+.lightbox img {
+  max-width: 94vw;
+  max-height: 92vh;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 1px solid #334155;
+  background: #FFFDF9;
+}
+
+/* ═══════════ แถบนำทางด่วนลอยตัว (Floating Nav Dock) ═══════════ */
+.float-nav-dock {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 60;
+  font-family: inherit;
+}
+
+.fnd-panel {
+  background: rgba(255, 253, 247, 0.98);
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  padding: 10px 14px 12px;
+  box-shadow: 0 8px 24px rgba(40, 32, 10, 0.16);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 500px;
+  animation: fndSlideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fndSlideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fnd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 6px;
+}
+
+.fnd-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fnd-close-btn {
+  background: var(--paper2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.fnd-close-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.fnd-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.fnd-btn {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1.5px solid var(--ink);
+  background: #FFFFFF;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.80rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  transition: all 0.15s ease;
+  line-height: 1.3;
+}
+
+.fnd-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.fnd-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  box-shadow: 0 2px 8px rgba(26, 22, 18, 0.28);
+  position: relative;
+}
+
+.fnd-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.fnd-btn-vlab {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+.fnd-btn-vlab:hover {
+  background: var(--accent-hover, #1D4ED8);
+  color: #FFFFFF;
+}
+
+.fnd-trigger-btn {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 253, 247, 0.94);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 7px 14px;
+  box-shadow: 0 4px 14px rgba(40, 32, 10, 0.14);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.fnd-trigger-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(40, 32, 10, 0.22);
+}
+
+.fnd-trigger-arrow {
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.fnd-current-topic {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.fnd-trigger-btn:hover .fnd-current-topic {
+  color: #93C5FD;
+}
+
+.float-nav-dock.collapsed .fnd-panel {
+  display: none;
+}
+
+.float-nav-dock.collapsed .fnd-trigger-btn {
+  display: inline-flex;
+}
+
+.top-link {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 50;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1.5px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(40, 32, 10, 0.2);
+  transition: all 0.2s ease;
+}
+
+.top-link:hover {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(40, 32, 10, 0.28);
+}
+
+/* ═══════════ ท้ายบทและปุ่มสลับบท ═══════════ */
+footer.lab-footer {
+  margin-top: 70px;
+  padding-top: 36px;
+  border-top: 2.5px solid var(--ink);
+}
+
+.lab-nav-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.lab-nav-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  padding: 16px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: 3px 3px 0 var(--paper2);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.lab-nav-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.lab-nav-card .dir {
+  font-size: .78rem;
+  font-weight: 800;
+  color: var(--accent2);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.lab-nav-card .name {
+  font-size: .98rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.footer-meta {
+  font-size: .84rem;
+  color: var(--ink-soft);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ═══════════ Responsive Breakpoints ═══════════ */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
+  .page {
+    padding: 20px 16px 80px;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  h1.book-title {
+    font-size: 1.65rem;
+  }
+  nav.toc ol {
+    columns: 1;
+  }
+  .float-nav-dock {
+    left: 10px;
+    right: 10px;
+    bottom: 12px;
+    max-width: calc(100vw - 20px);
+    width: auto;
+  }
+  .fnd-panel {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px 10px;
+  }
+  .fnd-links {
+    gap: 4px;
+  }
+  .fnd-btn {
+    padding: 4px 7px;
+    font-size: 0.72rem;
+  }
+  .fnd-trigger-btn {
+    max-width: 100%;
+    padding: 6px 12px;
+    font-size: 0.76rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ Unified Standardized Sticky Header ═══════════ -->
+<site-header data-page="lab-09" data-base="../../"></site-header>
+
+<div class="page">
+
+  <!-- ส่วนหัวกึ่งกลางแบบสมมาตรตามคู่มือ -->
+  <header class="lab-header">
+    <div class="lab-pill-wrap">
+      <span class="lab-pill">LAB 09</span>
+    </div>
+    <h1 class="book-title">วงจรขยายเชิงปฏิบัติการ<br>(Operational Amplifiers - Op-Amp)</h1>
+    <div class="subtitle">การศึกษาคุณสมบัติอุดมคติของออปแอมป์ วงจรขยายแบบกลับเฟส (Inverting) วงจรขยายแบบไม่กลับเฟส (Non-Inverting) และวงจรตามแรงดันบัฟเฟอร์กักกันโหลด (Buffer Follower)</div>
+    <hr class="lab-header-rule">
+  </header>
+
+  <!-- กล่องสรุปสาระสำคัญเชิงปฏิบัติการ -->
+  <div class="summary-box">
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="title">ไอซีออปแอมป์และแหล่งจ่าย:</span>
+        <span class="desc">LM741 แบบ DIP-8 พร้อมแหล่งจ่ายแรงดันคู่คู่ขนาน ±15 V (Pin 7 = +15V, Pin 4 = -15V)</span>
+      </div>
+      <div class="summary-item">
+        <span class="title">วงจรขยายแบบกลับเฟส:</span>
+        <span class="desc">อัตราขยาย Av = - (RF / RS) สัญญาณเอาต์พุตมีขนาดขยายและกลับเฟส 180° เทียบกับอินพุต</span>
+      </div>
+      <div class="summary-item">
+        <span class="title">วงจรขยายแบบไม่กลับเฟส:</span>
+        <span class="desc">อัตราขยาย Av = 1 + (RF / RS) สัญญาณเอาต์พุตมีขนาดขยายและร่วมเฟส 0° กับสัญญาณอินพุต</span>
+      </div>
+      <div class="summary-item">
+        <span class="title">วงจรบัฟเฟอร์และผลของโหลด:</span>
+        <span class="desc">Av = +1, Rin ≈ ∞, Rout ≈ 0 ป้องกันแรงดันตกคร่อมโหลดดรอปจาก Loading Effect ได้ 100%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- สารบัญนำทางด่วน -->
+  <nav class="toc">
+    <h3>สารบัญเนื้อหาปฏิบัติการที่ 9</h3>
+    <ol>
+      <li><a href="#sec1"><span class="no">9.1</span> ข้อมูลและหลักการเบื้องต้น (Introduction & Op-Amp Model)</a></li>
+      <li><a href="#sec2"><span class="no">9.2</span> รายการเครื่องมือและอุปกรณ์การทดลอง (Instruments)</a></li>
+      <li><a href="#sec3"><span class="no">9.3</span> แผนผังวงจรและการต่อสายทดลอง (Circuit Schematics)</a></li>
+      <li><a href="#sec4"><span class="no">9.4</span> ตารางบันทึกผลการทดลอง (Experimental Data Tables)</a></li>
+      <li><a href="#sec5"><span class="no">9.5</span> ผลการจำลองคลื่นสัญญาณออสซิลโลสโคป (Oscilloscope Screens)</a></li>
+      <li><a href="#sec6"><span class="no">9.6</span> การคำนวณและสูตรทางคณิตศาสตร์ (Mathematical Formulations)</a></li>
+      <li><a href="#sec7"><span class="no">9.7</span> วิเคราะห์ผลการทดลองเชิงลึก (In-depth Technical Analysis)</a></li>
+      <li><a href="#sec8"><span class="no">9.8</span> สรุปผลการทดลอง (Laboratory Conclusion)</a></li>
+      <li><a href="#sec9"><span class="no">9.9</span> เฉลยคำถามท้ายการทดลอง (Post-Lab Solutions with Diagrams)</a></li>
+      <li><a href="#sec10"><span class="no">9.10</span> ข้อมูลอ้างอิงและภาพถ่ายใบบันทึกผลจริง (Lab Sheets Gallery)</a></li>
+      <li><a href="#sec11"><span class="no">9.11</span> การเชื่อมโยงไปยังแล็บถัดไป (Laboratory Navigation)</a></li>
+    </ol>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หัวข้อที่ 1: ข้อมูลและหลักการเบื้องต้น -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec1">
+    <div class="sec-head">
+      <div class="sec-no">1</div>
+      <h2>ข้อมูลและหลักการเบื้องต้น (Introduction & Op-Amp Ideal Model)</h2>
+    </div>
+
+    <p>
+      <b>ออปแอมป์ (Operational Amplifier หรือ Op-Amp)</b> เป็นวงจรรวม (Integrated Circuit: IC) ที่ประกอบด้วยทรานซิสเตอร์ ตัวต้านทาน และไดโอดจำนวนมากบนชิปซิลิคอนขนาดเล็ก นิยมนำมาใช้เป็นแกนหลักในระบบประมวลผลสัญญาณอะนาล็อก (Analog Signal Processing) วงจรกรองสัญญาณ (Active Filters) วงจรเปรียบเทียบแรงดัน (Comparators) และวงจรแปลงสัญญาณต่าง ๆ
+    </p>
+
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="label">ความต้านทานอินพุต (Input Impedance: Rin)</span>
+        <span class="val">Rin ≈ ∞ (LM741 ≈ 2 MΩ)</span>
+        <p style="font-size: .86rem; color: var(--ink-soft); margin-top: 6px;">ส่งผลให้กระแสที่ไหลเข้าขาอินพุตทั้งสองของออปแอมป์มีค่าเป็นศูนย์ (I+ = I- = 0 A) ไม่ดึงกระแสจากวงจรต้นทาง</p>
+      </div>
+      <div class="meta-card">
+        <span class="label">ความต้านทานเอาต์พุต (Output Impedance: Rout)</span>
+        <span class="val">Rout ≈ 0 (LM741 ≈ 75 Ω)</span>
+        <p style="font-size: .86rem; color: var(--ink-soft); margin-top: 6px;">สามารถจ่ายแรงดันคงที่ให้กับโหลดได้โดยไม่เกิดแรงดันตกภายในตัวออปแอมป์เอง</p>
+      </div>
+      <div class="meta-card">
+        <span class="label">อัตราขยายแรงดันรอบเปิด (Open-Loop Gain: Aol)</span>
+        <span class="val">Aol ≈ ∞ (LM741 ≈ 200,000 V/V)</span>
+        <p style="font-size: .86rem; color: var(--ink-soft); margin-top: 6px;">ทำให้เมื่อต่อวงจรป้อนกลับแบบลบ (Negative Feedback) จะเกิดสภาวะเสมือนลัดวงจร (Virtual Short)</p>
+      </div>
+      <div class="meta-card">
+        <span class="label">แถบความถี่และเวลาตอบสนอง (Bandwidth & Slew Rate)</span>
+        <span class="val">BW ≈ ∞, SR = 0.5 V/μs</span>
+        <p style="font-size: .86rem; color: var(--ink-soft); margin-top: 6px;">ตอบสนองต่อสัญญาณความถี่ต่ำได้ดีเยี่ยม แต่มีข้อจำกัดด้านความเร็วการเปลี่ยนแปลงแรงดันสูงสุดที่ Slew Rate</p>
+      </div>
+    </div>
+
+    <h3>หลักการทองคำ 2 ประการของออปแอมป์ในอุดมคติ (The Golden Rules)</h3>
+    <p>เมื่อออปแอมป์ทำงานในย่านเชิงเส้น (Linear Active Region) ร่วมกับระบบป้อนกลับแบบลบ (Negative Feedback loop):</p>
+    <ul>
+      <li><b>กฎข้อที่ 1 (Virtual Short):</b> ความต่างศักย์ระหว่างขั้วอินพุตทั้งสองมีค่าเข้าใกล้ศูนย์ นั่นคือ <code>V+ ≈ V-</code> หรือ <code>Vd = V+ - V- ≈ 0 V</code></li>
+      <li><b>กฎข้อที่ 2 (Zero Input Current):</b> กระแสไฟฟ้าที่ไหลเข้าขั้วอินพุตทั้งสองมีค่าเป็นศูนย์ นั่นคือ <code>I+ = 0 A</code> และ <code>I- = 0 A</code></li>
+    </ul>
+
+    <div class="note-box">
+      <span class="box-title">แนวคิดกราวด์เสมือน (Virtual Ground Concept)</span>
+      ในวงจรขยายแบบกลับเฟส (Inverting Amplifier) ขาอินพุตบวก (Non-inverting Pin 3) ถูกต่อลงกราวด์โดยตรง (<code>V+ = 0 V</code>) จากกฎ Virtual Short ส่งผลให้ขาอินพุตลบ (Inverting Pin 2) ถูกดึงให้มีศักย์ไฟฟ้าเสมือนอยู่ที่ 0 V ด้วย (<code>V- ≈ 0 V</code>) จึงเรียกว่าเป็น <b>กราวด์เสมือน (Virtual Ground)</b> จุดนี้มีความสำคัญอย่างยิ่งในการวิเคราะห์กระแส KCL
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หัวข้อที่ 2: รายการเครื่องมือและอุปกรณ์ -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec2">
+    <div class="sec-head">
+      <div class="sec-no">2</div>
+      <h2>รายการเครื่องมือและอุปกรณ์การทดลอง (Instruments & Components)</h2>
+    </div>
+
+    <p>อุปกรณ์ที่ใช้ในการปฏิบัติการจริงตามเล่มคู่มือหน้า 91 ประกอบด้วย:</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 80px;">ลำดับ</th>
+            <th>รายการอุปกรณ์ / เครื่องมือวัด</th>
+            <th>รหัส / สเปกพารามิเตอร์</th>
+            <th>จำนวน</th>
+            <th>หน้าที่ในการทดลอง</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><b>ไอซีออปแอมป์ (Operational Amplifier)</b></td>
+            <td>LM741CN (DIP-8 Package)</td>
+            <td>1 ตัว</td>
+            <td>ขยายสัญญาณทั้งไฟตรง (DC) และไฟสลับ (AC)</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><b>แหล่งจ่ายไฟตรงคู่ (Dual-Tracking DC Power Supply)</b></td>
+            <td>ปรับตั้งค่าได้ ±15 V</td>
+            <td>1 เครื่อง</td>
+            <td>จ่ายไบแอสรางบวก (+15V Pin 7) และรางลบ (-15V Pin 4)</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><b>แหล่งจ่ายไฟตรงเสริม (Auxiliary DC Power Supply)</b></td>
+            <td>0 - 30 V / 1 - 5 V</td>
+            <td>1 เครื่อง</td>
+            <td>จ่ายแรงดันอินพุตไฟตรง Vin (2.5V, 3.3V, 5.0V)</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><b>เครื่องกำเนิดสัญญาณ (Function Generator)</b></td>
+            <td>GW Instek / Rigol (Sine Wave, 300 Hz)</td>
+            <td>1 เครื่อง</td>
+            <td>จ่ายสัญญาณคลื่นไซน์ vs(t) 1 Vp-p, 2 Vp-p และ 4 Vp-p</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><b>ออสซิลโลสโคปแบบดิจิทัล (Digital Storage Oscilloscope)</b></td>
+            <td>Rigol DSO-X 2000 (2 Channels, 1 GSa/s)</td>
+            <td>1 เครื่อง</td>
+            <td>วัดรูปคลื่น CH1 (vs) และ CH2 (vout) พร้อมวัดเฟสและ Vp-p</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><b>ดิจิทัลมัลติมิเตอร์ (Digital Multimeter - DMM)</b></td>
+            <td>Fluke 17B+ / True RMS</td>
+            <td>1 เครื่อง</td>
+            <td>วัดแรงดันไฟตรง Vin, Vout และตรวจสอบแรงดันแหล่งจ่าย</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><b>ตัวต้านทานคงที่ (Carbon Film Resistors 1/4W 5%)</b></td>
+            <td>1 kΩ, 4.7 kΩ, 10 kΩ, 22 kΩ</td>
+            <td>อย่างละ 1-2 ตัว</td>
+            <td>ใช้เป็น RS, RF, Rin และโหลดจำลอง RL</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><b>แผงต่อวงจรและสายโพรบ (Breadboard & BNC Probes)</b></td>
+            <td>Solderless Breadboard, BNC-to-Alligator</td>
+            <td>1 ชุด</td>
+            <td>เชื่อมต่อวงจรและจับสัญญาณเข้าเครื่องมือวัด</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หัวข้อที่ 3: แผนผังวงจรและการต่อสายทดลอง -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec3">
+    <div class="sec-head">
+      <div class="sec-no">3</div>
+      <h2>แผนผังวงจรและการต่อสายทดลอง (Circuit Schematics)</h2>
+    </div>
+
+    <p>
+      การต่อวงจรในปฏิบัติการที่ 9 แบ่งออกเป็น 4 วงจรหลักตามคู่มือหน้า 89 - 94 โดยแสดงแผนผังวงจรที่มีความเที่ยงตรงสูงดังนี้:
+    </p>
+
+    <!-- วงจรที่ 1: Inverting Amplifier -->
+    <div class="fig-container">
+      <div class="img-box light-schematic" onclick="openLb('result/01_fig9_1_inverting_schematic.svg')">
+        <img src="result/01_fig9_1_inverting_schematic.svg" alt="รูปที่ 9.1 วงจรขยายแบบกลับเฟส (Inverting Amplifier)">
+      </div>
+      <div class="fig-caption">
+        <b>รูปที่ 9.1 วงจรขยายแบบกลับเฟส (Inverting Amplifier):</b> ป้อนสัญญาณเข้าขาลบ (Pin 2) ผ่าน RS และต่อป้อนกลับด้วย RF โดยขาบวก (Pin 3) ต่อลงกราวด์ เกิดจุดกราวด์เสมือนที่โหนด V-
+      </div>
+    </div>
+
+    <!-- วงจรที่ 2: Non-Inverting Amplifier -->
+    <div class="fig-container">
+      <div class="img-box light-schematic" onclick="openLb('result/02_fig9_2_non_inverting_schematic.svg')">
+        <img src="result/02_fig9_2_non_inverting_schematic.svg" alt="รูปที่ 9.2 วงจรขยายแบบไม่กลับเฟส (Non-Inverting Amplifier)">
+      </div>
+      <div class="fig-caption">
+        <b>รูปที่ 9.2 วงจรขยายแบบไม่กลับเฟส (Non-Inverting Amplifier):</b> ป้อนสัญญาณเข้าขาบวก (Pin 3) โดยตรง และใช้วงจรแบ่งแรงดัน RF และ RS ป้อนกลับเข้าขาลบ (Pin 2)
+      </div>
+    </div>
+
+    <!-- วงจรที่ 3 & 4 Grid: Buffer & Loading Effect -->
+    <div class="fig-grid">
+      <div class="fig-container">
+        <div class="img-box light-schematic" onclick="openLb('result/03_fig9_3_buffer_schematic.svg')">
+          <img src="result/03_fig9_3_buffer_schematic.svg" alt="รูปที่ 9.3 วงจรบัฟเฟอร์ (Voltage Follower)">
+        </div>
+        <div class="fig-caption">
+          <b>รูปที่ 9.3 วงจรตามแรงดัน (Voltage Follower / Buffer):</b> ต่อสายป้อนกลับตรงจาก Pin 6 ไป Pin 2 มีอัตราขยาย Av = +1.00
+        </div>
+      </div>
+      <div class="fig-container">
+        <div class="img-box light-schematic" onclick="openLb('result/04_fig9_6_loading_effect_schematic.svg')">
+          <img src="result/04_fig9_6_loading_effect_schematic.svg" alt="รูปที่ 9.6 วงจรเปรียบเทียบผลของโหลด">
+        </div>
+        <div class="fig-caption">
+          <b>รูปที่ 9.6 วงจรเปรียบเทียบผลของโหลด:</b> (ก) ไม่มีบัฟเฟอร์ เกิดแรงดันตกคร่อมโหลดดรอปลง vs (ข) มีบัฟเฟอร์ รักษาระดับแรงดันได้ 100%
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หัวข้อที่ 4: ตารางบันทึกผลการทดลอง -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec4">
+    <div class="sec-head">
+      <div class="sec-no">4</div>
+      <h2>ตารางบันทึกผลการทดลอง (Experimental Data Tables)</h2>
+    </div>
+
+    <p>
+      การทดลองไฟตรง (DC) ในตอนที่ 9.1 ถึง 9.3 มีการบันทึกค่าจริงโดยนักศึกษาลงในเล่มคู่มือ (หน้า 92 - 94) ดังนี้:
+    </p>
+
+    <!-- ตารางที่ 9.1: Inverting DC -->
+    <h3>ตารางที่ 9.1 ตารางผลการทดลองตอนที่ 9.1 วงจรขยายแบบกลับเฟส (Inverting Amplifier DC)</h3>
+    <p>ตัวต้านทานขาเข้า RS = 1 kΩ, แหล่งจ่ายไฟคู่ ±15 V</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2" class="group-head" style="width: 130px;">ตัวต้านทานป้อนกลับ RF</th>
+            <th rowspan="2" class="group-head" style="width: 150px;">พารามิเตอร์ที่ศึกษา</th>
+            <th colspan="3" class="group-head">แรงดันขาเข้า Vin (V)</th>
+            <th rowspan="2" class="group-head">สถานะการทำงาน (Operating State)</th>
+          </tr>
+          <tr>
+            <th>Vin = 2.5 V</th>
+            <th>Vin = 3.3 V</th>
+            <th>Vin = 5.0 V</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- RF = 4.7 k -->
+          <tr class="saturated-row">
+            <td rowspan="3" style="font-weight: 800;">RF = 4.7 kΩ<br><span style="font-size: .8rem; color: var(--ink-soft);">(Av,cal = -4.7)</span></td>
+            <td><b>Vout (V) [วัดจริง]</b></td>
+            <td><b>-13.32 V</b></td>
+            <td><b>-13.32 V</b></td>
+            <td><b>-13.52 V</b></td>
+            <td rowspan="3"><span style="color: var(--red); font-weight: 800;">อิ่มตัวขั้วลบ (Negative Saturation)</span><br><span style="font-size: .8rem;">แรงดันคำนวณ (-11.75V ถึง -23.5V) ชนเพดาน -Vsat</span></td>
+          </tr>
+          <tr class="saturated-row">
+            <td>Av = Vout / Vin [วัดจริง]</td>
+            <td>-5.33</td>
+            <td>-4.04</td>
+            <td>-2.68</td>
+          </tr>
+          <tr class="saturated-row">
+            <td>Av,ทฤษฎี = - RF / RS</td>
+            <td>-4.70</td>
+            <td>-4.70</td>
+            <td>-4.70</td>
+          </tr>
+          <!-- RF = 10 k -->
+          <tr class="saturated-row">
+            <td rowspan="3" style="font-weight: 800;">RF = 10 kΩ<br><span style="font-size: .8rem; color: var(--ink-soft);">(Av,cal = -10.0)</span></td>
+            <td><b>Vout (V) [วัดจริง]</b></td>
+            <td><b>-13.44 V</b></td>
+            <td><b>-13.50 V</b></td>
+            <td><b>-13.53 V</b></td>
+            <td rowspan="3"><span style="color: var(--red); font-weight: 800;">อิ่มตัวขั้วลบ (Negative Saturation)</span><br><span style="font-size: .8rem;">แรงดันคำนวณ (-25V ถึง -50V) ชนเพดาน -Vsat</span></td>
+          </tr>
+          <tr class="saturated-row">
+            <td>Av = Vout / Vin [วัดจริง]</td>
+            <td>-5.38</td>
+            <td>-4.09</td>
+            <td>-2.71</td>
+          </tr>
+          <tr class="saturated-row">
+            <td>Av,ทฤษฎี = - RF / RS</td>
+            <td>-10.00</td>
+            <td>-10.00</td>
+            <td>-10.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <span class="box-title">ข้อสังเกตเชิงลึกจากตารางที่ 9.1 (Saturation Analysis)</span>
+      นักศึกษาป้อนแรงดันไฟตรง Vin ในระดับ 2.5V, 3.3V และ 5.0V ซึ่งเมื่อคูณด้วยอัตราขยาย Av = -4.7 และ -10 จะต้องการแรงดันเอาต์พุตตั้งแต่ -11.75 V ไปจนถึง -50 V แต่เนื่องจากออปแอมป์ใช้แหล่งจ่าย ±15 V เอาต์พุตจริงจึงไม่สามารถเกินเพดานแรงดันอิ่มตัวลบ (Negative Saturation Voltage, <code>-Vsat ≈ -13.32 V ถึง -13.53 V</code>) ได้ ทำให้ออปแอมป์เข้าสู่ย่านอิ่มตัวทุกค่า และอัตราขยายวัดจริง <code>Vout / Vin</code> จึงเบี่ยงเบนลดลงตามค่า Vin ที่เพิ่มขึ้น
+    </div>
+
+    <!-- ตารางวิเคราะห์เปรียบเทียบย่านเชิงเส้น (Linear Operation Region) -->
+    <h4>ตารางวิเคราะห์ย่านเชิงเส้นตามทฤษฎี (Linear Region Reference Table)</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>RF</th>
+            <th>RS</th>
+            <th>อัตราขยาย Av</th>
+            <th>Vin สูงสุดที่ยังไม่เกิดอิ่มตัว (Linear Vin Limit)</th>
+            <th>ตัวอย่าง Vin = 0.5 V</th>
+            <th>ตัวอย่าง Vin = 1.0 V</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight-row">
+            <td>4.7 kΩ</td>
+            <td>1.0 kΩ</td>
+            <td>-4.70</td>
+            <td>|Vin| &lt; 2.87 V (Vout = -13.5 V)</td>
+            <td>Vout = -2.35 V (Av = -4.70)</td>
+            <td>Vout = -4.70 V (Av = -4.70)</td>
+          </tr>
+          <tr class="highlight-row">
+            <td>10.0 kΩ</td>
+            <td>1.0 kΩ</td>
+            <td>-10.00</td>
+            <td>|Vin| &lt; 1.35 V (Vout = -13.5 V)</td>
+            <td>Vout = -5.00 V (Av = -10.00)</td>
+            <td>Vout = -10.00 V (Av = -10.00)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ตารางที่ 9.2: Non-Inverting DC -->
+    <h3>ตารางที่ 9.2 ตารางผลการทดลองตอนที่ 9.2 วงจรขยายแบบไม่กลับเฟส (Non-Inverting Amplifier DC)</h3>
+    <p>ตัวต้านทานขาเข้า RS = 1 kΩ, แหล่งจ่ายไฟคู่ ±15 V</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2" class="group-head" style="width: 130px;">ตัวต้านทานป้อนกลับ RF</th>
+            <th rowspan="2" class="group-head" style="width: 150px;">พารามิเตอร์ที่ศึกษา</th>
+            <th colspan="3" class="group-head">แรงดันขาเข้า Vin (V)</th>
+            <th rowspan="2" class="group-head">สถานะการทำงาน (Operating State)</th>
+          </tr>
+          <tr>
+            <th>Vin = 2.5 V</th>
+            <th>Vin = 3.3 V</th>
+            <th>Vin = 5.0 V</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- RF = 4.7 k -->
+          <tr class="saturated-row">
+            <td rowspan="3" style="font-weight: 800;">RF = 4.7 kΩ<br><span style="font-size: .8rem; color: var(--ink-soft);">(Av,cal = +5.7)</span></td>
+            <td><b>Vout (V) [วัดจริง]</b></td>
+            <td><b>+14.32 V</b></td>
+            <td><b>+14.32 V</b></td>
+            <td><b>+14.32 V</b></td>
+            <td rowspan="3"><span style="color: var(--red); font-weight: 800;">อิ่มตัวขั้วบวก (Positive Saturation)</span><br><span style="font-size: .8rem;">แรงดันคำนวณ (+14.25V ถึง +28.5V) ชนเพดาน +Vsat</span></td>
+          </tr>
+          <tr class="saturated-row">
+            <td>Av = Vout / Vin [วัดจริง]</td>
+            <td>5.73</td>
+            <td>4.34</td>
+            <td>2.86</td>
+          </tr>
+          <tr class="saturated-row">
+            <td>Av,ทฤษฎี = 1 + RF / RS</td>
+            <td>+5.70</td>
+            <td>+5.70</td>
+            <td>+5.70</td>
+          </tr>
+          <!-- RF = 10 k -->
+          <tr class="saturated-row">
+            <td rowspan="3" style="font-weight: 800;">RF = 10 kΩ<br><span style="font-size: .8rem; color: var(--ink-soft);">(Av,cal = +11.0)</span></td>
+            <td><b>Vout (V) [วัดจริง]</b></td>
+            <td><b>+14.32 V</b></td>
+            <td><b>+14.32 V</b></td>
+            <td><b>+14.32 V</b></td>
+            <td rowspan="3"><span style="color: var(--red); font-weight: 800;">อิ่มตัวขั้วบวก (Positive Saturation)</span><br><span style="font-size: .8rem;">แรงดันคำนวณ (+27.5V ถึง +55.0V) ชนเพดาน +Vsat</span></td>
+          </tr>
+          <tr class="saturated-row">
+            <td>Av = Vout / Vin [วัดจริง]</td>
+            <td>5.73</td>
+            <td>4.34</td>
+            <td>2.86</td>
+          </tr>
+          <tr class="saturated-row">
+            <td>Av,ทฤษฎี = 1 + RF / RS</td>
+            <td>+11.00</td>
+            <td>+11.00</td>
+            <td>+11.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ตารางที่ 9.3: Buffer & Loading Effect -->
+    <h3>ตารางที่ 9.3 ตารางผลการทดลองตอนที่ 9.3 การศึกษาผลของโหลดและวงจรบัฟเฟอร์ (Loading Effect & Buffer)</h3>
+    <p>ตัวต้านทานต้นทาง Rin = 1 kΩ, ตัวต้านทานโหลด RL = 4.7 kΩ</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2" class="group-head" style="width: 160px;">รูปแบบวงจร</th>
+            <th rowspan="2" class="group-head" style="width: 180px;">พารามิเตอร์แรงดัน</th>
+            <th colspan="3" class="group-head">แรงดันขาเข้า Vin (V)</th>
+            <th rowspan="2" class="group-head">การวิเคราะห์พฤติกรรมทางไฟฟ้า</th>
+          </tr>
+          <tr>
+            <th>Vin = 2.5 V</th>
+            <th>Vin = 3.3 V</th>
+            <th>Vin = 5.0 V</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- วงจร ก: ไม่มีบัฟเฟอร์ -->
+          <tr class="highlight-row">
+            <td rowspan="2" style="font-weight: 800; color: #991B1B;">รูปที่ 9.6(ก)<br>ไม่มีวงจรบัฟเฟอร์<br><span style="font-size: .8rem; color: var(--ink-soft);">(ต่อตรงผ่าน Rin)</span></td>
+            <td><b>Vout (V) [วัดจริง]</b></td>
+            <td><b>2.280 V</b></td>
+            <td><b>2.993 V</b></td>
+            <td><b>4.533 V</b></td>
+            <td rowspan="2"><span style="color: #B45309; font-weight: 700;">เกิด Loading Effect</span><br>แรงดันตกคร่อมโหลดดรอปลงเหลือประมาณ 82% - 90% ของแรงดันต้นทางเนื่องจากเกิดการแบ่งแรงดันระหว่าง Rin และ RL</td>
+          </tr>
+          <tr class="highlight-row">
+            <td>Vout,cal = [RL / (Rin + RL)] × Vin</td>
+            <td>2.061 V</td>
+            <td>2.721 V</td>
+            <td>4.123 V</td>
+          </tr>
+          <!-- วงจร ข: มีบัฟเฟอร์ -->
+          <tr>
+            <td style="font-weight: 800; color: var(--green);">รูปที่ 9.6(ข)<br>มีวงจรบัฟเฟอร์<br><span style="font-size: .8rem; color: var(--ink-soft);">(ผ่าน Op-Amp Follower)</span></td>
+            <td><b>Vout (V) [วัดจริง]</b></td>
+            <td><b>2.500 V</b></td>
+            <td><b>3.300 V</b></td>
+            <td><b>5.000 V</b></td>
+            <td><span style="color: var(--green); font-weight: 800;">รักษาระดับแรงดันได้ 100% (สมบูรณ์)</span><br>ออปแอมป์มีความต้านทานอินพุตเป็นอนันต์ (Rin ≈ ∞) จึงไม่ดึงกระแสผ่านตัวต้านทานต้นทาง ทำให้แรงดันคงที่เท่ากับ Vin พอดี</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หัวข้อที่ 5: ผลการจำลองคลื่นสัญญาณออสซิลโลสโคป -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec5">
+    <div class="sec-head">
+      <div class="sec-no">5</div>
+      <h2>ผลการจำลองคลื่นสัญญาณออสซิลโลสโคป (Oscilloscope Screens)</h2>
+    </div>
+
+    <p>
+      การทดลองไฟสลับ (AC) ในตอนที่ 9.4 ถึง 9.6 ใช้สัญญาณคลื่นไซน์ความถี่ <code>f = 300 Hz</code> (คาบเวลา <code>T = 1 / 300 ≈ 3.333 ms</code>) ผ่านไอซีออปแอมป์ LM741 โดยแสดงผลการจำลองหน้าจอออสซิลโลสโคปเสมือนจริงพร้อมการ์ดวัดค่าพารามิเตอร์ด้านล่างที่อ่านง่ายและคมชัด 100%:
+    </p>
+
+    <!-- ตอนที่ 9.4: Inverting AC (Fig 9.8, 9.9, 9.10) -->
+    <h3>1. ตอนที่ 9.4: การขยายสัญญาณแบบกลับเฟส (Inverting AC, RS = 1 kΩ, RF = 10 kΩ, Av = -10)</h3>
+    <div class="fig-grid">
+      <!-- Fig 9.8 -->
+      <div class="fig-container">
+        <div class="img-box" onclick="openLb('result/05_fig9_8_inverting_ac_scope.svg')">
+          <img src="result/05_fig9_8_inverting_ac_scope.svg" alt="รูปที่ 9.8 ออสซิลโลสโคปตอนที่ 9.4 (vs = 1 Vp-p)">
+        </div>
+        <div class="fig-caption">
+          <b>รูปที่ 9.8 สัญญาณวงจรกลับเฟส (vs = 1 Vp-p):</b> CH1 (สีเหลือง) คือสัญญาณอินพุต 1.02 Vp-p และ CH2 (สีฟ้า) คือสัญญาณเอาต์พุต 10.05 Vp-p สัญญาณขยาย 10 เท่าและกลับเฟส 180°
+        </div>
+      </div>
+
+      <!-- Fig 9.9 -->
+      <div class="fig-container">
+        <div class="img-box" onclick="openLb('result/06_fig9_9_inverting_ac_scope.svg')">
+          <img src="result/06_fig9_9_inverting_ac_scope.svg" alt="รูปที่ 9.9 ออสซิลโลสโคปตอนที่ 9.4 (vs = 2 Vp-p)">
+        </div>
+        <div class="fig-caption">
+          <b>รูปที่ 9.9 สัญญาณวงจรกลับเฟส (vs = 2 Vp-p):</b> CH1 อินพุต 2.01 Vp-p ขยายเป็น CH2 เอาต์พุต 20.08 Vp-p (ยอดคลื่น ±10.04 V ยังไม่ชนเพดาน ±14.3V) กลับเฟส 180° ชัดเจน
+        </div>
+      </div>
+    </div>
+
+    <!-- Fig 9.10: Saturated Clipping -->
+    <div class="fig-container">
+      <div class="img-box" onclick="openLb('result/07_fig9_10_inverting_saturated_scope.svg')">
+        <img src="result/07_fig9_10_inverting_saturated_scope.svg" alt="รูปที่ 9.10 ออสซิลโลสโคปตอนที่ 9.4 การอิ่มตัว (vs = 4 Vp-p)">
+      </div>
+      <div class="fig-caption">
+        <b>รูปที่ 9.10 ปรากฏการณ์การขลิบยอดคลื่นเนื่องจากสภาวะอิ่มตัว (Saturation Clipping):</b> เมื่อป้อนอินพุต vs = 4.02 Vp-p ทฤษฎีต้องการ Vout = 40 Vp-p แต่ยอดคลื่นถูกขลิบตัดตรงที่ +14.32 V และ -13.48 V เท่ากับระดับแรงดันอิ่มตัว ±Vsat ของ LM741
+      </div>
+    </div>
+
+    <!-- ตอนที่ 9.5: Non-Inverting AC (Fig 9.12, 9.13) -->
+    <h3>2. ตอนที่ 9.5: การขยายสัญญาณแบบไม่กลับเฟส (Non-Inverting AC, RS = 1 kΩ, RF = 10 kΩ, Av = +11)</h3>
+    <div class="fig-grid">
+      <!-- Fig 9.12 -->
+      <div class="fig-container">
+        <div class="img-box" onclick="openLb('result/08_fig9_12_non_inverting_ac_scope.svg')">
+          <img src="result/08_fig9_12_non_inverting_ac_scope.svg" alt="รูปที่ 9.12 ออสซิลโลสโคปตอนที่ 9.5 (vs = 1 Vp-p)">
+        </div>
+        <div class="fig-caption">
+          <b>รูปที่ 9.12 สัญญาณวงจรไม่กลับเฟส (vs = 1 Vp-p):</b> CH1 อินพุต 1.01 Vp-p ขยายเป็น CH2 เอาต์พุต 11.08 Vp-p (อัตราขยาย Av = +10.97) สัญญาณทั้งสองช่อง <b>ร่วมเฟส 0° พอดี</b>
+        </div>
+      </div>
+
+      <!-- Fig 9.13 -->
+      <div class="fig-container">
+        <div class="img-box" onclick="openLb('result/09_fig9_13_non_inverting_ac_scope.svg')">
+          <img src="result/09_fig9_13_non_inverting_ac_scope.svg" alt="รูปที่ 9.13 ออสซิลโลสโคปตอนที่ 9.5 (vs = 2 Vp-p)">
+        </div>
+        <div class="fig-caption">
+          <b>รูปที่ 9.13 สัญญาณวงจรไม่กลับเฟส (vs = 2 Vp-p):</b> CH1 อินพุต 2.02 Vp-p ขยายเป็น CH2 เอาต์พุต 22.14 Vp-p ร่วมเฟส 0° ยอดคลื่นไซน์สมบูรณ์ยังไม่เกิดการขลิบ
+        </div>
+      </div>
+    </div>
+
+    <!-- ตอนที่ 9.6: Buffer AC (Fig 9.14) -->
+    <h3>3. ตอนที่ 9.6: วงจรตามแรงดัน (Voltage Follower / Buffer AC, Av = +1.00)</h3>
+    <div class="fig-container">
+      <div class="img-box" onclick="openLb('result/10_fig9_14_buffer_ac_scope.svg')">
+        <img src="result/10_fig9_14_buffer_ac_scope.svg" alt="รูปที่ 9.14 ออสซิลโลสโคปตอนที่ 9.6 วงจรตามแรงดัน">
+      </div>
+      <div class="fig-caption">
+        <b>รูปที่ 9.14 สัญญาณวงจรตามแรงดัน (vs = 2 Vp-p):</b> สัญญาณ CH1 (สีเหลือง) และ CH2 (สีฟ้า) ทับซ้อนกันสนิทพอดี มีแอมพลิจูด 2.01 Vp-p และเฟส 0.0° แสดงถึงอัตราขยาย Av = +1.00
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หัวข้อที่ 6: การคำนวณและสูตรทางคณิตศาสตร์ -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec6">
+    <div class="sec-head">
+      <div class="sec-no">6</div>
+      <h2>การคำนวณและสูตรทางคณิตศาสตร์ (Mathematical Formulations)</h2>
+    </div>
+
+    <p>การวิเคราะห์ทางทฤษฎีตามระเบียบวิธีทางวิศวกรรมไฟฟ้า ปราศจากการใช้ KaTeX/LaTeX โดยใช้ Pure CSS Fractions และ Unicode สากล:</p>
+
+    <!-- สูตรที่ 1: Inverting -->
+    <h3>1. วงจรขยายแบบกลับเฟส (Inverting Amplifier)</h3>
+    <div class="formula">
+      V<sub>out</sub> = - <span class="frac"><span class="num">R<sub>F</sub></span><span class="den">R<sub>S</sub></span></span> × V<sub>in</sub>
+      &emsp;&emsp;
+      A<sub>v</sub> = <span class="frac"><span class="num">V<sub>out</sub></span><span class="den">V<sub>in</sub></span></span> = - <span class="frac"><span class="num">R<sub>F</sub></span><span class="den">R<sub>S</sub></span></span>
+    </div>
+    <p>เมื่อแทนค่าตัวต้านทานในการทดลอง:</p>
+    <ul>
+      <li>กรณี R<sub>F</sub> = 4.7 kΩ และ R<sub>S</sub> = 1.0 kΩ: <code>A<sub>v</sub> = - (4.7 / 1.0) = -4.70</code></li>
+      <li>กรณี R<sub>F</sub> = 10.0 kΩ และ R<sub>S</sub> = 1.0 kΩ: <code>A<sub>v</sub> = - (10.0 / 1.0) = -10.00</code></li>
+    </ul>
+
+    <!-- สูตรที่ 2: Non-Inverting -->
+    <h3>2. วงจรขยายแบบไม่กลับเฟส (Non-Inverting Amplifier)</h3>
+    <div class="formula">
+      V<sub>out</sub> = ( 1 + <span class="frac"><span class="num">R<sub>F</sub></span><span class="den">R<sub>S</sub></span></span> ) × V<sub>in</sub>
+      &emsp;&emsp;
+      A<sub>v</sub> = <span class="frac"><span class="num">V<sub>out</sub></span><span class="den">V<sub>in</sub></span></span> = 1 + <span class="frac"><span class="num">R<sub>F</sub></span><span class="den">R<sub>S</sub></span></span>
+    </div>
+    <p>เมื่อแทนค่าตัวต้านทานในการทดลอง:</p>
+    <ul>
+      <li>กรณี R<sub>F</sub> = 4.7 kΩ และ R<sub>S</sub> = 1.0 kΩ: <code>A<sub>v</sub> = 1 + (4.7 / 1.0) = +5.70</code></li>
+      <li>กรณี R<sub>F</sub> = 10.0 kΩ และ R<sub>S</sub> = 1.0 kΩ: <code>A<sub>v</sub> = 1 + (10.0 / 1.0) = +11.00</code></li>
+    </ul>
+
+    <!-- สูตรที่ 3: Buffer & Loading Effect -->
+    <h3>3. วงจรบัฟเฟอร์และสูตรการแบ่งแรงดันของโหลด (Loading Effect Formula)</h3>
+    <div class="formula">
+      V<sub>out,ไม่มีบัฟเฟอร์</sub> = [ <span class="frac"><span class="num">R<sub>L</sub></span><span class="den">R<sub>in</sub> + R<sub>L</sub></span></span> ] × V<sub>in</sub>
+      &emsp;&emsp;
+      V<sub>out,มีบัฟเฟอร์</sub> = V<sub>in</sub>
+    </div>
+    <p>เมื่อ R<sub>in</sub> = 1 kΩ และ R<sub>L</sub> = 4.7 kΩ:</p>
+    <div class="formula">
+      สัดส่วนแรงดันคงเหลือ = <span class="frac"><span class="num">4.7 kΩ</span><span class="den">1.0 kΩ + 4.7 kΩ</span></span> = <span class="frac"><span class="num">4.7</span><span class="den">5.7</span></span> ≈ 0.8246 (แรงดันลดทอนลงเหลือ 82.46%)
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หัวข้อที่ 7: วิเคราะห์ผลการทดลองเชิงลึก -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec7">
+    <div class="sec-head">
+      <div class="sec-no">7</div>
+      <h2>วิเคราะห์ผลการทดลองเชิงลึก (In-depth Technical Analysis)</h2>
+    </div>
+
+    <h3>1. การวิเคราะห์ปรากฏการณ์อิ่มตัวของแรงดัน (Saturation Voltage Mechanism)</h3>
+    <p>
+      จากผลการทดลองไฟตรงในตารางที่ 9.1 และ 9.2 จะเห็นว่าค่า Vout ที่วัดได้ไม่ขึ้นกับ Vin เมื่อ Vin มีค่าสูง (2.5V, 3.3V, 5.0V) โดยมีค่าคงที่อยู่ที่ <code>-13.32 V ถึง -13.53 V</code> ในวงจรกลับเฟส และ <code>+14.32 V</code> ในวงจรไม่กลับเฟส ปรากฏการณ์นี้อธิบายได้ดังนี้:
+    </p>
+    <ul>
+      <li><b>ข้อจำกัดของโครงสร้างทรานซิสเตอร์ภายใน:</b> ไอซี LM741 มีวงจรขับเอาต์พุต (Output Stage) แบบ Class-AB Complementary BJT ซึ่งทรานซิสเตอร์เอาต์พุตต้องการแรงดันตกคร่อมรอยต่อ Vce,sat ประมาณ 0.7 V ถึง 1.5 V เพื่อให้อยู่ในสภาวะนำกระแส</li>
+      <li><b>เพดานแรงดันอิ่มตัว (+Vsat และ -Vsat):</b> เมื่อใช้แหล่งจ่าย ±15 V แรงดันเอาต์พุตสูงสุดจึงไม่สามารถขึ้นไปถึง +15 V ได้ แต่จะตันอยู่ที่ <code>+Vsat ≈ +VCC - 1.2V ≈ +14.32 V</code> และ <code>-Vsat ≈ -VEE + 1.5V ≈ -13.48 V</code></li>
+      <li><b>การสูญเสียคุณสมบัติเชิงเส้น:</b> เมื่อแรงดันชนเพดาน Vsat ออปแอมป์จะไม่สามารถรักษาเงื่อนไข Virtual Short (V+ ≈ V-) ได้อีกต่อไป ส่งผลให้อัตราขยายลดลงตามสัดส่วน Vsat / Vin</li>
+    </ul>
+
+    <h3>2. การวิเคราะห์การแก้ปัญหาผลของโหลดด้วยวงจรบัฟเฟอร์ (Loading Effect Mitigation)</h3>
+    <p>
+      ในระบบการวัดและเครื่องมือวัดทั่วไป วงจรตรวจจับสัญญาณ (Sensor/Source) มักมีค่าความต้านทานภายใน (Thevenin Resistance: Rth) หากนำโหลดที่มีค่าความต้านทาน RL ต่อเข้าโดยตรง จะเกิดการแบ่งแรงดันทำให้สัญญาณที่ตกคร่อมโหลดมีขนาดเล็กลงอย่างมีนัยสำคัญ
+    </p>
+    <p>
+      การนำออปแอมป์มาต่อเป็น <b>วงจรบัฟเฟอร์ (Voltage Follower)</b> เป็นการสร้างตัวกักกันอิมพีแดนซ์ (Impedance Buffer):
+    </p>
+    <ul>
+      <li>ความต้านทานอินพุตของบัฟเฟอร์มีค่ามหาศาล (<code>Rin,opamp ≈ 2 MΩ - 10¹² Ω</code>) ทำให้กระแสที่ดึงจากแหล่งกำเนิดสัญญาณแทบเป็นศูนย์ (<code>Iin ≈ 0 A</code>) แรงดันตกคร่อมตัวต้านทานต้นทาง Rin จึงมีค่าเกือบเป็นศูนย์ ส่งผลให้แรงดันที่ขาอินพุตบวกมีค่าเท่ากับ Vin เต็มที่</li>
+      <li>ความต้านทานเอาต์พุตของบัฟเฟอร์มีค่าต่ำมาก (<code>Rout,opamp ≈ 75 Ω</code>) และเมื่อมี Negative Feedback ความต้านทานเอาต์พุตประสิทธิผลจะลดลงเหลือเพียงเสี้ยวของมิลลิโอห์ม จึงสามารถจ่ายกระแสให้โหลด RL ได้โดยแรงดันไม่ดรอป</li>
+    </ul>
+
+    <h3>3. การวิเคราะห์ด้านความถี่และการเลื่อนเฟส (AC Phase & Waveform Fidelity)</h3>
+    <p>
+      ในการทดลองไฟสลับที่ความถี่ f = 300 Hz สัญญาณอยู่ในย่านความถี่ต่ำของ LM741 (Unity Gain Bandwidth = 1 MHz) จึงไม่มีปัญหาเรื่อง Bandwidth Roll-off:
+    </p>
+    <ul>
+      <li><b>วงจรกลับเฟส (Inverting):</b> มุมเฟสระหว่าง CH1 และ CH2 ต่างกัน 179.4° - 180° ซึ่งเกิดจากเครื่องหมายลบในฟังก์ชันถ่ายโอนทางคณิตศาสตร์ <code>Av = -RF / RS</code></li>
+      <li><b>วงจรไม่กลับเฟส (Non-Inverting):</b> มุมเฟสระหว่าง CH1 และ CH2 มีค่า 0.0° - 0.3° คลื่นทั้งสองขึ้นลงพร้อมกันทุกประการ</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หัวข้อที่ 8: สรุปผลการทดลอง -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec8">
+    <div class="sec-head">
+      <div class="sec-no">8</div>
+      <h2>สรุปผลการทดลอง (Laboratory Conclusion)</h2>
+    </div>
+
+    <div class="summary-box" style="margin-top: 10px;">
+      <p>จากการทำปฏิบัติการที่ 9 เรื่อง วงจรขยายเชิงปฏิบัติการ (Op-Amp) สามารถสรุปสาระสำคัญได้ 4 ประการ:</p>
+      <ol style="margin: 0; padding-left: 20px;">
+        <li><b>อัตราขยายแรงดันของวงจรขยายแบบกลับเฟส</b> ถูกกำหนดโดยอัตราส่วนของตัวต้านทานภายนอก <code>Av = - (RF / RS)</code> สัญญาณเอาต์พุตมีขนาดขยายตามอัตราส่วนและมีเฟสตรงข้ามกับอินพุต 180° เสมอ</li>
+        <li><b>อัตราขยายแรงดันของวงจรขยายแบบไม่กลับเฟส</b> ถูกกำหนดโดย <code>Av = 1 + (RF / RS)</code> สัญญาณเอาต์พุตมีขนาดขยายและมีเฟสเดียวกับสัญญาณอินพุต (ร่วมเฟส 0°) โดยอัตราขยายจะมีค่าไม่น้อยกว่า 1 เสมอ</li>
+        <li><b>วงจรตามแรงดัน (Voltage Follower / Buffer)</b> มีอัตราขยายแรงดันเท่ากับ 1 พอดี (Av = +1) มีบทบาทสำคัญอย่างยิ่งในการเป็นวงจรกักกันอิมพีแดนซ์ (Impedance Isolation) เพื่อขจัดปัญหาผลของการต่อโหลด (Loading Effect) ช่วยให้แรงดันจากตัวกำเนิดสัญญาณคงที่ 100%</li>
+        <li><b>ข้อจำกัดด้านแรงดันอิ่มตัว (Saturation Limit)</b> แอมพลิจูดของสัญญาณเอาต์พุตถูกจำกัดด้วยแรงดันของแหล่งจ่ายไฟคู่ ±VCC และ -VEE โดยจะมีค่าสูงสุดไม่เกิน ±Vsat (ประมาณ +14.3 V และ -13.5 V สำหรับ LM741 ที่ใช้ไฟเลี้ยง ±15 V) หากแรงดันคำนวณเกินขอบเขตนี้ สัญญาณจะเกิดการขลิบยอดคลื่น (Clipping Distortion) ทันที</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หัวข้อที่ 9: เฉลยคำถามท้ายการทดลอง (พร้อมแผนภาพวงจร SVG) -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec9">
+    <div class="sec-head">
+      <div class="sec-no">9</div>
+      <h2>เฉลยคำถามท้ายการทดลอง (Post-Lab Solutions with Diagrams)</h2>
+    </div>
+
+    <p>การตอบคำถามท้ายบทปฏิบัติการตามคู่มือหน้า 103 พร้อมรูปภาพวงจรจำลองประกอบการพิสูจน์ตามหลักการเคอร์ชอฟฟ์อย่างละเอียด:</p>
+
+    <!-- คำถามข้อที่ 1 -->
+    <div class="qa-card">
+      <div class="qa-q">
+        <span class="qa-badge">คำถามข้อที่ 9.1</span>
+        จากวงจรในรูปที่ 9.1 จงแสดงให้เห็นอย่างชัดแจ้งว่า อัตราขยายของวงจรนี้ มีสูตรดังแสดงในสมการที่ (9.2)
+      </div>
+      <div class="qa-ans">
+        <p><b>คำตอบและขั้นตอนการพิสูจน์ทางคณิตศาสตร์อย่างชัดแจ้ง:</b></p>
+        
+        <!-- รูปวงจรประกอบการพิสูจน์ข้อ 9.1 -->
+        <div class="fig-container" style="margin: 16px 0;">
+          <div class="img-box light-schematic" onclick="openLb('result/11_fig9_1_proof_diagram.svg')">
+            <img src="result/11_fig9_1_proof_diagram.svg" alt="รูปที่ 9.1 แผนภาพพิสูจน์สมการ 9.2 วงจรขยายแบบกลับเฟส">
+          </div>
+          <div class="fig-caption">
+            <b>รูปแผนภาพประกอบคำถามข้อ 9.1:</b> การวิเคราะห์ KCL ที่โหนดอินเวอร์ตติ้ง V- ร่วมกับคุณสมบัติกราวด์เสมือน (Virtual Ground, V- ≈ 0V)
+          </div>
+        </div>
+
+        <p>พิจารณาวงจรขยายแบบกลับเฟส (Inverting Amplifier) ในรูปที่ 9.1 โดยใช้ออปแอมป์ในอุดมคติ (Ideal Op-Amp):</p>
+        <ol>
+          <li>
+            <b>คุณสมบัติอิมพีแดนซ์อินพุต:</b> เนื่องจากความต้านทานอินพุตของออปแอมป์มีค่าเป็นอนันต์ (R<sub>in</sub> ≈ ∞) กระแสไฟฟ้าที่ไหลเข้าขั้วอินเวอร์ตติ้งจึงเป็นศูนย์:
+            <div class="formula">I<sub>-</sub> = 0 A</div>
+          </li>
+          <li>
+            <b>การประยุกต์กฎกระแสเคอร์ชอฟฟ์ (KCL) ที่โหนด V<sub>-</sub>:</b>
+            <div class="formula">
+              ∑ I<sub>เข้าโหนด</sub> = ∑ I<sub>ออกโหนด</sub> &emsp;⇒&emsp; I<sub>S</sub> = I<sub>F</sub> + I<sub>-</sub>
+            </div>
+            เนื่องจาก I<sub>-</sub> = 0 A จึงได้:
+            <div class="formula">I<sub>S</sub> = I<sub>F</sub></div>
+          </li>
+          <li>
+            <b>คุณสมบัติกราวด์เสมือน (Virtual Ground):</b> ขั้วอินพุตไม่กลับเฟส (Non-inverting input: Pin 3) ต่อลงกราวด์โดยตรง ทำให้ <code>V<sub>+</sub> = 0 V</code> จากคุณสมบัติ Virtual Short ของออปแอมป์ที่มี Negative Feedback:
+            <div class="formula">V<sub>-</sub> ≈ V<sub>+</sub> = 0 V</div>
+          </li>
+          <li>
+            <b>หาค่ากระแสผ่านตัวต้านทานตามกฎของโอห์ม:</b>
+            <div class="formula">
+              I<sub>S</sub> = <span class="frac"><span class="num">V<sub>in</sub> - V<sub>-</sub></span><span class="den">R<sub>S</sub></span></span> = <span class="frac"><span class="num">V<sub>in</sub> - 0</span><span class="den">R<sub>S</sub></span></span> = <span class="frac"><span class="num">V<sub>in</sub></span><span class="den">R<sub>S</sub></span></span>
+            </div>
+            <div class="formula">
+              I<sub>F</sub> = <span class="frac"><span class="num">V<sub>-</sub> - V<sub>out</sub></span><span class="den">R<sub>F</sub></span></span> = <span class="frac"><span class="num">0 - V<sub>out</sub></span><span class="den">R<sub>F</sub></span></span> = - <span class="frac"><span class="num">V<sub>out</sub></span><span class="den">R<sub>F</sub></span></span>
+            </div>
+          </li>
+          <li>
+            <b>จับสมการเท่ากันตาม KCL (I<sub>S</sub> = I<sub>F</sub>):</b>
+            <div class="formula">
+              <span class="frac"><span class="num">V<sub>in</sub></span><span class="den">R<sub>S</sub></span></span> = - <span class="frac"><span class="num">V<sub>out</sub></span><span class="den">R<sub>F</sub></span></span>
+            </div>
+            จัดรูปสมการหาอัตราส่วนของแรงดันเอาต์พุตต่ออินพุต:
+            <div class="formula">
+              <span class="frac"><span class="num">V<sub>out</sub></span><span class="den">V<sub>in</sub></span></span> = - <span class="frac"><span class="num">R<sub>F</sub></span><span class="den">R<sub>S</sub></span></span>
+            </div>
+            ดังนั้น อัตราขยายแรงดัน (Voltage Gain: A<sub>v</sub>) คือ:
+            <div class="formula" style="border-color: var(--accent); background: #EFF6FF; font-weight: 800; color: var(--accent);">
+              A<sub>v</sub> = <span class="frac"><span class="num">V<sub>out</sub></span><span class="den">V<sub>in</sub></span></span> = - <span class="frac"><span class="num">R<sub>F</sub></span><span class="den">R<sub>S</sub></span></span> &emsp;&emsp; (ตรงตามสมการที่ 9.2 Q.E.D.)
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- คำถามข้อที่ 2 -->
+    <div class="qa-card accent2">
+      <div class="qa-q">
+        <span class="qa-badge" style="background: var(--accent2);">คำถามข้อที่ 9.2</span>
+        จากวงจรในรูปที่ 9.2 จงแสดงให้เห็นอย่างชัดแจ้งว่า อัตราขยายของวงจรนี้ มีสูตรดังแสดงในสมการที่ (9.4)
+      </div>
+      <div class="qa-ans">
+        <p><b>คำตอบและขั้นตอนการพิสูจน์ทางคณิตศาสตร์อย่างชัดแจ้ง:</b></p>
+        
+        <!-- รูปวงจรประกอบการพิสูจน์ข้อ 9.2 -->
+        <div class="fig-container" style="margin: 16px 0;">
+          <div class="img-box light-schematic" onclick="openLb('result/12_fig9_2_proof_diagram.svg')">
+            <img src="result/12_fig9_2_proof_diagram.svg" alt="รูปที่ 9.2 แผนภาพพิสูจน์สมการ 9.4 วงจรขยายแบบไม่กลับเฟส">
+          </div>
+          <div class="fig-caption">
+            <b>รูปแผนภาพประกอบคำถามข้อ 9.2:</b> การวิเคราะห์วงจรแบ่งแรงดัน (Voltage Divider) ร่วมกับคุณสมบัติเสมือนลัดวงจร (Virtual Short, V- ≈ V+ = Vin)
+          </div>
+        </div>
+
+        <p>พิจารณาวงจรขยายแบบไม่กลับเฟส (Non-Inverting Amplifier) ในรูปที่ 9.2:</p>
+        <ol>
+          <li>
+            <b>แรงดันที่ขั้วอินพุตไม่กลับเฟส:</b> สัญญาณอินพุต V<sub>in</sub> ถูกป้อนเข้าขั้วบวกโดยตรง:
+            <div class="formula">V<sub>+</sub> = V<sub>in</sub></div>
+          </li>
+          <li>
+            <b>คุณสมบัติเสมือนลัดวงจร (Virtual Short):</b> ภายใต้การต่อป้อนกลับแบบลบ อัตราขยายวงเปิด A<sub>ol</sub> ที่สูงมากจะบังคับให้ความต่างศักย์ระหว่างขั้วอินพุตมีค่าเกือบเป็นศูนย์:
+            <div class="formula">V<sub>-</sub> ≈ V<sub>+</sub> = V<sub>in</sub></div>
+          </li>
+          <li>
+            <b>การแบ่งแรงดันที่สายป้อนกลับ (Voltage Divider):</b> เนื่องจากกระแสไหลเข้าขั้วอินเวอร์ตติ้งเป็นศูนย์ (I<sub>-</sub> = 0 A) ตัวต้านทาน R<sub>F</sub> และ R<sub>S</sub> จึงต่ออนุกรมกันระหว่างโหนดเอาต์พุต V<sub>out</sub> กับกราวด์ (0V) แรงดันที่โหนด V<sub>-</sub> จึงเกิดจากสูตรวงจรแบ่งแรงดัน:
+            <div class="formula">
+              V<sub>-</sub> = [ <span class="frac"><span class="num">R<sub>S</sub></span><span class="den">R<sub>S</sub> + R<sub>F</sub></span></span> ] × V<sub>out</sub>
+            </div>
+          </li>
+          <li>
+            <b>แทนค่าเงื่อนไข Virtual Short (V<sub>-</sub> = V<sub>in</sub>):</b>
+            <div class="formula">
+              V<sub>in</sub> = [ <span class="frac"><span class="num">R<sub>S</sub></span><span class="den">R<sub>S</sub> + R<sub>F</sub></span></span> ] × V<sub>out</sub>
+            </div>
+            ย้ายข้างเพื่อหาอัตราส่วน V<sub>out</sub> / V<sub>in</sub>:
+            <div class="formula">
+              <span class="frac"><span class="num">V<sub>out</sub></span><span class="den">V<sub>in</sub></span></span> = <span class="frac"><span class="num">R<sub>S</sub> + R<sub>F</sub></span><span class="den">R<sub>S</sub></span></span> = <span class="frac"><span class="num">R<sub>S</sub></span><span class="den">R<sub>S</sub></span></span> + <span class="frac"><span class="num">R<sub>F</sub></span><span class="den">R<sub>S</sub></span></span>
+            </div>
+            <div class="formula" style="border-color: var(--accent2); background: #FFFBEB; font-weight: 800; color: var(--accent2);">
+              A<sub>v</sub> = <span class="frac"><span class="num">V<sub>out</sub></span><span class="den">V<sub>in</sub></span></span> = 1 + <span class="frac"><span class="num">R<sub>F</sub></span><span class="den">R<sub>S</sub></span></span> &emsp;&emsp; (ตรงตามสมการที่ 9.4 Q.E.D.)
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- คำถามข้อที่ 3 -->
+    <div class="qa-card green">
+      <div class="qa-q">
+        <span class="qa-badge" style="background: var(--green);">คำถามข้อที่ 9.3</span>
+        จากการทดลองตอนที่ 9.4 และ 9.5 จงบอกว่า ข้อจำกัดด้านใดของออปแอมป์ ส่งผลให้ รูปคลื่นสัญญาณ V<sub>out</sub>(t) มีลักษณะเปลี่ยนแปลงไปจากสัญญาณรูปไซน์ ซึ่งเป็นสัญญาณขาเข้าของวงจรขยาย
+      </div>
+      <div class="qa-ans">
+        <p><b>คำตอบ:</b> ข้อจำกัดของออปแอมป์ที่ทำให้รูปคลื่นสัญญาณเอาต์พุต V<sub>out</sub>(t) ผิดเพี้ยนไปจากสัญญาณรูปไซน์อินพุต ประกอบด้วย <b>2 ข้อจำกัดหลัก</b> ทางกายภาพ ดังนี้:</p>
+
+        <ol>
+          <li>
+            <b>ข้อจำกัดด้านแรงดันเอาต์พุตอิ่มตัว (Saturation Voltage Limit: ±V<sub>sat</sub>) [ปรากฏชัดในการทดลองตอนที่ 9.4.8 - 9.4.9 รูปที่ 9.10]:</b>
+            <ul>
+              <li><b>สาเหตุ:</b> แอมพลิจูดสูงสุดของแรงดันเอาต์พุตถูกจำกัดด้วยแรงดันไบแอสของแหล่งจ่ายไฟเลี้ยง (Power Supply Rails: +V<sub>CC</sub> = +15V และ -V<sub>EE</sub> = -15V) เมื่อขยายสัญญาณด้วยอัตราขยาย Av = -10 แล้วแรงดันที่ควรจะเป็น <code>|A<sub>v</sub> × v<sub>s</sub>|</code> มีค่าสูงเกินกว่าแรงดันอิ่มตัว (เช่น เมื่อ vs = 4 V<sub>p-p</sub> จะได้ค่าตามทฤษฎี 40 V<sub>p-p</sub> ซึ่งยอดคลื่นสูงถึง ±20 V)</li>
+              <li><b>ผลกระทบ:</b> ยอดคลื่นไซน์ทั้งด้านบวกและด้านลบจะถูกขลิบตัดแบนราบ (Clipping Distortion) ที่ขอบบน <code>+Vsat ≈ +14.3 V</code> และขอบล่าง <code>-Vsat ≈ -13.5 V</code> ทำให้รูปคลื่นเปลี่ยนจากสัญญาณไซน์บริสุทธิ์กลายเป็นคลื่นที่มีลักษณะคล้ายคลื่นสี่เหลี่ยมคางหมูหรือคลื่นสี่เหลี่ยม (Square-like wave)</li>
+            </ul>
+          </li>
+          <li>
+            <b>ข้อจำกัดด้านอัตราสลูว์ หรือ ความเร็วการตอบสนองแรงดันสูงสุด (Slew Rate Limit: SR = dV/dt max):</b>
+            <ul>
+              <li><b>สาเหตุ:</b> ภายในตัวไอซีออปแอมป์มีตัวเก็บประจุชดเชยเฟสเพื่อรักษาเสถียรภาพ (Internal Frequency Compensation Capacitor, C<sub>c</sub> ≈ 30 pF ใน LM741) ซึ่งถูกชาร์จและดิสชาร์จด้วยแหล่งจ่ายกระแสคงที่ภายใน (Tail Current I<sub>bias</sub>) ทำให้อัตราการเปลี่ยนแปลงแรงดันเอาต์พุตสูงสุดมีขีดจำกัด โดย LM741 มีอัตราสลูว์เท่ากับ <code>SR = 0.5 V/μs</code></li>
+              <li><b>ผลกระทบ:</b> เมื่อความถี่ (f) หรือขนาดแอมพลิจูด (V<sub>p</sub>) ของสัญญาณมีค่าสูงจนอัตราการเปลี่ยนแปลง <code>2π × f × V<sub>p</sub> &gt; SR</code> เอาต์พุตจะไม่สามารถเปลี่ยนค่าได้ทันความชันของคลื่นไซน์ ทำให้รูปคลื่นเกิดการบิดเบี้ยวกลายเป็น <b>คลื่นรูปสามเหลี่ยม (Triangular Wave Distortion)</b></li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หัวข้อที่ 10: ข้อมูลอ้างอิงและภาพถ่ายใบบันทึกผลจริง -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec10">
+    <div class="sec-head">
+      <div class="sec-no">10</div>
+      <h2>ข้อมูลอ้างอิงและภาพถ่ายใบบันทึกผลจริง (Lab Sheets Gallery)</h2>
+    </div>
+
+    <p>
+      ภาพถ่ายต้นฉบับใบบันทึกผลการทดลองจริงของนักศึกษาในเล่มคู่มือปฏิบัติการวิศวกรรมไฟฟ้า 1 (หน้า 89 ถึง 103) สามารถคลิกเพื่อดูภาพขยายความละเอียดสูง:
+    </p>
+
+    <div class="real-doc-grid">
+      <div class="real-doc-card" onclick="openLb('guide/71_lab9_p89_op_amp_theory.jpg')">
+        <img src="guide/71_lab9_p89_op_amp_theory.jpg" alt="หน้า 89 ทฤษฎีออปแอมป์">
+        <div class="caption">หน้า 89: ทฤษฎีออปแอมป์และวงจรกลับเฟส</div>
+      </div>
+      <div class="real-doc-card" onclick="openLb('guide/72_lab9_p90_theory_inverting_amp.jpg')">
+        <img src="guide/72_lab9_p90_theory_inverting_amp.jpg" alt="หน้า 90 วงจรไม่กลับเฟส">
+        <div class="caption">หน้า 90: ทฤษฎีวงจรขยายแบบไม่กลับเฟส</div>
+      </div>
+      <div class="real-doc-card" onclick="openLb('guide/73_lab9_p91_theory_non_inverting_buffer.jpg')">
+        <img src="guide/73_lab9_p91_theory_non_inverting_buffer.jpg" alt="หน้า 91 บัฟเฟอร์และอุปกรณ์">
+        <div class="caption">หน้า 91: วงจรบัฟเฟอร์และรายการอุปกรณ์</div>
+      </div>
+      <div class="real-doc-card" onclick="openLb('guide/74_lab9_p92_part9_1_inverting_table9_1.jpg')">
+        <img src="guide/74_lab9_p92_part9_1_inverting_table9_1.jpg" alt="หน้า 92 ตาราง 9.1">
+        <div class="caption">หน้า 92: ใบบันทึกผล ตารางที่ 9.1 (กลับเฟส)</div>
+      </div>
+      <div class="real-doc-card" onclick="openLb('guide/75_lab9_p93_part9_2_non_inverting_table9_2.jpg')">
+        <img src="guide/75_lab9_p93_part9_2_non_inverting_table9_2.jpg" alt="หน้า 93 ตาราง 9.2">
+        <div class="caption">หน้า 93: ใบบันทึกผล ตารางที่ 9.2 (ไม่กลับเฟส)</div>
+      </div>
+      <div class="real-doc-card" onclick="openLb('guide/76_lab9_p94_part9_3_buffer_table9_3.jpg')">
+        <img src="guide/76_lab9_p94_part9_3_buffer_table9_3.jpg" alt="หน้า 94 ตาราง 9.3">
+        <div class="caption">หน้า 94: ใบบันทึกผล ตารางที่ 9.3 (บัฟเฟอร์)</div>
+      </div>
+      <div class="real-doc-card" onclick="openLb('guide/78_lab9_p96_inverting_ac_grid_fig9_8.jpg')">
+        <img src="guide/78_lab9_p96_inverting_ac_grid_fig9_8.jpg" alt="หน้า 96 กริดสโคปไฟสลับ">
+        <div class="caption">หน้า 96: กริดสโคป รูปที่ 9.8 และ 9.9</div>
+      </div>
+      <div class="real-doc-card" onclick="openLb('guide/79_lab9_p97_inverting_ac_grid_fig9_9.jpg')">
+        <img src="guide/79_lab9_p97_inverting_ac_grid_fig9_9.jpg" alt="หน้า 97 กริดสโคปอิ่มตัว">
+        <div class="caption">หน้า 97: กริดสโคป รูปที่ 9.10 (อิ่มตัว)</div>
+      </div>
+      <div class="real-doc-card" onclick="openLb('guide/81_lab9_p99_non_inverting_ac_grid_fig9_12.jpg')">
+        <img src="guide/81_lab9_p99_non_inverting_ac_grid_fig9_12.jpg" alt="หน้า 99 กริดไม่กลับเฟส">
+        <div class="caption">หน้า 99: กริดสโคป รูปที่ 9.12 และ 9.13</div>
+      </div>
+      <div class="real-doc-card" onclick="openLb('guide/82_lab9_p100_buffer_ac_grid_fig9_13.jpg')">
+        <img src="guide/82_lab9_p100_buffer_ac_grid_fig9_13.jpg" alt="หน้า 100 กริดบัฟเฟอร์">
+        <div class="caption">หน้า 100: กริดสโคป รูปที่ 9.14 (บัฟเฟอร์)</div>
+      </div>
+      <div class="real-doc-card" onclick="openLb('guide/85_lab9_p103_qna.jpg')">
+        <img src="guide/85_lab9_p103_qna.jpg" alt="หน้า 103 คำถามท้ายบท">
+        <div class="caption">หน้า 103: คำถามท้ายการทดลอง 3 ข้อ</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หัวข้อที่ 11: การเชื่อมโยงไปยังแล็บถัดไป -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec11">
+    <div class="sec-head">
+      <div class="sec-no">11</div>
+      <h2>การเชื่อมโยงไปยังแล็บถัดไป (Laboratory Navigation)</h2>
+    </div>
+
+    <div class="lab-nav-cards">
+      <a href="../lab8/index.html" class="lab-nav-card">
+        <span class="dir">◄ ปฏิบัติการก่อนหน้า</span>
+        <span class="name">ปฏิบัติการที่ 8: วงจรไดโอดและการเรียงกระแส (Diode Circuits and Rectifiers)</span>
+      </a>
+      <a href="../index.html" class="lab-nav-card">
+        <span class="dir">▲ สารบัญตอนที่ 1</span>
+        <span class="name">รวมบทปฏิบัติการวิศวกรรมไฟฟ้า ตอนที่ 1 (Lab 1 - 9 Overview)</span>
+      </a>
+      <a href="../../part2/index.html" class="lab-nav-card">
+        <span class="dir">ปฏิบัติการถัดไป ►</span>
+        <span class="name">ตอนที่ 2 (Part 2): ระบบควบคุมและเครื่องจักรกลไฟฟ้า</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- หน้าต่างขยายภาพ (Lightbox Modal) -->
+  <div id="lb" class="lightbox" onclick="this.classList.remove('on')">
+    <img id="lb-img" src="" alt="ภาพขยายผลการทดลอง">
+  </div>
+
+  <!-- ท้ายหน้าเอกสาร -->
+  <footer class="lab-footer">
+    <div class="footer-meta">
+      <div style="margin-bottom: 8px;">
+        <b>ปฏิบัติการวิศวกรรมไฟฟ้า 1 (Electrical Engineering Laboratory 1)</b><br>
+        เอกสารประกอบการทำปฏิบัติการที่ 9: วงจรขยายเชิงปฏิบัติการ (Operational Amplifiers - Op-Amp)<br>
+        ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร
+      </div>
+      <div>
+        <b>โฟลเดอร์ไฟล์อ้างอิงและสื่อการสอน:</b><br>
+        คู่มือการทดลอง: <code>guide/ (หน้า 89 - 103)</code><br>
+        ภาพจำลองและผลการทดลอง: <code>result/ (ภาพที่ 01 - 12 SVG)</code>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ═══════════ Floating Navigation Dock (หุบ/ขยายได้เพื่อไม่บังเนื้อหา) ═══════════ -->
+<aside class="float-nav-dock" id="float-nav-dock" aria-label="แถบนำทางด่วน">
+  <!-- Expanded Card Panel -->
+  <div class="fnd-panel" id="fnd-panel">
+    <div class="fnd-header">
+      <span class="fnd-title">นำทางด่วน (Quick Nav)</span>
+      <button type="button" class="fnd-close-btn" id="fnd-btn-collapse" title="หุบแถบนำทาง">
+        ✕ หุบแถบ
+      </button>
+    </div>
+    <div class="fnd-links">
+      <a class="fnd-btn" href="#sec2">ทฤษฎี</a>
+      <a class="fnd-btn" href="#sec3">อุปกรณ์</a>
+      <a class="fnd-btn" href="#sec4">ผลทดลอง</a>
+      <a class="fnd-btn" href="#sec5">สโคป</a>
+      <a class="fnd-btn" href="#sec6">สูตรคำนวณ</a>
+      <a class="fnd-btn" href="#sec7">วิเคราะห์</a>
+      <a class="fnd-btn" href="#sec9">คำถามท้ายบท</a>
+      <a class="fnd-btn" href="#sec10">ใบบันทึกจริง</a>
+      <a class="fnd-btn fnd-btn-vlab" href="../../virtual-lab/index.html" target="_blank">Virtual Lab ↗</a>
+    </div>
+  </div>
+
+  <!-- Collapsed Trigger Pill Button -->
+  <button type="button" class="fnd-trigger-btn" id="fnd-btn-expand" title="เปิดแถบนำทางด่วน" aria-label="เปิดแถบนำทางด่วน">
+    <span class="fnd-trigger-text">นำทางด่วน</span>
+    <span class="fnd-current-topic" id="fnd-current-topic"></span>
+    <span class="fnd-trigger-arrow">▲</span>
+  </button>
+</aside>
+
+<a class="top-link" href="#" title="กลับขึ้นบนสุด">&#8593;</a>
+
+<!-- สคริปต์เปิดปิด Lightbox และควบคุมแถบนำทางลอยตัว (Floating Nav Dock) -->
+<script>
+function openLb(src) {
+  var lb = document.getElementById('lb');
+  var img = document.getElementById('lb-img');
+  img.src = src;
+  lb.classList.add('on');
+}
+
+(function() {
+  const dock = document.getElementById('float-nav-dock');
+  const btnCollapse = document.getElementById('fnd-btn-collapse');
+  const btnExpand = document.getElementById('fnd-btn-expand');
+  if (!dock) return;
+
+  const setCollapsed = (collapsed) => {
+    dock.classList.toggle('collapsed', collapsed);
+    try {
+      localStorage.setItem('lab9_nav_dock_collapsed', collapsed ? 'true' : 'false');
+    } catch(e) {}
+  };
+
+  // Restore stored preference
+  try {
+    if (localStorage.getItem('lab9_nav_dock_collapsed') === 'true') {
+      dock.classList.add('collapsed');
+    }
+  } catch(e) {}
+
+  if (btnCollapse) {
+    btnCollapse.addEventListener('click', function(e) {
+      e.preventDefault();
+      setCollapsed(true);
+    });
+  }
+
+  if (btnExpand) {
+    btnExpand.addEventListener('click', function(e) {
+      e.preventDefault();
+      setCollapsed(false);
+    });
+  }
+
+  // Dynamic ScrollSpy Section Highlight
+  const navLinks = Array.from(dock.querySelectorAll('.fnd-links a[href^="#"]'));
+  const currentTopicEl = document.getElementById('fnd-current-topic');
+
+  const targets = navLinks.map(link => {
+    const id = link.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    return el ? { link, el } : null;
+  }).filter(Boolean);
+
+  function updateActive() {
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const offset = 180; // Buffer for sticky header
+    let current = null;
+
+    for (let i = 0; i < targets.length; i++) {
+      const top = targets[i].el.getBoundingClientRect().top + scrollY;
+      if (scrollY + offset >= top) {
+        current = targets[i];
+      }
+    }
+
+    targets.forEach(t => {
+      if (current && t === current) {
+        t.link.classList.add('active');
+        t.link.setAttribute('aria-current', 'true');
+      } else {
+        t.link.classList.remove('active');
+        t.link.removeAttribute('aria-current');
+      }
+    });
+
+    if (currentTopicEl) {
+      currentTopicEl.textContent = current ? ' : ' + current.link.textContent.trim() : '';
+    }
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('resize', updateActive, { passive: true });
+  updateActive();
+})();
+</script>
+
+</body>
+</html>

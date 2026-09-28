@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" width="100%" height="auto" style="background:#FFFDF9; font-family:'IBM Plex Sans Thai', Sarabun, sans-serif;">
+<rect width="820" height="420" rx="8" fill="#FFFDF9" stroke="#D8CFBC" stroke-width="1.5"/>
+<text x="410" y="32" fill="#0F172A" font-size="15" font-weight="800" text-anchor="middle">รูปที่ 9.1 วงจรขยายแบบกลับเฟส (Inverting Amplifier Circuit)</text>
+<text x="410" y="52" fill="#64748B" font-size="12" text-anchor="middle">สมการอัตราขยาย: V_out = - (R_F / R_S) × V_in  |  A_v = - R_F / R_S</text>
+<!-- Op-Amp Symbol -->
+<polygon points="405,185 405,275 495,230" fill="#FFFFFF" stroke="#0F172A" stroke-width="2.5"/>
+<text x="414" y="212" fill="#0F172A" font-size="16" font-weight="900">-</text>
+<text x="414" y="256" fill="#0F172A" font-size="16" font-weight="900">+</text>
+<text x="440" y="235" fill="#64748B" font-size="11" font-weight="700">LM741</text>
+<line x1="450" y1="197" x2="450" y2="170" stroke="#0F172A" stroke-width="1.8"/>
+<text x="450" y="164" fill="#DC2626" font-size="11" font-weight="800" text-anchor="middle">+15V (Pin 7)</text>
+<line x1="450" y1="263" x2="450" y2="290" stroke="#0F172A" stroke-width="1.8"/>
+<text x="450" y="303" fill="#2563EB" font-size="11" font-weight="800" text-anchor="middle">-15V (Pin 4)</text>
+<!-- Input Terminal Vin -->
+<circle cx="120" cy="208" r="4" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+<text x="108" y="213" fill="#0F172A" font-size="13" font-weight="800" text-anchor="end">V_in (v_s)</text>
+<line x1="124" y1="208" x2="190" y2="208" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="190" y1="208" x2="200" y2="208" stroke="#0F172A" stroke-width="2.2"/>
+<rect x="200" y="198" width="50" height="20" fill="#F8FAFC" stroke="#0F172A" stroke-width="2"/>
+<line x1="250" y1="208" x2="260" y2="208" stroke="#0F172A" stroke-width="2.2"/>
+<text x="225.0" y="194" fill="#0F172A" font-size="12" font-weight="800" text-anchor="middle">R_S</text>
+<text x="225.0" y="231" fill="#475569" font-size="11" font-weight="700" text-anchor="middle">1 kΩ</text>
+<line x1="260" y1="208" x2="405" y2="208" stroke="#0F172A" stroke-width="2.2"/>
+<circle cx="330" cy="208" r="4.5" fill="#2563EB"/>
+<text x="330" y="196" fill="#2563EB" font-size="12" font-weight="800" text-anchor="middle">โหนด V_-</text>
+<text x="330" y="226" fill="#2563EB" font-size="10" font-weight="700" text-anchor="middle">(≈ 0V Virtual GND)</text>
+<line x1="330" y1="208" x2="330" y2="110" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="330" y1="110" x2="380" y2="110" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="380" y1="110" x2="390" y2="110" stroke="#0F172A" stroke-width="2.2"/>
+<rect x="390" y="100" width="60" height="20" fill="#F8FAFC" stroke="#0F172A" stroke-width="2"/>
+<line x1="450" y1="110" x2="460" y2="110" stroke="#0F172A" stroke-width="2.2"/>
+<text x="420.0" y="96" fill="#0F172A" font-size="12" font-weight="800" text-anchor="middle">R_F</text>
+<text x="420.0" y="133" fill="#475569" font-size="11" font-weight="700" text-anchor="middle">4.7 kΩ / 10 kΩ</text>
+<line x1="460" y1="110" x2="560" y2="110" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="560" y1="110" x2="560" y2="230" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="405" y1="252" x2="360" y2="252" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="360" y1="252" x2="360" y2="287" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="360" y1="287" x2="360" y2="301" stroke="#0F172A" stroke-width="2"/>
+<line x1="346" y1="301" x2="374" y2="301" stroke="#0F172A" stroke-width="2"/>
+<line x1="351" y1="305" x2="369" y2="305" stroke="#0F172A" stroke-width="1.8"/>
+<line x1="356" y1="309" x2="364" y2="309" stroke="#0F172A" stroke-width="1.5"/>
+<text x="345" y="277" fill="#059669" font-size="11" font-weight="700" text-anchor="end">V_+ = 0V</text>
+<line x1="495" y1="230" x2="690" y2="230" stroke="#0F172A" stroke-width="2.2"/>
+<circle cx="560" cy="230" r="4" fill="#0F172A"/>
+<circle cx="690" cy="230" r="4" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+<text x="704" y="235" fill="#0F172A" font-size="14" font-weight="800">V_out (v_out)</text>
+<text x="500" y="220" fill="#64748B" font-size="11" font-weight="700">Pin 6</text>
+<g transform="translate(40, 360)">
+  <rect width="740" height="38" rx="5" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="16" y="24" fill="#334155" font-size="11"><b>พารามิเตอร์การทดลอง:</b> LM741 แหล่งจ่ายคู่ ±15V (Pin 7=+15V, Pin 4=-15V), R_S = 1 kΩ, R_F = 4.7 kΩ (Av = -4.7) และ R_F = 10 kΩ (Av = -10)</text>
+</g>
+</svg>

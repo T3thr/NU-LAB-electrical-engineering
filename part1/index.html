@@ -29,7 +29,12 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
 body {
   margin: 0;
   background: var(--paper);
@@ -37,12 +42,17 @@ body {
   font-family: "IBM Plex Sans Thai", "Sarabun", "Thonburi", "Noto Sans Thai", -apple-system, "Segoe UI", sans-serif;
   font-size: 16.5px;
   line-height: 1.85;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 .page {
   max-width: 1120px;
   margin: 0 auto;
   padding: 36px 32px 90px;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* ═══════════ แถบนำทางและส่วนหัวกลาง ═══════════ */
@@ -486,8 +496,19 @@ footer.colophon {
 }
 
 @media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
   body { font-size: 15.5px; }
-  .page { padding: 20px 16px 60px; }
+  .page {
+    padding: 18px 12px 60px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
   h1.book-title { font-size: 1.85rem; }
   .featured-lab-card { padding: 20px 18px; }
   .featured-lab-card::before { position: static; display: inline-block; margin-bottom: 12px; }
@@ -527,15 +548,49 @@ footer.colophon {
     <a href="../virtual-lab/index.html" class="btn btn-primary">เปิด Virtual Lab →</a>
   </div>
 
-  <!-- หมวดเนื้อหาหลักที่ 1: บทปฏิบัติการเด่น Lab 7 -->
+  <!-- หมวดเนื้อหาหลักที่ 1: บทปฏิบัติการเด่น -->
   <section>
     <div class="sec-head">
       <div class="sec-no">01</div>
-      <h2>บทปฏิบัติการฉบับสมบูรณ์ (Active Module)</h2>
+      <h2>บทปฏิบัติการฉบับสมบูรณ์ (Active Modules)</h2>
     </div>
     <p class="sec-lead">คู่มือการทดลองและบทวิเคราะห์ผลสัญญาณจริงฉบับละเอียดที่เปิดให้ศึกษาในระบบ</p>
 
     <article class="featured-lab-card">
+      <div class="featured-header">
+        <div>
+          <span class="chip" style="margin-bottom: 8px; display: inline-block;">LABORATORY 06</span>
+          <h3 class="featured-title">ปฏิบัติการที่ 6: การใช้งานออสซิลโลสโคปและเครื่องกำเนิดสัญญาณ</h3>
+        </div>
+        <span class="status-pill status-active">เอกสารฉบับสมบูรณ์ · การสอบเทียบและรูปคลื่นจริง</span>
+      </div>
+
+      <p class="featured-desc">
+        ศึกษาหลักการทำงานของออสซิลโลสโคปแบบดิจิทัล 2 ช่องสัญญาณ (DSO) การปรับตั้งฐานเวลา (TIME/DIV) และความไวแรงดัน (VOLTS/DIV) การสอบเทียบและชดเชยค่าหัวโพรบ 10X (Probe Compensation) เพื่อขจัดสัญญาณผิดเพี้ยน การกำเนิดและวัดสัญญาณรูปคลื่นไซน์ คลื่นสี่เหลี่ยม คลื่นสามเหลี่ยม และการวัดแรงดันตกคร่อมในวงจรแบ่งแรงดันไฟฟ้าเพื่อเปรียบเทียบกับค่าคำนวณทางทฤษฎี
+      </p>
+
+      <div class="parts-list">
+        <div class="part-item">
+          <b>ตอนที่ 6.1: การสอบเทียบหัวโพรบ (Probe Calibration)</b>
+          ชดเชยตัวเก็บประจุภายในหัวโพรบ 10X ให้ได้รูปคลื่นสี่เหลี่ยมสมบูรณ์ (Properly Compensated) ขจัด Under/Over-compensation
+        </div>
+        <div class="part-item">
+          <b>ตอนที่ 6.2: เครื่องกำเนิดสัญญาณ (Waveform Generation)</b>
+          กำเนิดและวัดรูปคลื่นไซน์ สี่เหลี่ยม และสามเหลี่ยม ที่ความถี่ 500 Hz ถึง 2 kHz บันทึกค่า V<sub>p-p</sub>, V<sub>rms</sub> และคาบเวลา T
+        </div>
+        <div class="part-item">
+          <b>ตอนที่ 6.3: วงจรแบ่งแรงดันไฟฟ้า (Voltage Divider)</b>
+          ต่อวงจรอนุกรม R<sub>1</sub> = 1 kΩ, R<sub>2</sub> = 470 Ω ตรวจวัดแรงดันตกคร่อมด้วย CH1 และ CH2 วิเคราะห์เปรียบเทียบกับทฤษฎี
+        </div>
+      </div>
+
+      <div class="featured-actions">
+        <a href="./lab6/index.html" class="btn btn-primary">อ่านคู่มือและบทวิเคราะห์ผล Lab 6 ฉบับเต็ม →</a>
+        <a href="../virtual-lab/index.html" class="btn btn-secondary">เปิดแบบจำลองโต๊ะทดลองเสมือนจริง Lab 6 ↗</a>
+      </div>
+    </article>
+
+    <article class="featured-lab-card" style="margin-top: 28px;">
       <div class="featured-header">
         <div>
           <span class="chip" style="margin-bottom: 8px; display: inline-block;">LABORATORY 07</span>
@@ -566,6 +621,74 @@ footer.colophon {
       <div class="featured-actions">
         <a href="./lab7/index.html" class="btn btn-primary">อ่านคู่มือและบทวิเคราะห์ผล Lab 7 ฉบับเต็ม →</a>
         <a href="../virtual-lab/index.html" class="btn btn-secondary">เปิดแบบจำลองโต๊ะทดลองเสมือนจริง Lab 7 ↗</a>
+      </div>
+    </article>
+
+    <article class="featured-lab-card" style="margin-top: 28px;">
+      <div class="featured-header">
+        <div>
+          <span class="chip" style="margin-bottom: 8px; display: inline-block;">LABORATORY 08</span>
+          <h3 class="featured-title">ปฏิบัติการที่ 8: วงจรไดโอดและการเรียงกระแส (Diode Circuits and Rectifiers)</h3>
+        </div>
+        <span class="status-pill status-active">เอกสารฉบับสมบูรณ์ · 11 ภาพจำลองเสมือนจริง</span>
+      </div>
+
+      <p class="featured-desc">
+        ศึกษาคุณสมบัติทางไฟฟ้าและกราฟ I-V ของไดโอดซิลิคอน 1N4001 และไดโอดเปล่งแสง LED สังเกตการทำงานของวงจรเรียงกระแสแบบครึ่งคลื่นและเต็มคลื่นบริดจ์ และวิเคราะห์ผลกระทบของตัวเก็บประจุกรอง (C-Filter) ต่อแรงดันกระเพื่อม พร้อมเฉลยคำถามท้ายบทข้อ 8.1 ครบถ้วน
+      </p>
+
+      <div class="parts-list">
+        <div class="part-item">
+          <b>ตอนที่ 8.1: คุณลักษณะ I-V</b>
+          ทดสอบไดโอด 1N4001 และ LED วัดกระแสและแรงดันตั้งแต่ -10 V ถึง +10 V เพื่อหา Knee Voltage และ Turn-on Voltage
+        </div>
+        <div class="part-item">
+          <b>ตอนที่ 8.2 - 8.3: วงจรเรียงกระแสครึ่งคลื่น</b>
+          ศึกษาการตัดสัญญาณครึ่งลบ และผลของการต่อ C-Filter ขนานโหลด R<sub>L</sub> เพื่อลดแรงดันกระเพื่อม V<sub>r(p-p)</sub>
+        </div>
+        <div class="part-item">
+          <b>ตอนที่ 8.4: วงจรเต็มคลื่นบริดจ์</b>
+          วิเคราะห์วงจรบริดจ์ไดโอด 4 ตัว การเพิ่มความถี่เป็น 2 เท่า และการกรองแรงดันให้ได้ไฟตรงคุณภาพสูง
+        </div>
+      </div>
+
+      <div class="featured-actions">
+        <a href="./lab8/index.html" class="btn btn-primary">อ่านคู่มือและบทวิเคราะห์ผล Lab 8 ฉบับเต็ม →</a>
+        <a href="../virtual-lab/index.html" class="btn btn-secondary">เปิดแบบจำลองโต๊ะทดลองเสมือนจริง Lab 8 ↗</a>
+      </div>
+    </article>
+
+    <article class="featured-lab-card" style="margin-top: 28px;">
+      <div class="featured-header">
+        <div>
+          <span class="chip" style="margin-bottom: 8px; display: inline-block;">LABORATORY 09</span>
+          <h3 class="featured-title">ปฏิบัติการที่ 9: วงจรขยายเชิงปฏิบัติการ (Operational Amplifiers - Op-Amp)</h3>
+        </div>
+        <span class="status-pill status-active">เอกสารฉบับสมบูรณ์ · 12 ภาพจำลองเสมือนจริง</span>
+      </div>
+
+      <p class="featured-desc">
+        ศึกษาคุณสมบัติของออปแอมป์ในอุดมคติ (Ideal Op-Amp) ทั้งวงจรขยายสัญญาณแบบกลับเฟส (Inverting Amplifier), แบบไม่กลับเฟส (Non-Inverting Amplifier) และวงจรตามแรงดัน (Voltage Follower / Buffer) วิเคราะห์ผลการจำกัดแรงดันอิ่มตัว (Saturation Clipping) ที่เพดานแหล่งจ่ายไฟเลี้ยง และการขจัดผลกระทบของโหลด (Loading Effect Elimination) พร้อมเฉลยคำถามท้ายบทข้อ 9.1 - 9.3 ด้วยแผนผังวงจร KCL อย่างละเอียด
+      </p>
+
+      <div class="parts-list">
+        <div class="part-item">
+          <b>ตอนที่ 9.1 &amp; 9.4: วงจรขยายแบบกลับเฟส (Inverting)</b>
+          ทดสอบไฟตรงและไฟสลับ พิสูจน์อัตราขยาย Av = -Rf / R1 = -10 เท่า สังเกตการกลับเฟส 180° และแรงดันอิ่มตัวชนเพดาน ±14V
+        </div>
+        <div class="part-item">
+          <b>ตอนที่ 9.2 &amp; 9.5: วงจรขยายแบบไม่กลับเฟส (Non-Inverting)</b>
+          ศึกษาอัตราขยาย Av = 1 + (Rf / R1) = 11 เท่า สัญญาณเข้า-ออกร่วมเฟสกัน (In-Phase 0°) และวิเคราะห์เพดานการจ่ายแรงดัน
+        </div>
+        <div class="part-item">
+          <b>ตอนที่ 9.3 &amp; 9.6: วงจรตามแรงดันและผลของโหลด (Buffer)</b>
+          พิสูจน์ Av = 1 พร้อมเปรียบเทียบวงจรจ่ายโหลด R<sub>L</sub> ตรง vs ผ่านบัฟเฟอร์ ขจัดผลของ Loading Effect ได้ 100%
+        </div>
+      </div>
+
+      <div class="featured-actions">
+        <a href="./lab9/index.html" class="btn btn-primary">อ่านคู่มือและบทวิเคราะห์ผล Lab 9 ฉบับเต็ม →</a>
+        <a href="../virtual-lab/index.html" class="btn btn-secondary">เปิดแบบจำลองโต๊ะทดลองเสมือนจริง ↗</a>
       </div>
     </article>
   </section>
@@ -619,29 +742,29 @@ footer.colophon {
             <td>Transient Response, Time Constant Tau</td>
             <td><span class="status-pill status-prep">อยู่ระหว่างจัดทำ</span></td>
           </tr>
-          <tr>
-            <td style="font-weight: 700; color: var(--accent2);">Lab 06</td>
-            <td>วงจรเรโซแนนซ์แบบอนุกรมและขนาน</td>
-            <td>Resonance Frequency, Quality Factor, Bandwidth</td>
-            <td><span class="status-pill status-prep">อยู่ระหว่างจัดทำ</span></td>
+          <tr class="highlight-row">
+            <td style="font-weight: 800; color: var(--accent);">Lab 06</td>
+            <td><b>การใช้งานออสซิลโลสโคปและเครื่องกำเนิดสัญญาณ</b></td>
+            <td><b>Oscilloscope Operation, Probe Compensation, AC Waveforms, Voltage Divider</b></td>
+            <td><a href="./lab6/index.html" style="text-decoration:none;"><span class="status-pill status-active">เปิดดูเนื้อหาได้แล้ว</span></a></td>
           </tr>
           <tr class="highlight-row">
             <td style="font-weight: 800; color: var(--accent);">Lab 07</td>
             <td><b>ผลตอบสนองต่อไฟสลับในวงจรอนุกรม RC</b></td>
             <td><b>Sinusoidal AC Response, Phase Shift, Low-Pass Filter</b></td>
-            <td><span class="status-pill status-active">เปิดดูเนื้อหาได้แล้ว</span></td>
+            <td><a href="./lab7/index.html" style="text-decoration:none;"><span class="status-pill status-active">เปิดดูเนื้อหาได้แล้ว</span></a></td>
           </tr>
-          <tr>
-            <td style="font-weight: 700; color: var(--accent2);">Lab 08</td>
-            <td>วงจรกรองความถี่และผลตอบสนองความถี่</td>
-            <td>Passive and Active Filters, Bode Plot</td>
-            <td><span class="status-pill status-prep">อยู่ระหว่างจัดทำ</span></td>
+          <tr class="highlight-row">
+            <td style="font-weight: 800; color: var(--accent);">Lab 08</td>
+            <td><b>วงจรไดโอดและการเรียงกระแส</b></td>
+            <td><b>Diode, LED, Half-Wave &amp; Full-Wave Bridge Rectifiers, C-Filter</b></td>
+            <td><a href="./lab8/index.html" style="text-decoration:none;"><span class="status-pill status-active">เปิดดูเนื้อหาได้แล้ว</span></a></td>
           </tr>
-          <tr>
-            <td style="font-weight: 700; color: var(--accent2);">Lab 09</td>
-            <td>วงจรบริดจ์และการประยุกต์ใช้งาน</td>
-            <td>Wheatstone Bridge, Sensor Conditioning</td>
-            <td><span class="status-pill status-prep">อยู่ระหว่างจัดทำ</span></td>
+          <tr class="highlight-row">
+            <td style="font-weight: 800; color: var(--accent);">Lab 09</td>
+            <td><b>วงจรขยายเชิงปฏิบัติการ (Op-Amp)</b></td>
+            <td><b>Inverting, Non-Inverting, Buffer, Saturation, Loading Effect</b></td>
+            <td><a href="./lab9/index.html" style="text-decoration:none;"><span class="status-pill status-active">เปิดดูเนื้อหาได้แล้ว</span></a></td>
           </tr>
         </tbody>
       </table>

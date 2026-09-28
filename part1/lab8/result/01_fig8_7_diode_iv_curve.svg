@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="auto" style="background:#0F172A; font-family:'SF Mono', Consolas, sans-serif;">
+<defs>
+  <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#1E293B"/>
+    <stop offset="100%" stop-color="#0F172A"/>
+  </linearGradient>
+  <filter id="glow-si"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="glow-led"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="800" height="500" rx="12" fill="url(#bg-grad)" stroke="#334155" stroke-width="1.5"/>
+<!-- Header -->
+<text x="40" y="42" fill="#F8FAFC" font-size="16" font-weight="800">กราฟคุณลักษณะกระแส-แรงดัน (I-V Characteristics): ไดโอด 1N4001 เทียบกับ แอลอีดี (LED)</text>
+<text x="40" y="64" fill="#94A3B8" font-size="12">ผลการทดลองตอนที่ 8.1 (ตารางที่ 8.1 และ 8.2) · เปรียบเทียบแรงดันคัตอิน (V<tspan font-size="10" dy="2">&gamma;</tspan><tspan dy="-2">) และพฤติกรรมไบแอสตรง/กลับ</tspan></text>
+<!-- Grid -->
+<line x1="50" y1="360.0" x2="740" y2="360.0" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="42" y="364.0" fill="#64748B" font-size="10" text-anchor="end">0 mA</text>
+<line x1="50" y1="310.0" x2="740" y2="310.0" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="42" y="314.0" fill="#64748B" font-size="10" text-anchor="end">2 mA</text>
+<line x1="50" y1="260.0" x2="740" y2="260.0" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="42" y="264.0" fill="#64748B" font-size="10" text-anchor="end">4 mA</text>
+<line x1="50" y1="210.0" x2="740" y2="210.0" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="42" y="214.0" fill="#64748B" font-size="10" text-anchor="end">6 mA</text>
+<line x1="50" y1="160.0" x2="740" y2="160.0" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="42" y="164.0" fill="#64748B" font-size="10" text-anchor="end">8 mA</text>
+<line x1="50" y1="110.0" x2="740" y2="110.0" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="42" y="114.0" fill="#64748B" font-size="10" text-anchor="end">10 mA</text>
+<line x1="60.0" y1="100" x2="60.0" y2="385" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="60.0" y="398" fill="#64748B" font-size="10" text-anchor="middle">-10V</text>
+<line x1="150.0" y1="100" x2="150.0" y2="385" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="150.0" y="398" fill="#64748B" font-size="10" text-anchor="middle">-5V</text>
+<line x1="240.0" y1="100" x2="240.0" y2="385" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="240.0" y="398" fill="#64748B" font-size="10" text-anchor="middle">0V</text>
+<line x1="352.0" y1="100" x2="352.0" y2="385" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="352.0" y="398" fill="#64748B" font-size="10" text-anchor="middle">0.7V</text>
+<line x1="400.0" y1="100" x2="400.0" y2="385" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="400.0" y="398" fill="#64748B" font-size="10" text-anchor="middle">1.0V</text>
+<line x1="528.0" y1="100" x2="528.0" y2="385" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="528.0" y="398" fill="#64748B" font-size="10" text-anchor="middle">1.8V</text>
+<line x1="560.0" y1="100" x2="560.0" y2="385" stroke="#334155" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="560.0" y="398" fill="#64748B" font-size="10" text-anchor="middle">2.0V</text>
+<line x1="45" y1="360" x2="750" y2="360" stroke="#94A3B8" stroke-width="1.5"/>
+<polygon points="752,360 744,356 744,364" fill="#94A3B8"/>
+<text x="745" y="350" fill="#94A3B8" font-size="11" font-weight="700">V_D (V)</text>
+<line x1="240" y1="380" x2="240" y2="90" stroke="#94A3B8" stroke-width="1.5"/>
+<polygon points="240,88 236,96 244,96" fill="#94A3B8"/>
+<text x="248" y="98" fill="#94A3B8" font-size="11" font-weight="700">I_D (mA)</text>
+<polyline points="60.0,360.0 222.0,360.0 231.0,360.0 240.0,360.0 311.8,358.6 321.4,355.1 326.2,350.9 328.8,346.5 331.5,341.8 333.4,337.2 334.9,332.1 336.2,327.2 336.8,324.8 339.0,314.7 341.0,300.2 342.4,287.8 345.6,250.3 351.5,124.7" fill="none" stroke="#10B981" stroke-width="2.5" filter="url(#glow-si)"/>
+<circle cx="60.0" cy="360.0" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="222.0" cy="360.0" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="231.0" cy="360.0" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="240.0" cy="360.0" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="311.8" cy="358.6" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="321.4" cy="355.1" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="326.2" cy="350.9" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="328.8" cy="346.5" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="331.5" cy="341.8" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="333.4" cy="337.2" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="334.9" cy="332.1" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="336.2" cy="327.2" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="336.8" cy="324.8" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="339.0" cy="314.7" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="341.0" cy="300.2" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="342.4" cy="287.8" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="345.6" cy="250.3" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="351.5" cy="124.7" r="3" fill="#10B981" stroke="#FFFFFF" stroke-width="1"/>
+<polyline points="60.0,360.0 222.0,360.0 231.0,360.0 240.0,360.0 320.0,360.0 399.8,360.0 524.5,354.4 547.8,282.0 569.8,159.1" fill="none" stroke="#EF4444" stroke-width="2.5" filter="url(#glow-led)"/>
+<circle cx="60.0" cy="360.0" r="3" fill="#EF4444" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="222.0" cy="360.0" r="3" fill="#EF4444" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="231.0" cy="360.0" r="3" fill="#EF4444" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="240.0" cy="360.0" r="3" fill="#EF4444" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="320.0" cy="360.0" r="3" fill="#EF4444" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="399.8" cy="360.0" r="3" fill="#EF4444" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="524.5" cy="354.4" r="3" fill="#EF4444" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="547.8" cy="282.0" r="3" fill="#EF4444" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="569.8" cy="159.1" r="3" fill="#EF4444" stroke="#FFFFFF" stroke-width="1"/>
+<g transform="translate(366.52, 124.67499999999998)">
+  <rect x="0" y="-12" width="160" height="42" rx="5" fill="#064E3B" stroke="#10B981" stroke-width="1"/>
+  <text x="8" y="4" fill="#6EE7B7" font-size="11" font-weight="700">ไดโอดซิลิกอน 1N4001</text>
+  <text x="8" y="20" fill="#A7F3D0" font-size="10">V<tspan font-size="8">&gamma;</tspan> &approx; 0.60 - 0.70 V</text>
+  <line x1="0" y1="8" x2="-12" y2="8" stroke="#10B981" stroke-width="1.5"/>
+</g>
+<g transform="translate(394.76, 169.10000000000002)">
+  <rect x="0" y="-12" width="165" height="52" rx="5" fill="#7F1D1D" stroke="#EF4444" stroke-width="1"/>
+  <text x="8" y="4" fill="#FCA5A5" font-size="11" font-weight="700">ไดโอดเปล่งแสง (LED)</text>
+  <text x="8" y="19" fill="#FECACA" font-size="10">V<tspan font-size="8">&gamma;</tspan> &approx; 1.80 - 2.06 V</text>
+  <text x="8" y="32" fill="#FDE047" font-size="9" font-weight="700">&bull; เริ่มเปล่งแสงที่ V_D = 1.78V</text>
+  <line x1="165" y1="12" x2="175" y2="12" stroke="#EF4444" stroke-width="1.5"/>
+</g>
+<g transform="translate(60, 110)">
+  <rect width="165" height="60" rx="6" fill="#1E293B" stroke="#475569" stroke-width="1"/>
+  <circle cx="16" cy="18" r="4" fill="#10B981"/>
+  <line x1="8" y1="18" x2="24" y2="18" stroke="#10B981" stroke-width="2"/>
+  <text x="32" y="22" fill="#E2E8F0" font-size="11">1N4001 (Silicon)</text>
+  <circle cx="16" cy="42" r="4" fill="#EF4444"/>
+  <line x1="8" y1="42" x2="24" y2="42" stroke="#EF4444" stroke-width="2"/>
+  <text x="32" y="46" fill="#E2E8F0" font-size="11">LED (Red)</text>
+</g>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" width="100%" height="auto" style="background:#FFFFFF; font-family:'Times New Roman', Times, serif;">
+<rect width="760" height="340" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+<text x="380" y="30" fill="#000000" font-size="14" font-weight="bold" font-family="'IBM Plex Sans Thai', sans-serif" text-anchor="middle">รูปที่ 8.12 วงจรเรียงกระแสแบบเต็มคลื่นที่ใช้ไดโอดบริดจ์ (คำถามท้ายการทดลองข้อ 8.1 หน้า 88)</text>
+<circle cx="100" cy="180" r="20" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<path d="M 90 180 Q 95 170 100 180 T 110 180" fill="none" stroke="#000000" stroke-width="2"/>
+<text x="70" y="185" fill="#000000" font-size="16" font-style="italic" text-anchor="end">V_s(t)</text>
+<line x1="100" y1="160" x2="100" y2="130" stroke="#000000" stroke-width="2"/>
+<line x1="100" y1="130" x2="160" y2="130" stroke="#000000" stroke-width="2"/>
+<line x1="100" y1="200" x2="100" y2="230" stroke="#000000" stroke-width="2"/>
+<line x1="100" y1="230" x2="160" y2="230" stroke="#000000" stroke-width="2"/>
+<path d="M 160 130 C 180 130, 180 155, 160 155 C 180 155, 180 180, 160 180 C 180 180, 180 205, 160 205 C 180 205, 180 230, 160 230" fill="none" stroke="#000000" stroke-width="2.5"/>
+<circle cx="145" cy="120" r="3.5" fill="#000000"/>
+<line x1="190" y1="120" x2="190" y2="240" stroke="#000000" stroke-width="2"/>
+<line x1="195" y1="120" x2="195" y2="240" stroke="#000000" stroke-width="2"/>
+<path d="M 225 130 C 205 130, 205 155, 225 155 C 205 155, 205 180, 225 180 C 205 180, 205 205, 225 205 C 205 205, 205 230, 225 230" fill="none" stroke="#000000" stroke-width="2.5"/>
+<circle cx="240" cy="120" r="3.5" fill="#000000"/>
+<text x="192" y="105" fill="#000000" font-size="14" font-weight="bold" font-family="sans-serif" text-anchor="middle">220 V / 12 V</text>
+<line x1="225" y1="130" x2="370" y2="130" stroke="#000000" stroke-width="2"/>
+<line x1="225" y1="230" x2="370" y2="230" stroke="#000000" stroke-width="2"/>
+<line x1="370" y1="230" x2="370" y2="250" stroke="#000000" stroke-width="2"/>
+<line x1="310" y1="190" x2="333" y2="167" stroke="#000000" stroke-width="2"/>
+<polygon points="328,172 350,150 338,182" fill="#000000"/>
+<line x1="339" y1="139" x2="361" y2="161" stroke="#000000" stroke-width="2.5"/>
+<line x1="350" y1="150" x2="370" y2="130" stroke="#000000" stroke-width="2"/>
+<text x="320" y="148" fill="#000000" font-size="15" font-style="italic">D_4</text>
+<line x1="370" y1="130" x2="393" y2="153" stroke="#000000" stroke-width="2"/>
+<polygon points="388,158 410,180 382,168" fill="#000000"/>
+<line x1="399" y1="191" x2="421" y2="169" stroke="#000000" stroke-width="2.5"/>
+<line x1="410" y1="180" x2="430" y2="190" stroke="#000000" stroke-width="2"/>
+<text x="415" y="148" fill="#000000" font-size="15" font-style="italic">D_1</text>
+<line x1="310" y1="190" x2="333" y2="213" stroke="#000000" stroke-width="2"/>
+<polygon points="328,208 350,230 338,198" fill="#000000"/>
+<line x1="339" y1="241" x2="361" y2="219" stroke="#000000" stroke-width="2.5"/>
+<line x1="350" y1="230" x2="370" y2="250" stroke="#000000" stroke-width="2"/>
+<text x="320" y="246" fill="#000000" font-size="15" font-style="italic">D_3</text>
+<line x1="370" y1="250" x2="393" y2="227" stroke="#000000" stroke-width="2"/>
+<polygon points="388,222 410,200 382,212" fill="#000000"/>
+<line x1="399" y1="189" x2="421" y2="211" stroke="#000000" stroke-width="2.5"/>
+<line x1="410" y1="200" x2="430" y2="190" stroke="#000000" stroke-width="2"/>
+<text x="415" y="246" fill="#000000" font-size="15" font-style="italic">D_2</text>
+<circle cx="370" cy="130" r="3" fill="#000000"/>
+<circle cx="370" cy="250" r="3" fill="#000000"/>
+<circle cx="310" cy="190" r="3" fill="#000000"/>
+<circle cx="430" cy="190" r="3" fill="#000000"/>
+<line x1="430" y1="190" x2="530" y2="190" stroke="#000000" stroke-width="2"/>
+<line x1="530" y1="190" x2="530" y2="205" stroke="#000000" stroke-width="2"/>
+<path d="M 530 205 L 538 209 L 522 217 L 538 225 L 522 233 L 538 241 L 522 249 L 530 253" fill="none" stroke="#000000" stroke-width="2"/>
+<line x1="530" y1="253" x2="530" y2="270" stroke="#000000" stroke-width="2"/>
+<text x="548" y="235" fill="#000000" font-size="16" font-style="italic">R</text>
+<text x="568" y="235" fill="#000000" font-size="16" font-style="italic">V_L(t)</text>
+<text x="542" y="185" fill="#000000" font-size="16" font-weight="bold">+</text>
+<text x="542" y="280" fill="#000000" font-size="18" font-weight="bold">-</text>
+<line x1="310" y1="190" x2="270" y2="190" stroke="#000000" stroke-width="2"/>
+<line x1="270" y1="190" x2="270" y2="270" stroke="#000000" stroke-width="2"/>
+<line x1="270" y1="270" x2="530" y2="270" stroke="#000000" stroke-width="2"/>
+<circle cx="270" cy="230" r="7" fill="#FFFFFF" stroke="none"/>
+<path d="M 270 223 Q 262 230 270 237" fill="none" stroke="#000000" stroke-width="2"/>
+<line x1="225" y1="230" x2="370" y2="230" stroke="#000000" stroke-width="2"/>
+</svg>

@@ -13,10 +13,10 @@
     { id: 'lab-03', num: '03', title: 'การวิเคราะห์วงจร 1: KCL และ KVL', en: 'Resistive Network: KCL/KVL', path: 'part1/lab3/index.html', ready: false },
     { id: 'lab-04', num: '04', title: 'การวิเคราะห์วงจร 2: ทับซ้อน และ เทวินิน', en: 'Superposition & Thevenin', path: 'part1/lab4/index.html', ready: false },
     { id: 'lab-05', num: '05', title: 'กำลังไฟฟ้าตรง และ ถ่ายโอนกำลังสูงสุด', en: 'Maximum Power Transfer', path: 'part1/lab5/index.html', ready: false },
-    { id: 'lab-06', num: '06', title: 'ออสซิลโลสโคป และ กำเนิดสัญญาณ', en: 'Oscilloscope & Generator', path: 'part1/lab6/index.html', ready: false },
+    { id: 'lab-06', num: '06', title: 'ออสซิลโลสโคป และ กำเนิดสัญญาณ', en: 'Oscilloscope & Generator', path: 'part1/lab6/index.html', ready: true },
     { id: 'lab-07', num: '07', title: 'ผลตอบสนองต่อไฟสลับในวงจร RC', en: 'AC Response in RC Circuit', path: 'part1/lab7/index.html', ready: true },
-    { id: 'lab-08', num: '08', title: 'ไดโอด แอลอีดี และ วงจรเรียงกระแส', en: 'Diode, LED & Rectifiers', path: 'part1/lab8/index.html', ready: false },
-    { id: 'lab-09', num: '09', title: 'ออปแอมป์ วงจรขยาย และ บัฟเฟอร์', en: 'Op-Amp Circuits', path: 'part1/lab9/index.html', ready: false }
+    { id: 'lab-08', num: '08', title: 'ไดโอด แอลอีดี และ วงจรเรียงกระแส', en: 'Diode, LED & Rectifiers', path: 'part1/lab8/index.html', ready: true },
+    { id: 'lab-09', num: '09', title: 'ออปแอมป์ วงจรขยาย และ บัฟเฟอร์', en: 'Op-Amp Circuits', path: 'part1/lab9/index.html', ready: true }
   ];
 
   class SiteHeader extends HTMLElement {
@@ -43,14 +43,14 @@
       if (page === 'part1') {
         return [
           homeItem,
-          { label: customTitle || 'ปฏิบัติการวิศวกรรมไฟฟ้า 1 (Part 1: Circuits & Measurement)', url: null, isCurrent: true }
+          { label: customTitle || 'ปฏิบัติการวิศวกรรมไฟฟ้า 1 (Part 1)', url: null, isCurrent: true }
         ];
       }
 
       if (page === 'part2') {
         return [
           homeItem,
-          { label: customTitle || 'ปฏิบัติการวิศวกรรมไฟฟ้า 2 (Part 2: Power & Machinery)', url: null, isCurrent: true }
+          { label: customTitle || 'ปฏิบัติการวิศวกรรมไฟฟ้า 2 (Part 2)', url: null, isCurrent: true }
         ];
       }
 
@@ -62,7 +62,7 @@
         return [
           homeItem,
           { label: 'ปฏิบัติการวิศวกรรมไฟฟ้า 1', url: `${base}part1/index.html` },
-          { label: customTitle || `ปฏิบัติการที่ ${parseInt(labMatch.num, 10)} (${labMatch.title})`, url: null, isCurrent: true }
+          { label: customTitle || `ปฏิบัติการที่ ${parseInt(labMatch.num, 10)}: ${labMatch.title}`, url: null, isCurrent: true }
         ];
       }
 
@@ -99,11 +99,12 @@
       const mobileAccordionHtml = LAB_CATALOG.map(lab => {
         const isActive = (currentLab && currentLab.num === lab.num);
         const href = lab.ready ? `${base}${lab.path}` : `${base}part1/index.html#sec-labs`;
-        const tagText = lab.ready ? '(พร้อมใช้งาน)' : '(กำลังจัดทำ)';
+        const tagText = isActive ? 'กำลังอ่าน' : (lab.ready ? 'พร้อมใช้งาน' : 'กำลังจัดทำ');
+        const tagColor = isActive ? 'var(--accent)' : (lab.ready ? 'var(--green)' : 'var(--ink-soft)');
         return `
           <a href="${href}" class="mobile-lab-item ${isActive ? 'active' : ''}">
             <span><strong>Lab ${lab.num}:</strong> ${lab.title}</span>
-            <small style="color:${lab.ready ? 'var(--green)' : 'var(--ink-soft)'}; font-weight:700;">${tagText}</small>
+            <small style="color:${tagColor}; font-weight:700;">${tagText}</small>
           </a>
         `;
       }).join('');
@@ -156,16 +157,11 @@
                   <div class="dropdown-menu" id="part1-dropdown-menu">
                     <div class="dropdown-header">9 บทเรียนปฏิบัติการวิศวกรรมไฟฟ้า 1</div>
                     <a href="${base}part1/index.html" class="dropdown-item" style="font-weight:700; color:var(--accent);">
-                      <span>สารบัญรวมคู่มือและเอกสารการทดลอง Part 1</span>
-                      <span class="lab-tag tag-ready">ดูภาพรวม</span>
+                      <span>→ ดูสารบัญรวมและคู่มือ Part 1 ทั้งหมด</span>
+                      <span class="lab-tag tag-ready">สารบัญ</span>
                     </a>
                     <div style="border-top: 1px dashed var(--rule, #D8CFBC); margin: 4px 0;"></div>
                     ${dropdownItemsHtml}
-                    <div class="dropdown-footer">
-                      <a href="${base}part1/index.html">
-                        <span>→ สารบัญรวมคู่มือและเอกสารการทดลอง Part 1</span>
-                      </a>
-                    </div>
                   </div>
                 </li>
 
@@ -213,20 +209,28 @@
           </div>
           `}
 
-          <!-- Mobile Slide Drawer -->
+          <!-- Mobile Slide Drawer (Kebab Menu) -->
           <div class="mobile-nav-drawer" id="mobile-nav-drawer">
             <div class="mobile-nav-group">
               <div class="mobile-nav-title">เมนูนำทางหลัก</div>
-              <a href="${base}index.html" class="mobile-nav-link ${page === 'portal' ? 'active' : ''}">หน้าหลัก (Portal)</a>
-              <a href="${base}part1/index.html" class="mobile-nav-link ${page === 'part1' ? 'active' : ''}">ปฏิบัติการ 1 (วงจรและเครื่องมือวัด)</a>
-              <a href="${base}part2/index.html" class="mobile-nav-link ${page === 'part2' ? 'active' : ''}">ปฏิบัติการ 2 (เครื่องจักรกลและหม้อแปลง)</a>
-              <a href="${base}virtual-lab/index.html" class="mobile-nav-link mobile-nav-link-vlab" target="_blank">เปิด Virtual Lab (โต๊ะทดลองเสมือนจริง) ↗</a>
+              <a href="${base}index.html" class="mobile-nav-link ${page === 'portal' ? 'active' : ''}">
+                หน้าหลักระบบ (Portal)
+              </a>
+              <a href="${base}part1/index.html" class="mobile-nav-link ${page === 'part1' ? 'active' : ''}">
+                สารบัญรวม Part 1 (วงจรและเครื่องมือวัด)
+              </a>
+              <a href="${base}part2/index.html" class="mobile-nav-link ${page === 'part2' ? 'active' : ''}">
+                สารบัญรวม Part 2 (เครื่องจักรกลไฟฟ้า)
+              </a>
+              <a href="${base}virtual-lab/index.html" class="mobile-nav-link mobile-nav-link-vlab" target="_blank">
+                เปิด Virtual Lab (โต๊ะทดลองเสมือนจริง) ↗
+              </a>
             </div>
 
             <div class="mobile-nav-group">
               <div class="mobile-accordion open" id="mobile-lab-accordion">
                 <div class="mobile-accordion-header" id="mobile-accordion-toggle">
-                  <span>คู่มือปฏิบัติการที่ 1 ถึง 9 (Part 1)</span>
+                  <span>บทปฏิบัติการ Part 1 (Lab 01 ถึง 09)</span>
                   <span class="acc-icon">▼</span>
                 </div>
                 <div class="mobile-accordion-content">

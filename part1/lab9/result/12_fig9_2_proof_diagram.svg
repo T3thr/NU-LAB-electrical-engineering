@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 490" width="100%" height="auto" style="background:#FFFDF9; font-family:'IBM Plex Sans Thai', Sarabun, sans-serif;">
+<rect width="840" height="490" rx="8" fill="#FFFDF9" stroke="#D8CFBC" stroke-width="1.5"/>
+<text x="420" y="32" fill="#0F172A" font-size="15" font-weight="800" text-anchor="middle">แผนภาพพิสูจน์สมการ (9.4) สำหรับคำถามท้ายบทข้อ 9.2: วงจรขยายแบบไม่กลับเฟส</text>
+<text x="420" y="52" fill="#166534" font-size="13" font-weight="700" text-anchor="middle">การประยุกต์วงจรแบ่งแรงดัน (Voltage Divider) ร่วมกับคุณสมบัติ Virtual Short (V_- ≈ V_+ = V_in)</text>
+<!-- Op-Amp Symbol -->
+<polygon points="435,185 435,275 525,230" fill="#FFFFFF" stroke="#0F172A" stroke-width="2.5"/>
+<text x="444" y="212" fill="#0F172A" font-size="16" font-weight="900">-</text>
+<text x="444" y="256" fill="#0F172A" font-size="16" font-weight="900">+</text>
+<text x="470" y="235" fill="#64748B" font-size="11" font-weight="700">Ideal Op-Amp</text>
+<circle cx="80" cy="252" r="4.5" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+<text x="65" y="257" fill="#0F172A" font-size="14" font-weight="800" text-anchor="end">V_in</text>
+<line x1="85" y1="252" x2="435" y2="252" stroke="#0F172A" stroke-width="2.5"/>
+<text x="130" y="244" fill="#059669" font-size="12" font-weight="800">V_+ = V_in</text>
+<line x1="435" y1="208" x2="240" y2="208" stroke="#0F172A" stroke-width="2.5"/>
+<circle cx="240" cy="208" r="6" fill="#2563EB"/>
+<text x="240" y="194" fill="#2563EB" font-size="14" font-weight="800" text-anchor="middle">โหนด V_-</text>
+<path d="M 390 212 C 375 230, 375 230, 390 248" fill="none" stroke="#9333EA" stroke-width="2" stroke-dasharray="3 3"/>
+<rect x="265" y="216" width="115" height="30" rx="4" fill="#FAF5FF" stroke="#9333EA" stroke-width="1.2"/>
+<text x="322" y="228" fill="#9333EA" font-size="9" font-weight="800" text-anchor="middle">VIRTUAL SHORT</text>
+<text x="322" y="241" fill="#7E22CE" font-size="10" font-weight="700" text-anchor="middle">V_- ≈ V_+ = V_in</text>
+<polygon points="425,208 415,204 415,212" fill="#EF4444"/>
+<text x="420" y="198" fill="#DC2626" font-size="11" font-weight="800" text-anchor="end">I_- = 0 A</text>
+<line x1="240" y1="208" x2="240" y2="280" stroke="#0F172A" stroke-width="2.5"/>
+<line x1="240" y1="280" x2="240" y2="290" stroke="#0F172A" stroke-width="2.2"/>
+<rect x="230" y="290" width="20" height="50" fill="#F8FAFC" stroke="#0F172A" stroke-width="2"/>
+<line x1="240" y1="340" x2="240" y2="350" stroke="#0F172A" stroke-width="2.2"/>
+<text x="226" y="319.0" fill="#0F172A" font-size="12" font-weight="800" text-anchor="end">R_S</text>
+<line x1="240" y1="350" x2="240" y2="364" stroke="#0F172A" stroke-width="2"/>
+<line x1="226" y1="364" x2="254" y2="364" stroke="#0F172A" stroke-width="2"/>
+<line x1="231" y1="368" x2="249" y2="368" stroke="#0F172A" stroke-width="1.8"/>
+<line x1="236" y1="372" x2="244" y2="372" stroke="#0F172A" stroke-width="1.5"/>
+<line x1="240" y1="208" x2="240" y2="90" stroke="#0F172A" stroke-width="2.5"/>
+<line x1="240" y1="90" x2="380" y2="90" stroke="#0F172A" stroke-width="2.5"/>
+<line x1="380" y1="90" x2="390" y2="90" stroke="#0F172A" stroke-width="2.2"/>
+<rect x="390" y="80" width="70" height="20" fill="#F8FAFC" stroke="#0F172A" stroke-width="2"/>
+<line x1="460" y1="90" x2="470" y2="90" stroke="#0F172A" stroke-width="2.2"/>
+<text x="425.0" y="76" fill="#0F172A" font-size="12" font-weight="800" text-anchor="middle">R_F</text>
+<line x1="470" y1="90" x2="600" y2="90" stroke="#0F172A" stroke-width="2.5"/>
+<line x1="600" y1="90" x2="600" y2="230" stroke="#0F172A" stroke-width="2.5"/>
+<rect x="560" y="80" width="220" height="50" rx="4" fill="#FEFCE8" stroke="#EAB308" stroke-width="1.2"/>
+<text x="570" y="100" fill="#854D0E" font-size="11" font-weight="800">วงจรแบ่งแรงดัน (Voltage Divider):</text>
+<text x="570" y="118" fill="#A16207" font-size="11" font-weight="700">V_- = [ R_S / (R_S + R_F) ] × V_out</text>
+<line x1="525" y1="230" x2="710" y2="230" stroke="#0F172A" stroke-width="2.5"/>
+<circle cx="600" cy="230" r="4.5" fill="#0F172A"/>
+<circle cx="710" cy="230" r="4.5" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+<text x="725" y="235" fill="#0F172A" font-size="14" font-weight="800">V_out</text>
+<g transform="translate(40, 375)">
+  <rect width="760" height="96" rx="6" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.2"/>
+  <text x="16" y="24" fill="#0F172A" font-size="12" font-weight="800">ขั้นตอนการพิสูจน์ทางคณิตศาสตร์:</text>
+  <text x="16" y="44" fill="#334155" font-size="11">1. เนื่องจากกระแสเข้าขาอินพุตของออปแอมป์เป็นศูนย์ (I_- = 0 A) สายตัวต้านทาน R_F และ R_S จึงต่ออนุกรมกันเกิดเป็นวงจรแบ่งแรงดันจาก V_out ลงกราวด์</text>
+  <text x="16" y="64" fill="#334155" font-size="11">2. แรงดันที่โหนด V_-:  V_- = [ R_S / (R_S + R_F) ] × V_out  และจากสภาวะเสมือนลัดวงจร (Virtual Short):  V_- ≈ V_+ = V_in</text>
+  <text x="16" y="84" fill="#15803D" font-size="12" font-weight="800">3. จับเท่ากัน:  V_in = [ R_S / (R_S + R_F) ] × V_out   ⇒   V_out / V_in = (R_S + R_F) / R_S   ⇒   <b>A_v = 1 + R_F / R_S</b>  (Q.E.D.)</text>
+</g>
+</svg>

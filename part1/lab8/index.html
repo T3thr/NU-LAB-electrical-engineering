@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>ปฏิบัติการที่ 8: ไดโอด แอลอีดี และวงจรเรียงกระแส · ปฏิบัติการวิศวกรรมไฟฟ้า 1</title>
+<link rel="stylesheet" href="../../assets/css/site-header.css">
+<script src="../../assets/js/site-header.js"></script>
+<style>
+/* ═══════════ พื้นฐานแบบตำราเรียนและเอกสารวิชาการ ═══════════ */
+:root {
+  --paper: #FBF8F1;
+  --paper2: #F5F0E4;
+  --ink: #22292F;
+  --ink-soft: #4B5563;
+  --rule: #D8CFBC;
+  --accent: #1E40AF;
+  --accent2: #B45309;
+  --green: #047857;
+  --green-bg: #ECFDF5;
+  --red: #B91C1C;
+  --red-bg: #FEF2F2;
+  --purple: #6D28D9;
+  --amber-bg: #FFFBEB;
+  --blue-bg: #EFF6FF;
+}
+
+* { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans Thai", "Sarabun", "Thonburi", "Noto Sans Thai", -apple-system, "Segoe UI", sans-serif;
+  font-size: 16.5px;
+  line-height: 1.85;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 36px 32px 90px;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ═══════════ แถบนำทางและส่วนหัว ═══════════ */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .88rem;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .sep {
+  color: #9CA3AF;
+}
+
+/* ═══════════ ส่วนหัวกลางประจำบทปฏิบัติการ (สมมาตร) ═══════════ */
+header.lab-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.lab-pill-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.lab-pill {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 3px 20px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  font-family: monospace, sans-serif;
+}
+
+h1.book-title {
+  font-size: 2.15rem;
+  line-height: 1.35;
+  margin: 8px auto 12px;
+  font-weight: 800;
+  color: var(--ink);
+  text-align: center;
+  max-width: 900px;
+}
+
+.subtitle {
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  margin: 0 auto 20px;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 840px;
+}
+
+.lab-header-rule {
+  border: none;
+  border-bottom: 3px double var(--ink);
+  width: 100%;
+  margin: 22px auto 0;
+}
+
+/* ═══════════ กล่องสรุปภาพรวม ═══════════ */
+.summary-box {
+  border: 2px solid var(--ink);
+  background: #FFFFFF;
+  padding: 24px 28px;
+  margin: 26px 0 36px;
+  position: relative;
+  box-shadow: 6px 6px 0 var(--paper2);
+  border-radius: 6px;
+}
+
+.summary-box::before {
+  content: "สรุปสาระสำคัญเชิงปฏิบัติการ (LABORATORY OVERVIEW)";
+  position: absolute;
+  top: -15px;
+  left: 24px;
+  background: var(--ink);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: .82rem;
+  padding: 2px 18px;
+  letter-spacing: .10em;
+  border-radius: 4px;
+}
+
+.summary-box p {
+  margin: 8px 0;
+}
+
+/* ═══════════ สารบัญ ═══════════ */
+nav.toc {
+  border: 1.5px solid var(--rule);
+  background: #FFFDF7;
+  border-radius: 8px;
+  padding: 20px 28px;
+  margin: 28px 0 36px;
+  columns: 2;
+  column-gap: 40px;
+  box-shadow: 4px 4px 0 var(--paper2);
+}
+
+nav.toc .toc-head {
+  column-span: all;
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 6px;
+  color: var(--accent);
+}
+
+nav.toc a {
+  display: block;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 4px 0;
+  break-inside: avoid;
+  font-size: .95rem;
+}
+
+nav.toc a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+nav.toc .no {
+  display: inline-block;
+  width: 2.4em;
+  color: var(--accent2);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ═══════════ หัวข้อหลักและเนื้อหา ═══════════ */
+section {
+  margin-top: 56px;
+  scroll-margin-top: 24px;
+}
+
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 2.5px solid var(--ink);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+.sec-no {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 1.45rem;
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 1.18rem;
+  margin: 32px 0 12px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+h4 {
+  font-size: 1.05rem;
+  margin: 22px 0 10px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+p {
+  margin: 10px 0;
+}
+
+b, strong {
+  font-weight: 700;
+}
+
+/* ═══════════ การ์ดข้อมูลและกริด ═══════════ */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin: 24px 0 32px;
+}
+
+.meta-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  padding: 18px 22px;
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 var(--paper2);
+}
+
+.meta-card .label {
+  font-size: .82rem;
+  font-weight: 800;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.meta-card .val {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.meta-card .desc {
+  font-size: .90rem;
+  color: var(--ink-soft);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+/* ═══════════ กล่องเน้นข้อความ ═══════════ */
+.callout {
+  border-left: 5px solid;
+  padding: 14px 20px;
+  margin: 22px 0;
+  background: #FFFFFF;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,.03);
+}
+
+.callout .lab {
+  font-weight: 800;
+  font-size: .86rem;
+  letter-spacing: .06em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.c-key { border-color: var(--accent); }
+.c-key .lab { color: var(--accent); }
+.c-warn { border-color: var(--red); background: var(--red-bg); }
+.c-warn .lab { color: var(--red); }
+.c-tip { border-color: var(--green); background: var(--green-bg); }
+.c-tip .lab { color: var(--green); }
+.c-ex { border-color: var(--accent2); background: var(--amber-bg); }
+.c-ex .lab { color: var(--accent2); }
+
+/* ═══════════ กล่องความเรียงสรุปส่งอาจารย์ ═══════════ */
+.prose-submission-box {
+  background: #FFFFFF;
+  border: 1.5px solid var(--accent);
+  border-left: 6px solid var(--accent);
+  border-radius: 8px;
+  padding: 22px 26px;
+  margin: 20px 0 26px;
+  box-shadow: 0 4px 14px rgba(30,64,175,.08);
+}
+.prose-submission-box .ps-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--rule);
+}
+.prose-submission-box .ps-title {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.prose-submission-box .ps-text {
+  font-size: 1.02rem;
+  line-height: 1.95;
+  color: var(--ink);
+  text-indent: 2.5em;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 0;
+}
+
+/* ═══════════ กล่องสูตรคณิตศาสตร์และเศษส่วน ═══════════ */
+.formula {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 18px 24px;
+  margin: 20px 0;
+  text-align: center;
+  font-size: 1.15rem;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+
+.formula.big {
+  font-size: 1.25rem;
+  border-width: 2px;
+  border-color: var(--ink);
+  background: #FFFDF9;
+}
+
+/* สไตล์เศษส่วนแบบแท้ (Pure CSS Fraction) */
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0 4px;
+  line-height: 1.15;
+  font-size: 0.95em;
+}
+
+.frac .num {
+  border-bottom: 1.6px solid currentColor;
+  padding-bottom: 3px;
+  display: block;
+}
+
+.frac .denom {
+  padding-top: 3px;
+  display: block;
+}
+
+/* เครื่องหมายสแควร์รูท */
+.sqrt {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.sqrt-sym {
+  font-size: 1.25em;
+  line-height: 1;
+  margin-right: 1px;
+}
+
+.sqrt-radicand {
+  border-top: 1.6px solid currentColor;
+  padding-top: 2px;
+  display: inline-block;
+}
+
+.var {
+  font-style: italic;
+  font-weight: 600;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.sym {
+  margin: 0 4px;
+}
+
+/* ═══════════ ตารางวิชาการ ═══════════ */
+.table-wrap {
+  overflow-x: auto;
+  margin: 22px 0;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: #FFFFFF;
+  box-shadow: 3px 3px 0 var(--paper2);
+}
+
+table.tb {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .94rem;
+  min-width: 650px;
+}
+
+table.tb caption {
+  caption-side: top;
+  font-weight: 800;
+  font-size: .96rem;
+  text-align: left;
+  padding: 10px 14px;
+  color: var(--ink);
+  background: var(--paper2);
+  border-bottom: 1.5px solid var(--rule);
+}
+
+table.tb th {
+  background: #F1ECE1;
+  color: var(--ink);
+  font-weight: 800;
+  padding: 10px 12px;
+  text-align: center;
+  border-bottom: 2px solid var(--ink);
+  border-right: 1px solid var(--rule);
+  white-space: nowrap;
+}
+
+table.tb th:last-child {
+  border-right: none;
+}
+
+table.tb td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--rule);
+  border-right: 1px solid #EFEAE0;
+  text-align: center;
+}
+
+table.tb td:last-child {
+  border-right: none;
+}
+
+table.tb tr:nth-child(even) td {
+  background: #FCFAF6;
+}
+
+table.tb tr:hover td {
+  background: #F5EFE0;
+}
+
+table.tb .t-left {
+  text-align: left;
+}
+
+table.tb .t-num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* ═══════════ กรอบภาพและรูปคลื่นสโคป ═══════════ */
+.fig-box {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 24px 0;
+  text-align: center;
+  box-shadow: 4px 4px 0 var(--paper2);
+}
+
+.fig-box img, .fig-box svg {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.15s ease;
+}
+
+.fig-box img:hover, .fig-box svg:hover {
+  transform: scale(1.008);
+}
+
+.fig-cap {
+  font-size: .88rem;
+  color: var(--ink-soft);
+  margin-top: 10px;
+  text-align: center;
+}
+
+.fig-cap b {
+  color: var(--ink);
+}
+
+/* ═══════════ กล่องขั้นตอนการทดลอง ═══════════ */
+.step-box {
+  background: #FFFFFF;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-left: 5px solid var(--accent);
+}
+
+.step-box .s-num {
+  font-weight: 800;
+  color: var(--accent);
+  font-size: 1.02rem;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* ═══════════ Lightbox ขยายภาพ ═══════════ */
+#lb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  cursor: zoom-out;
+}
+
+#lb.on {
+  display: flex;
+}
+
+#lb img {
+  max-width: 92%;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  background: #FFFFFF;
+}
+
+#lb .x {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  color: #FFFFFF;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ═══════════ แถบนำทางด่วนลอยตัว (Floating Nav Dock) ═══════════ */
+.float-nav-dock {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 60;
+  font-family: inherit;
+}
+
+.fnd-panel {
+  background: rgba(255, 253, 247, 0.98);
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  padding: 10px 14px 12px;
+  box-shadow: 0 8px 24px rgba(40, 32, 10, 0.16);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 500px;
+  animation: fndSlideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fndSlideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fnd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 6px;
+}
+
+.fnd-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fnd-close-btn {
+  background: var(--paper2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.fnd-close-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.fnd-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.fnd-btn {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1.5px solid var(--ink);
+  background: #FFFFFF;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.80rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  transition: all 0.15s ease;
+  line-height: 1.3;
+}
+
+.fnd-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.fnd-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  box-shadow: 0 2px 8px rgba(26, 22, 18, 0.28);
+  position: relative;
+}
+
+.fnd-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.fnd-btn-vlab {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+.fnd-btn-vlab:hover {
+  background: var(--accent-hover, #1D4ED8);
+  color: #FFFFFF;
+}
+
+.fnd-trigger-btn {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 253, 247, 0.94);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 7px 14px;
+  box-shadow: 0 4px 14px rgba(40, 32, 10, 0.14);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.fnd-trigger-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(40, 32, 10, 0.22);
+}
+
+.fnd-trigger-arrow {
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.fnd-current-topic {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.fnd-trigger-btn:hover .fnd-current-topic {
+  color: #93C5FD;
+}
+
+.float-nav-dock.collapsed .fnd-panel {
+  display: none;
+}
+
+.float-nav-dock.collapsed .fnd-trigger-btn {
+  display: inline-flex;
+}
+
+.top-link {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  background: var(--ink);
+  color: var(--paper);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 50;
+  transition: all 0.2s ease;
+}
+
+.top-link:hover {
+  transform: translateY(-3px);
+  background: var(--accent);
+}
+
+/* ═══════════ ท้ายกระดาษ ═══════════ */
+footer.colophon {
+  border-top: 2px solid var(--ink);
+  margin-top: 70px;
+  padding-top: 24px;
+  font-size: .88rem;
+  color: var(--ink-soft);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Responsive adjustments & Mobile Screen Lock */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
+  .page {
+    padding: 18px 12px 80px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  h1.book-title {
+    font-size: 1.55rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+  }
+  .subtitle {
+    font-size: 0.92rem;
+    word-break: break-word;
+  }
+  .summary-box {
+    padding: 20px 14px 16px;
+    margin: 22px 0 26px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+  }
+  .summary-box::before {
+    left: 10px;
+    top: -12px;
+    font-size: 0.70rem;
+    padding: 2px 8px;
+    max-width: calc(100% - 20px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  nav.toc {
+    columns: 1;
+    padding: 16px 14px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+  }
+  .meta-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .meta-card {
+    padding: 14px 14px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .step-box, .callout, .prose-submission-box {
+    padding: 14px 14px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+  }
+  .prose-submission-box .ps-text {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    text-indent: 1.8em;
+  }
+  .formula {
+    padding: 12px 10px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+  }
+  .formula.big {
+    font-size: 1.05rem;
+  }
+  .table-wrap {
+    margin: 16px 0;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+  .fig-box {
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+  }
+  .fig-box img, .fig-box svg {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+  .sec-head {
+    gap: 12px;
+    word-break: break-word;
+  }
+  .sec-no {
+    width: 36px;
+    height: 36px;
+    font-size: 0.98rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+  }
+  h3 {
+    font-size: 1.08rem;
+  }
+  .float-nav-dock {
+    left: 10px;
+    right: 10px;
+    bottom: 12px;
+    max-width: calc(100vw - 20px);
+    width: auto;
+  }
+  .fnd-panel {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px 10px;
+  }
+  .fnd-links {
+    gap: 4px;
+  }
+  .fnd-btn {
+    padding: 4px 7px;
+    font-size: 0.72rem;
+  }
+  .fnd-trigger-btn {
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 6px 12px;
+    font-size: 0.76rem;
+  }
+  .fnd-current-topic {
+    max-width: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .top-link {
+    right: 12px;
+    bottom: 12px;
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- แถบส่วนหัวมาตรฐาน Reusable Site Header Web Component -->
+<site-header data-page="lab-08" data-base="../../"></site-header>
+
+<!-- Lightbox Modal สำหรับขยายภาพ -->
+<div id="lb" onclick="this.classList.remove('on')">
+  <span class="x">&times;</span>
+  <img id="lb-img" src="" alt="ภาพขยายขนาดเต็ม">
+</div>
+
+<!-- Floating Navigation Dock (หุบ/ขยายได้เพื่อไม่บังเนื้อหา) -->
+<aside class="float-nav-dock" id="float-nav-dock" aria-label="แถบนำทางด่วน">
+  <!-- Expanded Card Panel -->
+  <div class="fnd-panel" id="fnd-panel">
+    <div class="fnd-header">
+      <span class="fnd-title">นำทางด่วน (Quick Nav)</span>
+      <button type="button" class="fnd-close-btn" id="fnd-btn-collapse" title="หุบแถบนำทาง">
+        ✕ หุบแถบ
+      </button>
+    </div>
+    <div class="fnd-links">
+      <a class="fnd-btn" href="#sec-objectives">อุปกรณ์</a>
+      <a class="fnd-btn" href="#sec-theory">ทฤษฎี</a>
+      <a class="fnd-btn" href="#sec-part1">ตอนที่ 8.1</a>
+      <a class="fnd-btn" href="#sec-part2">ตอนที่ 8.2</a>
+      <a class="fnd-btn" href="#sec-part3">ตอนที่ 8.3</a>
+      <a class="fnd-btn" href="#sec-part4">ตอนที่ 8.4</a>
+      <a class="fnd-btn" href="#sec-analysis">วิเคราะห์ผล</a>
+      <a class="fnd-btn" href="#sec-postlab">คำถามท้ายบท</a>
+      <a class="fnd-btn fnd-btn-vlab" href="../../virtual-lab/index.html" target="_blank">Virtual Lab ↗</a>
+    </div>
+  </div>
+
+  <!-- Collapsed Trigger Pill Button -->
+  <button type="button" class="fnd-trigger-btn" id="fnd-btn-expand" title="เปิดแถบนำทางด่วน" aria-label="เปิดแถบนำทางด่วน">
+    <span class="fnd-trigger-text">นำทางด่วน</span>
+    <span class="fnd-current-topic" id="fnd-current-topic"></span>
+    <span class="fnd-trigger-arrow">▲</span>
+  </button>
+</aside>
+
+<a class="top-link" href="#" title="กลับขึ้นบนสุด">&#8593;</a>
+
+<div class="page">
+
+  <!-- ส่วนหัวกลางแบบวิชาการ (สมมาตรและเรียบหรู) -->
+  <header class="lab-header">
+    <div class="lab-pill-wrap">
+      <span class="lab-pill">LAB 08</span>
+    </div>
+    <h1 class="book-title">ปฏิบัติการที่ 8: วงจรไดโอดและการเรียงกระแส<br>(Diode Circuits and Rectifiers)</h1>
+    <p class="subtitle">การศึกษาคุณลักษณะรอยต่อ P-N ของไดโอดซิลิคอนและไดโอดเปล่งแสง (LED) การทำงานของวงจรเรียงกระแสแบบครึ่งคลื่นและเต็มคลื่นบริดจ์ และอิทธิพลของตัวเก็บประจุกรองต่อแรงดันกระเพื่อม</p>
+    <div class="lab-header-rule"></div>
+  </header>
+
+  <!-- สรุปภาพรวมเชิงปฏิบัติการ -->
+  <div class="summary-box">
+    <p><b>สาระสำคัญของปฏิบัติการที่ 8:</b> เป็นการศึกษาคุณสมบัติทางไฟฟ้าพื้นฐานของอุปกรณ์สารกึ่งตัวนำชนิดสองขั้ว ได้แก่ ไดโอดรอยต่อ P-N (Silicon Diode เบอร์ 1N4001) และไดโอดเปล่งแสง (Light Emitting Diode: LED) ภายใต้สภาวะไบแอสตรง (Forward Bias) และไบแอสกลับ (Reverse Bias) เพื่อสร้างกราฟคุณลักษณะกระแส-แรงดัน (I-V Characteristic Curve) จากนั้นนำไดโอดไปประยุกต์ใช้งานในวงจรเรียงกระแส (Rectifier Circuits) ซึ่งทำหน้าที่เปลี่ยนสัญญาณไฟฟ้ากระแสสลับ (AC) ให้เป็นสัญญาณไฟฟ้ากระแสตรง (DC)</p>
+    <p>การทดลองแบ่งออกเป็น 4 ตอนหลัก ได้แก่ ตอนที่ 8.1 การวัดคุณลักษณะ I-V ของไดโอดและ LED, ตอนที่ 8.2 วงจรเรียงกระแสแบบครึ่งคลื่น (Half-Wave Rectifier), ตอนที่ 8.3 วงจรเรียงกระแสแบบครึ่งคลื่นต่อตัวเก็บประจุกรอง (C-Filter) เพื่อลดแรงดันกระเพื่อม (Ripple Voltage: V<sub>r(p-p)</sub>), และตอนที่ 8.4 วงจรเรียงกระแสแบบเต็มคลื่นบริดจ์ (Full-Wave Bridge Rectifier) ทั้งแบบไม่มีและมีตัวเก็บประจุกรอง พร้อมการจำลองและการตอบคำถามท้ายบทการทดลองข้อ 8.1 (หน้า 88) อย่างละเอียดและสมบูรณ์</p>
+  </div>
+
+  <!-- สารบัญประจำบทปฏิบัติการ -->
+  <nav class="toc" aria-label="สารบัญประจำบท">
+    <div class="toc-head">สารบัญหัวข้อการเรียนรู้และผลการทดลอง (Table of Contents)</div>
+    <a href="#sec-objectives"><span class="no">01.</span> วัตถุประสงค์และรายการเครื่องมืออุปกรณ์</a>
+    <a href="#sec-theory"><span class="no">02.</span> ทฤษฎีไดโอดและหลักการเรียงกระแสไฟฟ้า</a>
+    <a href="#sec-part1"><span class="no">03.</span> ตอนที่ 8.1: คุณลักษณะ I-V ของไดโอด 1N4001 และ LED</a>
+    <a href="#sec-part2"><span class="no">04.</span> ตอนที่ 8.2: วงจรเรียงกระแสแบบครึ่งคลื่น (Half-Wave)</a>
+    <a href="#sec-part3"><span class="no">05.</span> ตอนที่ 8.3: วงจรเรียงกระแสแบบครึ่งคลื่นต่อตัวเก็บประจุกรอง</a>
+    <a href="#sec-part4"><span class="no">06.</span> ตอนที่ 8.4: วงจรเรียงกระแสแบบเต็มคลื่นบริดจ์ (Bridge Rectifier)</a>
+    <a href="#sec-analysis"><span class="no">07.</span> การวิเคราะห์เปรียบเทียบเชิงวิศวกรรม (Comparative Analysis)</a>
+    <a href="#sec-conclusions"><span class="no">08.</span> สรุปผลการทดลองและกล่องความเรียงส่งรายงาน</a>
+    <a href="#sec-postlab"><span class="no">09.</span> คำถามและการบ้านท้ายการทดลอง (ข้อ 8.1 หน้า 88 ฉบับเต็ม)</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หมวดที่ 1: วัตถุประสงค์และรายการเครื่องมืออุปกรณ์ -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec-objectives">
+    <div class="sec-head">
+      <div class="sec-no">01</div>
+      <h2>วัตถุประสงค์และรายการเครื่องมืออุปกรณ์</h2>
+    </div>
+
+    <h3>วัตถุประสงค์การทดลอง (Objectives)</h3>
+    <ol>
+      <li>เพื่อศึกษาสมบัติทางไฟฟ้าและสร้างกราฟคุณลักษณะกระแส-แรงดัน (I-V Curve) ของไดโอดสารกึ่งตัวนำซิลิคอน (Silicon Diode) และไดโอดเปล่งแสง (LED) ทั้งในสภาวะไบแอสตรงและไบแอสกลับ</li>
+      <li>เพื่อศึกษาหลักการทำงาน รูปคลื่นสัญญาณ และการวัดค่าพารามิเตอร์ของวงจรเรียงกระแสแบบครึ่งคลื่น (Half-Wave Rectifier)</li>
+      <li>เพื่อศึกษาวงจรเรียงกระแสแบบเต็มคลื่นชนิดบริดจ์ (Full-Wave Bridge Rectifier) และเปรียบเทียบประสิทธิภาพกับวงจรแบบครึ่งคลื่น</li>
+      <li>เพื่อศึกษาผลกระทบของการต่อตัวเก็บประจุกรองสัญญาณ (Capacitor Filter / Smoothing Capacitor) ที่มีต่อค่าแรงดันกระเพื่อม (Ripple Voltage: V<sub>r(p-p)</sub>) และแรงดันไฟตรงเฉลี่ย (V<sub>dc</sub>)</li>
+      <li>เพื่อฝึกทักษะการใช้ออสซิลโลสโคปในการวัดสัญญาณ 2 ช่องสัญญาณพร้อมกัน (Dual-Channel Measurement) และการต่อสายดินอย่างถูกต้องปลอดภัย</li>
+    </ol>
+
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="label">รหัสและชื่อวิชา</span>
+        <div class="val">001221 ปฏิบัติการวิศวกรรมไฟฟ้า 1</div>
+        <div class="desc">ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร</div>
+      </div>
+      <div class="meta-card">
+        <span class="label">เนื้อหาบทเรียน</span>
+        <div class="val">คู่มือการทดลอง หน้า 74 - 88</div>
+        <div class="desc">ครอบคลุมการทดลองตอนที่ 8.1 - 8.4 และคำถามท้ายบทข้อ 8.1</div>
+      </div>
+      <div class="meta-card">
+        <span class="label">สัญญาณทดสอบ</span>
+        <div class="val">10 V<sub>p-p</sub>, 500 Hz (Sine Wave)</div>
+        <div class="desc">สร้างจาก Function Generator คาบเวลา T = 2.0 ms แอมพลิจูด 5.0 V</div>
+      </div>
+    </div>
+
+    <h3>รายการเครื่องมือและอุปกรณ์ (Equipment List)</h3>
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 8.0: รายการอุปกรณ์และเครื่องมือวัดที่ใช้ในการทดลอง</caption>
+        <thead>
+          <tr>
+            <th style="width: 8%;">ลำดับ</th>
+            <th style="width: 32%;">ชื่ออุปกรณ์ / เครื่องมือวัด</th>
+            <th style="width: 25%;">พิกัดและคุณสมบัติทางเทคนิค</th>
+            <th style="width: 15%;">จำนวน</th>
+            <th style="width: 20%;">บทบาทในวงจรทดลอง</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-num">1</td>
+            <td class="t-left"><b>ออสซิลโลสโคป (Oscilloscope)</b></td>
+            <td class="t-left">Digital Storage 2 Channels, 50 MHz</td>
+            <td class="t-num">1 เครื่อง</td>
+            <td class="t-left">วัดรูปคลื่น v<sub>s</sub>(t) และ v<sub>L</sub>(t)</td>
+          </tr>
+          <tr>
+            <td class="t-num">2</td>
+            <td class="t-left"><b>เครื่องกำเนิดสัญญาณ (Function Generator)</b></td>
+            <td class="t-left">Sine wave, 0 - 20 V<sub>p-p</sub>, 500 Hz</td>
+            <td class="t-num">1 เครื่อง</td>
+            <td class="t-left">แหล่งจ่ายสัญญาณสลับ AC แหล่งกำเนิด</td>
+          </tr>
+          <tr>
+            <td class="t-num">3</td>
+            <td class="t-left"><b>ดิจิทัลมัลติมิเตอร์ (DMM)</b></td>
+            <td class="t-left">วัด DCV, ACV, DCA, Resistance</td>
+            <td class="t-num">1 เครื่อง</td>
+            <td class="t-left">วัดกระแส I<sub>D</sub> และแรงดัน V<sub>D</sub></td>
+          </tr>
+          <tr>
+            <td class="t-num">4</td>
+            <td class="t-left"><b>แหล่งจ่ายไฟฟ้ากระแสตรง (DC Power Supply)</b></td>
+            <td class="t-left">0 - 30 V ปรับค่าได้ต่อเนื่อง</td>
+            <td class="t-num">1 เครื่อง</td>
+            <td class="t-left">จ่ายไฟไบแอสตรงและกลับในตอนที่ 8.1</td>
+          </tr>
+          <tr>
+            <td class="t-num">5</td>
+            <td class="t-left"><b>ไดโอดซิลิคอน (Silicon Diode)</b></td>
+            <td class="t-left">เบอร์ 1N4001 (1A, 50V, V<sub>&gamma;</sub> &approx; 0.7V)</td>
+            <td class="t-num">4 ตัว</td>
+            <td class="t-left">อุปกรณ์เรียงกระแสหลักในทุกตอน</td>
+          </tr>
+          <tr>
+            <td class="t-num">6</td>
+            <td class="t-left"><b>ไดโอดเปล่งแสง (LED)</b></td>
+            <td class="t-left">ชนิดสีแดง 5 มม. (V<sub>on</sub> &approx; 1.8 - 2.0V)</td>
+            <td class="t-num">1 ตัว</td>
+            <td class="t-left">ทดสอบคุณลักษณะ I-V และการส่องสว่าง</td>
+          </tr>
+          <tr>
+            <td class="t-num">7</td>
+            <td class="t-left"><b>ตัวต้านทานจำกัดกระแส (Resistor)</b></td>
+            <td class="t-left">1 k&Omega; &plusmn;5%, 0.5 W</td>
+            <td class="t-num">1 ตัว</td>
+            <td class="t-left">จำกัดกระแสในตอนที่ 8.1</td>
+          </tr>
+          <tr>
+            <td class="t-num">8</td>
+            <td class="t-left"><b>ตัวต้านทานโหลด (Load Resistor: R<sub>L</sub>)</b></td>
+            <td class="t-left">10 k&Omega; &plusmn;5%, 0.5 W</td>
+            <td class="t-num">1 ตัว</td>
+            <td class="t-left">โหลดเอาต์พุตในตอนที่ 8.2 - 8.4</td>
+          </tr>
+          <tr>
+            <td class="t-num">9</td>
+            <td class="t-left"><b>ตัวเก็บประจุกรอง (Smoothing Capacitor)</b></td>
+            <td class="t-left">1 &mu;F, 50V (Electrolytic / Mylar)</td>
+            <td class="t-num">1 ตัว</td>
+            <td class="t-left">กรองแรงดันกระเพื่อม C-Filter</td>
+          </tr>
+          <tr>
+            <td class="t-num">10</td>
+            <td class="t-left"><b>แผงต่อวงจรและสายต่อ (Breadboard &amp; Jumpers)</b></td>
+            <td class="t-left">Solderless Breadboard, สาย BNC to Alligator</td>
+            <td class="t-num">1 ชุด</td>
+            <td class="t-left">ประกอบวงจรและต่อสัญญาณวัด</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หมวดที่ 2: ทฤษฎีไดโอดและหลักการเรียงกระแสไฟฟ้า -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec-theory">
+    <div class="sec-head">
+      <div class="sec-no">02</div>
+      <h2>ทฤษฎีไดโอดและหลักการเรียงกระแสไฟฟ้า</h2>
+    </div>
+
+    <h3>2.1 รอยต่อ P-N และสมการไดโอดของช็อกลีย์ (Shockley Diode Equation)</h3>
+    <p>ไดโอดสารกึ่งตัวนำประกอบด้วยสารกึ่งตัวนำชนิด P และชนิด N เชื่อมต่อกันจนเกิดบริเวณปลอดพาหะ (Depletion Region) บริเวณรอยต่อจะมีสนามไฟฟ้าภายในที่ต้านทานการแพร่กระจายของพาหะข้างมาก ทำให้เกิดแรงดันขีดกั้น (Barrier Potential หรือ Built-in Potential: V<sub>&gamma;</sub>) โดยทั่วไปสำหรับไดโอดซิลิคอนมีค่าประมาณ <b>0.6 - 0.7 V</b></p>
+
+    <div class="formula big">
+      I<sub>D</sub> = I<sub>S</sub> &times; ( e<sup>(V<sub>D</sub> / (n &times; V<sub>T</sub>))</sup> &minus; 1 )
+    </div>
+
+    <p>โดยที่:</p>
+    <ul>
+      <li><b>I<sub>D</sub>:</b> กระแสที่ไหลผ่านไดโอด (Diode Current)</li>
+      <li><b>I<sub>S</sub>:</b> กระแสอิ่มตัวย้อนกลับ (Reverse Saturation Current) มีค่าต่ำมากระดับ 10<sup>-12</sup> ถึง 10<sup>-9</sup> A (pA - nA)</li>
+      <li><b>V<sub>D</sub>:</b> แรงดันตกคร่อมรอยต่อไดโอด (Diode Voltage) โดยขั้วบวกอยู่ที่แอโนด (Anode: A) ขั้วลบอยู่ที่แคโทด (Cathode: K)</li>
+      <li><b>n:</b> ค่าสัมประสิทธิ์อุดมคติ (Ideality Factor) โดย n &approx; 1 - 2 สำหรับซิลิคอน</li>
+      <li><b>V<sub>T</sub>:</b> แรงดันไฟฟ้าเนื่องจากความร้อน (Thermal Voltage) นิยามโดย <code>V<sub>T</sub> = k &times; T / q &approx; 25.86 mV</code> ที่อุณหภูมิห้อง (300 K)</li>
+    </ul>
+
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="label">สภาวะไบแอสตรง (Forward Bias)</span>
+        <div class="val">V<sub>D</sub> &gt; 0 (ศักย์ไฟฟ้า Anode สูงกว่า Cathode)</div>
+        <div class="desc">สนามไฟฟ้าภายนอกต้านสนามไฟฟ้าภายใน ทำให้บริเวณปลอดพาหะแคบลง เมื่อ V<sub>D</sub> เพิ่มถึงจุด Knee Voltage (V<sub>&gamma;</sub> &approx; 0.6 - 0.7 V) กระแส I<sub>D</sub> จะพุ่งสูงขึ้นอย่างก้าวกระโดดแบบเอ็กซ์โพเนนเชียล</div>
+      </div>
+      <div class="meta-card">
+        <span class="label">สภาวะไบแอสกลับ (Reverse Bias)</span>
+        <div class="val">V<sub>D</sub> &lt; 0 (ศักย์ไฟฟ้า Cathode สูงกว่า Anode)</div>
+        <div class="desc">สนามไฟฟ้าภายนอกเสริมสนามไฟฟ้าภายใน ทำให้บริเวณปลอดพาหะกว้างขึ้น ไดโอดไม่ยอมให้กระแสไหลผ่าน มีเพียงกระแสรั่วไหลย้อนกลับขนาดเล็กมาก I<sub>D</sub> &approx; -I<sub>S</sub> จนกระทั่งถึงจุดแรงดันพังทลาย (Breakdown Voltage)</div>
+      </div>
+    </div>
+
+    <h3>2.2 ไดโอดเปล่งแสง (Light Emitting Diode: LED)</h3>
+    <p>ไดโอดเปล่งแสง (LED) เป็นอุปกรณ์สารกึ่งตัวนำรอยต่อ P-N ชนิดพิเศษที่ผลิตจากสารประกอบกึ่งตัวนำ เช่น Gallium Arsenide Phosphide (GaAsP) หรือ Gallium Nitride (GaN) เมื่อได้รับไบแอสตรง อิเล็กตรอนและโฮลจะรวมตัวกันที่บริเวณรอยต่อ (Electron-Hole Recombination) และคายพลังงานออกมาในรูปของอนุภาคแสงหรือโฟตอน (Photons) โดยความยาวคลื่นของแสงที่ปล่อยออกมาสัมพันธ์โดยตรงกับช่องว่างแถบพลังงาน (Bandgap Energy: E<sub>g</sub>) ตามสมการ:</p>
+
+    <div class="formula">
+      &lambda; = <span class="frac"><span class="num">h &times; c</span><span class="denom">E<sub>g</sub></span></span>
+    </div>
+
+    <p>เนื่องจาก LED มีค่า Bandgap Energy สูงกว่าซิลิคอนธรรมดามาก ทำให้มีแรงดันทำงานเริ่มต้น (Turn-on Voltage) สูงกว่าไดโอดซิลิคอนทั่วไป โดยสำหรับ LED สีแดงจะมีค่า V<sub>on</sub> อยู่ที่ประมาณ <b>1.7 - 2.0 V</b> และ LED สีน้ำเงินหรือขาวอาจสูงถึง <b>3.0 - 3.4 V</b></p>
+
+    <h3>2.3 ทฤษฎีวงจรเรียงกระแส (Rectification Theory)</h3>
+    <p>การเรียงกระแส (Rectification) คือกระบวนการแปลงกระแสสลับ (AC) ซึ่งมีทิศทางไหลกลับไปกลับมา ให้กลายเป็นกระแสตรง (DC) ที่มีทิศทางการไหลเพียงทิศทางเดียว</p>
+
+    <h4>ก. วงจรเรียงกระแสแบบครึ่งคลื่น (Half-Wave Rectifier)</h4>
+    <p>ใช้อุปกรณ์ไดโอด 1 ตัว ต่ออนุกรมกับแหล่งจ่ายไฟสลับและตัวต้านทานโหลด ไดโอดจะนำกระแสเฉพาะในช่วงครึ่งคาบบวกของสัญญาณเข้า (v<sub>s</sub>(t) &gt; V<sub>&gamma;</sub>) ทำให้มีแรงดันตกคร่อมโหลด ส่วนช่วงครึ่งคาบลบ ไดโอดจะถูกไบแอสกลับและหยุดนำกระแส ส่งผลให้แรงดันตกคร่อมโหลดเป็นศูนย์</p>
+    <div class="formula">
+      V<sub>L(peak)</sub> = V<sub>s(peak)</sub> &minus; V<sub>&gamma;</sub> &emsp;|&emsp; 
+      V<sub>dc</sub> = <span class="frac"><span class="num">V<sub>L(peak)</sub></span><span class="denom">&pi;</span></span> &approx; 0.318 &times; V<sub>L(peak)</sub> &emsp;|&emsp;
+      f<sub>out</sub> = f<sub>in</sub>
+    </div>
+
+    <h4>ข. วงจรเรียงกระแสแบบครึ่งคลื่นต่อตัวเก็บประจุกรอง (Half-Wave with C-Filter)</h4>
+    <p>เมื่อต่อตัวเก็บประจุ C ขนานกับตัวต้านทานโหลด R<sub>L</sub> ตัวเก็บประจุจะทำหน้าที่เก็บสะสมประจุในช่วงที่ไดโอดนำกระแสจนกระทั่งมีแรงดันถึงค่ายอด V<sub>max</sub> = V<sub>s(peak)</sub> - V<sub>&gamma;</sub> จากนั้นเมื่อแรงดันสัญญาณเข้าเริ่มลดลงต่ำกว่าแรงดันบนตัวเก็บประจุ ไดโอดจะอยู่ในสภาวะ OFF และตัวเก็บประจุจะคายประจุผ่านโหลด R<sub>L</sub> ด้วยค่าคงที่เวลา <code>&tau; = R<sub>L</sub> &times; C</code> จนกระทั่งรอบครึ่งคลื่นบวกถัดไปมาถึง</p>
+
+    <div class="formula">
+      V<sub>r(p-p)</sub> &approx; <span class="frac"><span class="num">V<sub>max</sub></span><span class="denom">f &times; R<sub>L</sub> &times; C</span></span> &emsp;|&emsp;
+      V<sub>dc</sub> &approx; V<sub>max</sub> &minus; <span class="frac"><span class="num">V<sub>r(p-p)</sub></span><span class="denom">2</span></span> &emsp;|&emsp;
+      r = <span class="frac"><span class="num">V<sub>r(rms)</sub></span><span class="denom">V<sub>dc</sub></span></span> = <span class="frac"><span class="num">V<sub>r(p-p)</sub></span><span class="denom">2 &times; <span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-radicand">3</span></span> &times; V<sub>dc</sub></span></span>
+    </div>
+
+    <h4>ค. วงจรเรียงกระแสแบบเต็มคลื่นชนิดบริดจ์ (Full-Wave Bridge Rectifier)</h4>
+    <p>ใช้อุปกรณ์ไดโอด 4 ตัว ต่อเป็นวงข่ายสะพานบริดจ์ ทำให้สามารถเรียงกระแสได้ทั้งในช่วงครึ่งคลื่นบวกและครึ่งคลื่นลบ โดยในแต่ละช่วงเวลาจะมีไดโอดนำกระแสพร้อมกันทีละ 2 ตัว กระแสไฟฟ้าจึงไหลผ่านโหลด R<sub>L</sub> ในทิศทางเดิมเสมอ ส่งผลให้ความถี่ของแรงดันเอาต์พุตเพิ่มขึ้นเป็น 2 เท่าของสัญญาณเข้า</p>
+
+    <div class="formula">
+      V<sub>L(peak)</sub> = V<sub>s(peak)</sub> &minus; 2 &times; V<sub>&gamma;</sub> &emsp;|&emsp;
+      V<sub>dc(no C)</sub> = <span class="frac"><span class="num">2 &times; V<sub>L(peak)</sub></span><span class="denom">&pi;</span></span> &approx; 0.637 &times; V<sub>L(peak)</sub> &emsp;|&emsp;
+      f<sub>out</sub> = 2 &times; f<sub>in</sub>
+    </div>
+
+    <p>เมื่อต่อตัวเก็บประจุกรอง C เข้ากับวงจรบริดจ์ เนื่องจากคาบเวลาการคายประจุลดลงเหลือเพียงครึ่งเดียว (T / 2) ทำให้แรงดันกระเพื่อมลดลงเหลือเพียงครึ่งหนึ่งของวงจรครึ่งคลื่นที่ใช้ C เท่ากัน:</p>
+
+    <div class="formula">
+      V<sub>r(p-p, Bridge)</sub> &approx; <span class="frac"><span class="num">V<sub>max</sub></span><span class="denom">2 &times; f &times; R<sub>L</sub> &times; C</span></span> &emsp;|&emsp;
+      V<sub>dc(with C)</sub> &approx; V<sub>max</sub> &minus; <span class="frac"><span class="num">V<sub>r(p-p)</sub></span><span class="denom">2</span></span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หมวดที่ 3: ตอนที่ 8.1 การวัดคุณลักษณะ I-V ไดโอดและ LED -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec-part1">
+    <div class="sec-head">
+      <div class="sec-no">03</div>
+      <h2>ตอนที่ 8.1: การวัดคุณลักษณะกระแส-แรงดัน (I-V Curve) ของไดโอด 1N4001 และ LED</h2>
+    </div>
+
+    <div class="step-box">
+      <span class="s-num">ขั้นตอนการปฏิบัติการทดลอง ตอนที่ 8.1</span>
+      ต่อวงจรอนุกรมระหว่างแหล่งจ่ายแรงดันไฟตรงปรับค่าได้ V<sub>S</sub> ตัวต้านทานจำกัดกระแส R = 1 k&Omega; และไดโอดที่ต้องการทดสอบ จากนั้นปรับเปลี่ยนค่า V<sub>S</sub> ตามตาราง ทั้งสภาวะไบแอสกลับ (-10.0 V ถึง 0 V) และไบแอสตรง (0.5 V ถึง 10.0 V) ใช้ดิจิทัลมัลติมิเตอร์วัดค่ากระแสที่ไหลผ่านไดโอด I<sub>D</sub> (mA) และแรงดันตกคร่อมขั้วไดโอด V<sub>D</sub> (V) แล้วนำข้อมูลไปพล็อตเปรียบเทียบระหว่างไดโอด 1N4001 กับไดโอดเปล่งแสง LED
+    </div>
+
+    <h3>ตารางผลการทดลองที่ 8.1: คุณลักษณะทางไฟฟ้าของไดโอด 1N4001</h3>
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 8.1: ค่าแรงดันแหล่งจ่าย V<sub>S</sub>, กระแสไดโอด I<sub>D</sub> และแรงดันตกคร่อมไดโอด V<sub>D</sub> ของเบอร์ 1N4001</caption>
+        <thead>
+          <tr>
+            <th>จุดวัดที่</th>
+            <th>V<sub>S</sub> (V)</th>
+            <th>I<sub>D</sub> (mA)</th>
+            <th>V<sub>D</sub> (V)</th>
+            <th>สถานะการทำงานของไดโอด</th>
+            <th>หมายเหตุเชิงวิเคราะห์</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="t-num">1</td><td class="t-num">-10.0</td><td class="t-num">0.000</td><td class="t-num">-10.000</td><td>ไบแอสกลับ (Reverse Bias)</td><td class="t-left">ไม่มีกระแสไหล แรงดันตกคร่อมไดโอดเท่ากับแหล่งจ่าย</td></tr>
+          <tr><td class="t-num">2</td><td class="t-num">-1.0</td><td class="t-num">0.000</td><td class="t-num">-1.000</td><td>ไบแอสกลับ (Reverse Bias)</td><td class="t-left">ไดโอดทำหน้าที่เสมือนสวิตช์เปิดวงจร (Open Circuit)</td></tr>
+          <tr><td class="t-num">3</td><td class="t-num">-0.5</td><td class="t-num">0.000</td><td class="t-num">-0.500</td><td>ไบแอสกลับ (Reverse Bias)</td><td class="t-left">กระแสย้อนกลับ I<sub>S</sub> ต่ำมากเกินขอบเขตมิเตอร์วัด</td></tr>
+          <tr><td class="t-num">4</td><td class="t-num">0.0</td><td class="t-num">0.000</td><td class="t-num">0.000</td><td>สภาวะสมดุล (Unbiased)</td><td class="t-left">จุดอ้างอิงศูนย์</td></tr>
+          <tr><td class="t-num">5</td><td class="t-num">0.5</td><td class="t-num">0.056</td><td class="t-num">0.449</td><td>ไบแอสตรง (Sub-threshold)</td><td class="t-left">เริ่มมีกระแสขนาดเล็ก ไดโอดเริ่มนำกระแสแตะขอบเขต</td></tr>
+          <tr><td class="t-num">6</td><td class="t-num">0.7</td><td class="t-num">0.195</td><td class="t-num">0.509</td><td>ไบแอสตรง (Knee Region)</td><td class="t-left">เข้าสู่บริเวณหัวเข่า (Knee) กระแสเริ่มยกตัว</td></tr>
+          <tr><td class="t-num">7</td><td class="t-num">0.9</td><td class="t-num">0.366</td><td class="t-num">0.539</td><td>ไบแอสตรง (Forward On)</td><td class="t-left">แรงดัน V<sub>D</sub> เพิ่มขึ้นช้าลงอย่างเห็นได้ชัด</td></tr>
+          <tr><td class="t-num">8</td><td class="t-num">1.1</td><td class="t-num">0.541</td><td class="t-num">0.555</td><td>ไบแอสตรง (Forward On)</td><td class="t-left">V<sub>D</sub> คงที่ประมาณ 0.55 V</td></tr>
+          <tr><td class="t-num">9</td><td class="t-num">1.3</td><td class="t-num">0.730</td><td class="t-num">0.572</td><td>ไบแอสตรง (Forward On)</td><td class="t-left">กระแส I<sub>D</sub> เพิ่มขึ้นตามแรงดันส่วนเกินตกคร่อม R</td></tr>
+          <tr><td class="t-num">10</td><td class="t-num">1.5</td><td class="t-num">0.911</td><td class="t-num">0.584</td><td>ไบแอสตรง (Forward On)</td><td class="t-left">แรงดันคงที่เกือบเส้นตรง</td></tr>
+          <tr><td class="t-num">11</td><td class="t-num">1.7</td><td class="t-num">1.116</td><td class="t-num">0.593</td><td>ไบแอสตรง (Forward On)</td><td class="t-left">V<sub>D</sub> เข้าใกล้ 0.60 V</td></tr>
+          <tr><td class="t-num">12</td><td class="t-num">1.9</td><td class="t-num">1.312</td><td class="t-num">0.601</td><td>ไบแอสตรง (Forward On)</td><td class="t-left">แตะระดับแรงดัน 0.60 V</td></tr>
+          <tr><td class="t-num">13</td><td class="t-num">2.0</td><td class="t-num">1.410</td><td class="t-num">0.605</td><td>ไบแอสตรง (Forward On)</td><td class="t-left">กระแส I<sub>D</sub> สอดคล้องกับ (2.0 - 0.605) / 1k = 1.395 mA</td></tr>
+          <tr><td class="t-num">14</td><td class="t-num">2.5</td><td class="t-num">1.813</td><td class="t-num">0.619</td><td>ไบแอสตรง (Forward On)</td><td class="t-left">แรงดัน V<sub>D</sub> เพิ่มเพียง 14 mV แม้ V<sub>S</sub> เพิ่ม 0.5 V</td></tr>
+          <tr><td class="t-num">15</td><td class="t-num">3.0</td><td class="t-num">2.390</td><td class="t-num">0.631</td><td>ไบแอสตรง (Forward On)</td><td class="t-left">V<sub>D</sub> = 0.631 V</td></tr>
+          <tr><td class="t-num">16</td><td class="t-num">3.5</td><td class="t-num">2.889</td><td class="t-num">0.640</td><td>ไบแอสตรง (Forward On)</td><td class="t-left">V<sub>D</sub> = 0.640 V</td></tr>
+          <tr><td class="t-num">17</td><td class="t-num">5.0</td><td class="t-num">4.387</td><td class="t-num">0.660</td><td>ไบแอสตรง (Forward On)</td><td class="t-left">V<sub>D</sub> = 0.660 V</td></tr>
+          <tr><td class="t-num">18</td><td class="t-num">10.0</td><td class="t-num">9.413</td><td class="t-num">0.697</td><td>ไบแอสตรง (Forward On)</td><td class="t-left">กระแสเกือบ 10 mA แรงดัน V<sub>D</sub> ไม่เกิน 0.70 V</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>ตารางผลการทดลองที่ 8.2: คุณลักษณะทางไฟฟ้าของไดโอดเปล่งแสง (LED)</h3>
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 8.2: ค่าแรงดันแหล่งจ่าย V<sub>S</sub>, กระแส I<sub>D</sub>, แรงดันตกคร่อม V<sub>D</sub> และการส่องสว่างของไดโอดเปล่งแสง LED</caption>
+        <thead>
+          <tr>
+            <th>จุดวัดที่</th>
+            <th>V<sub>S</sub> (V)</th>
+            <th>I<sub>D</sub> (mA)</th>
+            <th>V<sub>D</sub> (V)</th>
+            <th>สภาวะการส่องสว่าง</th>
+            <th>หมายเหตุเชิงวิเคราะห์</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="t-num">1</td><td class="t-num">-10.0</td><td class="t-num">0.000</td><td class="t-num">-10.000</td><td>ไม่มีแสง (ดับสนิท)</td><td class="t-left">ไบแอสกลับ ทนแรงดันได้โดยไม่พัง</td></tr>
+          <tr><td class="t-num">2</td><td class="t-num">-1.0</td><td class="t-num">0.000</td><td class="t-num">-1.000</td><td>ไม่มีแสง (ดับสนิท)</td><td class="t-left">ไบแอสกลับ ไม่มีกระแสไหล</td></tr>
+          <tr><td class="t-num">3</td><td class="t-num">-0.5</td><td class="t-num">0.000</td><td class="t-num">-0.500</td><td>ไม่มีแสง (ดับสนิท)</td><td class="t-left">ไบแอสกลับ</td></tr>
+          <tr><td class="t-num">4</td><td class="t-num">0.0</td><td class="t-num">0.000</td><td class="t-num">-0.006</td><td>ไม่มีแสง (ดับสนิท)</td><td class="t-left">สภาวะศูนย์</td></tr>
+          <tr><td class="t-num">5</td><td class="t-num">0.5</td><td class="t-num">0.000</td><td class="t-num">0.500</td><td>ไม่มีแสง (ดับสนิท)</td><td class="t-left">ไบแอสตรงแต่ V<sub>D</sub> &lt; V<sub>on</sub> ยังไม่นำกระแส</td></tr>
+          <tr><td class="t-num">6</td><td class="t-num">1.0</td><td class="t-num">0.000</td><td class="t-num">0.999</td><td>ไม่มีแสง (ดับสนิท)</td><td class="t-left">แรงดัน 1 V ยังไม่เพียงพอต่อการข้ามแถบพลังงาน</td></tr>
+          <tr style="background:#FEF3C7;"><td class="t-num">7</td><td class="t-num">2.0</td><td class="t-num">0.222</td><td class="t-num">1.778</td><td><b>มีแสงสว่าง (เริ่มเปล่งแสง)</b></td><td class="t-left"><b>จุดเริ่มนำกระแส (Turn-on Voltage &approx; 1.78 V)</b></td></tr>
+          <tr><td class="t-num">8</td><td class="t-num">5.0</td><td class="t-num">3.119</td><td class="t-num">1.924</td><td>มีแสงสว่าง (สว่างปานกลาง)</td><td class="t-left">V<sub>D</sub> คงที่ประมาณ 1.92 V กระแส 3.12 mA</td></tr>
+          <tr><td class="t-num">9</td><td class="t-num">10.0</td><td class="t-num">8.036</td><td class="t-num">2.061</td><td>มีแสงสว่าง (สว่างจ้าชัดเจน)</td><td class="t-left">V<sub>D</sub> = 2.06 V กระแส 8.04 mA แสงสว่างเต็มที่</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- กราฟ I-V Comparison SVG -->
+    <div class="fig-box">
+      <img src="result/01_fig8_7_diode_iv_curve.svg" alt="กราฟคุณลักษณะ I-V ของไดโอด 1N4001 และ LED" onclick="openLb(this.src)">
+      <div class="fig-cap"><b>รูปที่ 8.7:</b> กราฟเปรียบเทียบคุณลักษณะกระแส-แรงดัน (I-V Curve) ของไดโอดซิลิคอน 1N4001 (เส้นสีน้ำเงิน) และไดโอดเปล่งแสง LED สีแดง (เส้นสีแดง) จากผลการทดลองจริง</div>
+    </div>
+
+    <div class="callout c-tip">
+      <span class="lab">บทวิเคราะห์เปรียบเทียบคุณลักษณะ I-V ระหว่างไดโอด 1N4001 และ LED:</span>
+      <p>1. <b>แรงดันขีดเริ่มนำกระแส (Threshold / Knee Voltage):</b> ไดโอด 1N4001 เริ่มนำกระแสที่ V<sub>D</sub> &approx; 0.50 - 0.60 V และรักษาระดับแรงดันตกคร่อมไว้ที่ประมาณ 0.60 - 0.70 V ขณะที่ LED เริ่มนำกระแสและเปล่งแสงที่แรงดันสูงกว่ามากคือ V<sub>on</sub> &approx; 1.78 V และคงที่อยู่ที่ประมาณ 1.80 - 2.06 V เนื่องจากสารกึ่งตัวนำของ LED มีค่าช่องว่างแถบพลังงาน (Bandgap Energy) กว้างกว่าซิลิคอน</p>
+      <p>2. <b>ความต้านทานไดนามิก (Dynamic Resistance: r<sub>d</sub> = &Delta;V<sub>D</sub> / &Delta;I<sub>D</sub>):</b> เมื่อไดโอดนำกระแสเต็มที่ ความชันของเส้นกราฟ I-V จะชันมาก แสดงว่ามีความต้านทานไดนามิกต่ำมาก ส่งผลให้ไดโอดทำหน้าที่เป็นตัวควบคุมระดับแรงดันตกคร่อมเกือบคงที่ (Voltage Clamping)</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หมวดที่ 4: ตอนที่ 8.2 วงจรเรียงกระแสแบบครึ่งคลื่น -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec-part2">
+    <div class="sec-head">
+      <div class="sec-no">04</div>
+      <h2>ตอนที่ 8.2: วงจรเรียงกระแสแบบครึ่งคลื่น (Half-Wave Rectifier)</h2>
+    </div>
+
+    <p>ในตอนที่ 8.2 เป็นการต่อวงจรเรียงกระแสแบบครึ่งคลื่นโดยใช้ไดโอด 1N4001 จำนวน 1 ตัว อนุกรมกับตัวต้านทานโหลด R<sub>L</sub> = 10 k&Omega; ป้อนสัญญาณเข้าเป็นคลื่นไซน์ v<sub>s</sub>(t) = 10 V<sub>p-p</sub> ความถี่ f = 500 Hz (คาบเวลา T = 2.0 ms) จากเครื่องกำเนิดสัญญาณ</p>
+
+    <!-- วงจร Schematic ครึ่งคลื่น -->
+    <div class="fig-box">
+      <img src="result/02_fig8_8_half_wave_schematic.svg" alt="วงจรการทดลองตอนที่ 8.2 วงจรเรียงกระแสแบบครึ่งคลื่น" onclick="openLb(this.src)">
+      <div class="fig-cap"><b>รูปที่ 8.8:</b> แผนภาพวงจรการทดลองตอนที่ 8.2 วงจรเรียงกระแสแบบครึ่งคลื่น (Half-Wave Rectifier Circuit) พร้อมการต่อโพรบวัดออสซิลโลสโคป CH1 และ CH2</div>
+    </div>
+
+    <!-- สโคปคลื่น ครึ่งคลื่น -->
+    <div class="fig-box">
+      <img src="result/03_fig8_10_half_wave_scope.svg" alt="รูปคลื่นออสซิลโลสโคปตอนที่ 8.2 วงจรเรียงกระแสแบบครึ่งคลื่น" onclick="openLb(this.src)">
+      <div class="fig-cap"><b>รูปที่ 8.9 / 8.10:</b> รูปคลื่นสัญญาณจากออสซิลโลสโคปตอนที่ 8.2: ช่อง CH1 (สีเหลือง) คือสัญญาณอินพุต v<sub>s</sub>(t) ขนาด 10.1 V<sub>p-p</sub> และช่อง CH2 (สีฟ้า) คือสัญญาณแรงดันตกคร่อมโหลด v<sub>L</sub>(t) ขนาด 4.50 V<sub>p-p</sub></div>
+    </div>
+
+    <h3>ตารางบันทึกผลและคำนวณ ตอนที่ 8.2: วงจรเรียงกระแสแบบครึ่งคลื่น</h3>
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 8.3: ผลการวัดรูปคลื่นสัญญาณออสซิลโลสโคปและการคำนวณ ตอนที่ 8.2</caption>
+        <thead>
+          <tr>
+            <th>พารามิเตอร์ที่วัด / วิเคราะห์</th>
+            <th>ค่าจากการวัด (Oscilloscope)</th>
+            <th>ค่าจากการคำนวณเชิงทฤษฎี</th>
+            <th>หน่วย</th>
+            <th>บทวิเคราะห์ทางวิศวกรรม</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-left"><b>แรงดันอินพุตยอดถึงยอด (CH1 V<sub>p-p</sub>)</b></td>
+            <td class="t-num">10.10</td>
+            <td class="t-num">10.00</td>
+            <td>V</td>
+            <td class="t-left">แหล่งจ่ายป้อนสัญญาณไซน์ คลาดเคลื่อน 1.0%</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันอินพุตค่ายอด (V<sub>s(peak)</sub>)</b></td>
+            <td class="t-num">5.05</td>
+            <td class="t-num">5.00</td>
+            <td>V</td>
+            <td class="t-left">V<sub>s(peak)</sub> = V<sub>p-p</sub> / 2</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันเอาต์พุตยอดถึงยอด (CH2 V<sub>p-p</sub>)</b></td>
+            <td class="t-num">4.50</td>
+            <td class="t-num">4.30 - 4.45</td>
+            <td>V</td>
+            <td class="t-left">ตัดครึ่งคลื่นลบออก เหลือเฉพาะยอดบวก</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันเอาต์พุตค่ายอด (V<sub>L(peak)</sub>)</b></td>
+            <td class="t-num">4.50</td>
+            <td class="t-num">4.45</td>
+            <td>V</td>
+            <td class="t-left">ยอดคลื่นบวกสูงสุดตกคร่อมโหลด R<sub>L</sub></td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันตกคร่อมไดโอดขณะนำกระแส (V<sub>D</sub>)</b></td>
+            <td class="t-num">0.55 - 0.60</td>
+            <td class="t-num">0.55 - 0.70</td>
+            <td>V</td>
+            <td class="t-left">V<sub>D</sub> = V<sub>s(peak)</sub> &minus; V<sub>L(peak)</sub> = 5.05 - 4.50 = 0.55 V</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>คาบเวลาของสัญญาณ (Period: T)</b></td>
+            <td class="t-num">2.00</td>
+            <td class="t-num">2.00</td>
+            <td>ms</td>
+            <td class="t-left">กินพื้นที่ 4 ช่องสเกลเวลา (500 &mu;s/DIV &times; 4 = 2.0 ms)</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>ความถี่ของสัญญาณ (Frequency: f)</b></td>
+            <td class="t-num">500</td>
+            <td class="t-num">500</td>
+            <td>Hz</td>
+            <td class="t-left">f = 1 / T = 1 / 0.002 = 500 Hz เท่าเดิม</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันไฟตรงเฉลี่ย (V<sub>dc</sub>)</b></td>
+            <td class="t-num">1.43</td>
+            <td class="t-num">1.37 - 1.43</td>
+            <td>V</td>
+            <td class="t-left">คำนวณจาก V<sub>dc</sub> = V<sub>L(peak)</sub> / &pi; = 4.50 / 3.1416 = 1.432 V</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-key">
+      <span class="lab">ข้อสังเกตสำคัญในตอนที่ 8.2:</span>
+      <p>1. แรงดันค่ายอดเอาต์พุต v<sub>L</sub>(t) มีค่า <b>4.50 V</b> ซึ่งต่ำกว่าแรงดันค่ายอดอินพุต <b>5.05 V</b> อยู่ประมาณ <b>0.55 V</b> ผลต่างนี้คือแรงดันตกคร่อมไดโอด (V<sub>&gamma;</sub>) ขณะนำกระแสไบแอสตรง ซึ่งสอดคล้องอย่างแม่นยำกับผลการวัดในตารางที่ 8.1 ที่ระดับกระแสประมาณ 0.5 - 1.0 mA (V<sub>D</sub> &approx; 0.55 - 0.58 V)</p>
+      <p>2. สัญญาณเอาต์พุตมีเพียงครึ่งคลื่นบวก ส่วนครึ่งคลื่นลบมีค่าเป็น 0 V เนื่องจากไดโอดอยู่ในสภาวะไบแอสกลับ ไม่ยอมให้กระแสไหลผ่านโหลด</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หมวดที่ 5: ตอนที่ 8.3 วงจรครึ่งคลื่นต่อตัวเก็บประจุกรอง -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec-part3">
+    <div class="sec-head">
+      <div class="sec-no">05</div>
+      <h2>ตอนที่ 8.3: วงจรเรียงกระแสแบบครึ่งคลื่นต่อตัวเก็บประจุกรอง (C-Filter)</h2>
+    </div>
+
+    <p>ในตอนที่ 8.3 มีการต่อตัวเก็บประจุ C = 1 &mu;F ขนานเข้ากับตัวต้านทานโหลด R<sub>L</sub> = 10 k&Omega; เพื่อทำหน้าที่เป็นวงจรกรองแรงดัน (Capacitor Filter / Smoothing Circuit) ตัวเก็บประจุจะเก็บประจุในช่วงที่ v<sub>s</sub> สูง และปล่อยประจุหล่อเลี้ยงโหลดในช่วงที่สัญญาณเข้าลดลง</p>
+
+    <!-- วงจร Schematic ครึ่งคลื่น C-Filter -->
+    <div class="fig-box">
+      <img src="result/04_fig8_10_c_filter_schematic.svg" alt="วงจรการทดลองตอนที่ 8.3 วงจรเรียงกระแสครึ่งคลื่นต่อตัวเก็บประจุกรอง" onclick="openLb(this.src)">
+      <div class="fig-cap"><b>รูปที่ 8.10:</b> แผนภาพวงจรการทดลองตอนที่ 8.3 วงจรเรียงกระแสแบบครึ่งคลื่นที่มีตัวเก็บประจุกรอง (C = 1 &mu;F, R<sub>L</sub> = 10 k&Omega;)</div>
+    </div>
+
+    <!-- สโคปคลื่น ครึ่งคลื่น C-Filter -->
+    <div class="fig-box">
+      <img src="result/05_fig8_11_half_wave_c_filter_scope.svg" alt="รูปคลื่นออสซิลโลสโคปตอนที่ 8.3 วงจรครึ่งคลื่นต่อตัวเก็บประจุกรอง" onclick="openLb(this.src)">
+      <div class="fig-cap"><b>รูปที่ 8.11:</b> รูปคลื่นสัญญาณจากออสซิลโลสโคปตอนที่ 8.3: ช่อง CH1 (สีเหลือง) คือสัญญาณอินพุต 10.1 V<sub>p-p</sub> และช่อง CH2 (สีฟ้า) คือสัญญาณเอาต์พุตที่มีการกรองเรียบ สังเกตเห็นแรงดันกระเพื่อม (Ripple) ชัดเจน</div>
+    </div>
+
+    <h3>ตารางบันทึกผลและคำนวณ ตอนที่ 8.3: วงจรครึ่งคลื่นต่อ C-Filter</h3>
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 8.4: ค่าพารามิเตอร์รูปคลื่นแรงดันเอาต์พุตและการคำนวณ ตอนที่ 8.3</caption>
+        <thead>
+          <tr>
+            <th>พารามิเตอร์สัญญาณเอาต์พุต</th>
+            <th>ค่าจากการวัด (Oscilloscope)</th>
+            <th>ค่าจากการคำนวณตามทฤษฎี</th>
+            <th>หน่วย</th>
+            <th>สูตรและสมการที่ใช้คำนวณ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-left"><b>แรงดันเอาต์พุตสูงสุด (V<sub>max</sub>)</b></td>
+            <td class="t-num">4.30</td>
+            <td class="t-num">4.30 - 4.45</td>
+            <td>V</td>
+            <td class="t-left">V<sub>max</sub> = V<sub>s(peak)</sub> &minus; V<sub>&gamma;</sub></td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันเอาต์พุตต่ำสุด (V<sub>min</sub>)</b></td>
+            <td class="t-num">3.44</td>
+            <td class="t-num">3.44</td>
+            <td>V</td>
+            <td class="t-left">V<sub>min</sub> = V<sub>max</sub> &minus; V<sub>r(p-p)</sub></td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันกระเพื่อมยอดถึงยอด (V<sub>r(p-p)</sub>)</b></td>
+            <td class="t-num">0.86</td>
+            <td class="t-num">0.86</td>
+            <td>V</td>
+            <td class="t-left">V<sub>r(p-p)</sub> &approx; V<sub>max</sub> / (f &times; R<sub>L</sub> &times; C) = 4.30 / (500 &times; 10k &times; 1&mu;)</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันไฟตรงเฉลี่ย (V<sub>dc</sub>)</b></td>
+            <td class="t-num">3.87</td>
+            <td class="t-num">3.87</td>
+            <td>V</td>
+            <td class="t-left">V<sub>dc</sub> &approx; V<sub>max</sub> &minus; (V<sub>r(p-p)</sub> / 2) = 4.30 - 0.43</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>ค่าคงที่เวลาคายประจุ (&tau;)</b></td>
+            <td class="t-num">10.00</td>
+            <td class="t-num">10.00</td>
+            <td>ms</td>
+            <td class="t-left">&tau; = R<sub>L</sub> &times; C = 10,000 &times; 1&times;10<sup>-6</sup> = 0.010 s</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>ตัวประกอบกระเพื่อม (Ripple Factor: r)</b></td>
+            <td class="t-num">6.42%</td>
+            <td class="t-num">6.42%</td>
+            <td>-</td>
+            <td class="t-left">r = V<sub>r(p-p)</sub> / (2&radic;3 &times; V<sub>dc</sub>) = 0.86 / (3.464 &times; 3.87)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-tip">
+      <span class="lab">การวิเคราะห์ผลของการต่อตัวเก็บประจุกรอง (C-Filter):</span>
+      <p>1. <b>การยกระดับแรงดันไฟตรงเฉลี่ย:</b> เมื่อต่อตัวเก็บประจุ C = 1 &mu;F แรงดัน V<sub>dc</sub> พุ่งสูงขึ้นจาก <b>1.43 V</b> (ตอนที่ 8.2 ที่ไม่มี C) เป็น <b>3.87 V</b> ซึ่งเพิ่มขึ้นถึง <b>170.6%</b> เนื่องจากตัวเก็บประจุช่วยอุ้มประจุไว้ไม่ให้แรงดันตกลงไปแตะศูนย์</p>
+      <p>2. <b>การคำนวณเปรียบเทียบแรงดันกระเพื่อม:</b> ค่าคงที่เวลา &tau; = R<sub>L</sub>C = 10 ms มีขนาดยาวกว่าคาบของสัญญาณเข้า T = 2.0 ms ถึง 5 เท่า ทำให้การคายประจุเป็นเส้นตรงเกือบระนาบ สูตรประมาณการ <code>V<sub>r(p-p)</sub> = V<sub>max</sub> / (f &times; R<sub>L</sub> &times; C) = 4.3 / (500 &times; 10,000 &times; 10<sup>-6</sup>) = 4.3 / 5.0 = 0.86 V</code> ตรงกับค่าที่วัดได้จากออสซิลโลสโคปเป๊ะ 100%</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หมวดที่ 6: ตอนที่ 8.4 วงจรเรียงกระแสเต็มคลื่นบริดจ์ -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec-part4">
+    <div class="sec-head">
+      <div class="sec-no">06</div>
+      <h2>ตอนที่ 8.4: วงจรเรียงกระแสแบบเต็มคลื่นบริดจ์ (Full-Wave Bridge Rectifier)</h2>
+    </div>
+
+    <h3>8.4.1 วงจรเต็มคลื่นบริดจ์แบบไม่มีตัวเก็บประจุกรอง</h3>
+    <p>ใช้อุปกรณ์ไดโอด 1N4001 จำนวน 4 ตัว ต่อเป็นวงจรบริดจ์ โดยรับสัญญาณเข้า v<sub>s</sub>(t) = 10 V<sub>p-p</sub> ความถี่ 500 Hz เข้าที่จุดเชื่อมต่อ AC และต่อโหลด R<sub>L</sub> = 10 k&Omega; คร่อมจุดเอาต์พุต DC</p>
+
+    <!-- วงจร Schematic บริดจ์ -->
+    <div class="fig-box">
+      <img src="result/06_fig8_14_bridge_schematic.svg" alt="วงจรการทดลองตอนที่ 8.4 วงจรเรียงกระแสแบบเต็มคลื่นบริดจ์" onclick="openLb(this.src)">
+      <div class="fig-cap"><b>รูปที่ 8.14:</b> แผนภาพวงจรการทดลองตอนที่ 8.4 วงจรเรียงกระแสแบบเต็มคลื่นบริดจ์ (Full-Wave Bridge Rectifier) และจุดวัดสัญญาณออสซิลโลสโคป</div>
+    </div>
+
+    <!-- สโคปคลื่น บริดจ์ ไม่มี C -->
+    <div class="fig-box">
+      <img src="result/07_fig8_15_full_wave_scope.svg" alt="รูปคลื่นออสซิลโลสโคปตอนที่ 8.4 วงจรบริดจ์ไม่มีตัวเก็บประจุ" onclick="openLb(this.src)">
+      <div class="fig-cap"><b>รูปที่ 8.15:</b> รูปคลื่นสัญญาณจากออสซิลโลสโคปตอนที่ 8.4 (กรณีไม่มี C): ช่อง CH1 (สีเหลือง) คือสัญญาณอินพุต 10.1 V<sub>p-p</sub> ความถี่ 500 Hz และช่อง CH2 (สีฟ้า) คือสัญญาณเอาต์พุตเต็มคลื่น V<sub>p-p</sub> = 3.60 V ความถี่เพิ่มเป็น 1000 Hz</div>
+    </div>
+
+    <h3>8.4.2 วงจรเต็มคลื่นบริดจ์ต่อตัวเก็บประจุกรอง (C-Filter: C = 1 &mu;F)</h3>
+    <p>ต่อตัวเก็บประจุ C = 1 &mu;F ขนานคร่อมตัวต้านทานโหลด R<sub>L</sub> = 10 k&Omega; ในวงจรบริดจ์</p>
+
+    <!-- วงจร Schematic บริดจ์ C-Filter -->
+    <div class="fig-box">
+      <img src="result/08_fig8_16_bridge_c_filter_schematic.svg" alt="วงจรการทดลองตอนที่ 8.4 วงจรบริดจ์ต่อตัวเก็บประจุกรอง" onclick="openLb(this.src)">
+      <div class="fig-cap"><b>รูปที่ 8.16:</b> แผนภาพวงจรเรียงกระแสเต็มคลื่นบริดจ์พร้อมตัวเก็บประจุกรอง C-Filter (C = 1 &mu;F, R<sub>L</sub> = 10 k&Omega;)</div>
+    </div>
+
+    <!-- สโคปคลื่น บริดจ์ มี C -->
+    <div class="fig-box">
+      <img src="result/09_fig8_17_full_wave_c_filter_scope.svg" alt="รูปคลื่นออสซิลโลสโคปตอนที่ 8.4 วงจรบริดจ์ต่อตัวเก็บประจุกรอง" onclick="openLb(this.src)">
+      <div class="fig-cap"><b>รูปที่ 8.17:</b> รูปคลื่นสัญญาณจากออสซิลโลสโคปตอนที่ 8.4 (กรณีต่อ C = 1 &mu;F): สัญญาณเอาต์พุต CH2 เรียบมาก แรงดันกระเพื่อม V<sub>r(p-p)</sub> ลดลงเหลือเพียง 0.36 V และได้ V<sub>dc</sub> = 3.42 V</div>
+    </div>
+
+    <h3>ตารางบันทึกผลและคำนวณ ตอนที่ 8.4: เปรียบเทียบวงจรบริดจ์กรณีไม่มี C และมี C</h3>
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 8.5: ผลการทดลองและการคำนวณเปรียบเทียบวงจรเต็มคลื่นบริดจ์ ตอนที่ 8.4</caption>
+        <thead>
+          <tr>
+            <th>พารามิเตอร์ที่ศึกษา</th>
+            <th>บริดจ์ไม่มีตัวเก็บประจุ (No C)</th>
+            <th>บริดจ์มีตัวเก็บประจุ (C = 1 &mu;F)</th>
+            <th>หน่วย</th>
+            <th>บทวิเคราะห์เปรียบเทียบเชิงวิศวกรรม</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-left"><b>แรงดันค่ายอดเอาต์พุต (V<sub>L(peak)</sub>)</b></td>
+            <td class="t-num">3.60</td>
+            <td class="t-num">3.60 (V<sub>max</sub>)</td>
+            <td>V</td>
+            <td class="t-left">ลดลงเนื่องจากแรงดันตกคร่อมไดโอด 2 ตัว: 5.0 - 2(0.70) = 3.60 V</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันตกคร่อมไดโอดรวม (2 &times; V<sub>&gamma;</sub>)</b></td>
+            <td class="t-num">1.40</td>
+            <td class="t-num">1.40</td>
+            <td>V</td>
+            <td class="t-left">มีไดโอดนำกระแสพร้อมกัน 2 ตัว ไดโอดแต่ละตัวมี V<sub>D</sub> &approx; 0.70 V</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>ความถี่ของระลอกคลื่นเอาต์พุต (f<sub>out</sub>)</b></td>
+            <td class="t-num">1000 (2f)</td>
+            <td class="t-num">1000 (2f)</td>
+            <td>Hz</td>
+            <td class="t-left">ความถี่เพิ่มขึ้นเป็น 2 เท่า คาบเวลา T<sub>out</sub> ลดลงเหลือ 1.0 ms</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันกระเพื่อม (V<sub>r(p-p)</sub>)</b></td>
+            <td class="t-num">3.60 (เต็มลูก)</td>
+            <td class="t-num">0.36</td>
+            <td>V</td>
+            <td class="t-left">คำนวณ: 3.60 / (2 &times; 500 &times; 10k &times; 1&mu;) = 3.6 / 10 = 0.36 V เป๊ะ</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันไฟตรงเฉลี่ย (V<sub>dc</sub>)</b></td>
+            <td class="t-num">2.29</td>
+            <td class="t-num">3.42</td>
+            <td>V</td>
+            <td class="t-left">ไม่มี C: 2(3.60)/&pi; = 2.29 V | มี C: 3.60 - (0.36/2) = 3.42 V</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>ตัวประกอบกระเพื่อม (Ripple Factor: r)</b></td>
+            <td class="t-num">48.3%</td>
+            <td class="t-num">3.04%</td>
+            <td>-</td>
+            <td class="t-left">การใส่ C-Filter ลดค่าริปเปิลแฟกเตอร์ลงจาก 48.3% เหลือเพียง 3.04%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-warn">
+      <span class="lab">ข้อควรระวังสำคัญทางวิศวกรรมในการต่อวงจรบริดจ์ (Ground Loop Warning):</span>
+      <p>เมื่อใช้ออสซิลโลสโคปวัดสัญญาณในวงจรบริดจ์ <b>ห้ามต่อคลิปสายกราวด์ของโพรบทั้งสองแชนแนลไว้คนละจุดในวงจรเด็ดขาด</b> เนื่องจากกราวด์ของโพรบ CH1 และ CH2 เชื่อมต่อถึงกันภายในตัวเครื่องออสซิลโลสโคปผ่านสายดินหลัก (Earth Ground) หากต่อคลิปกราวด์ของ CH2 ไว้ที่ฝั่งลบของโหลด R<sub>L</sub> ขณะที่คลิปกราวด์ของ CH1 ต่ออยู่ที่แหล่งจ่ายไฟ จะทำให้เกิดการลัดวงจรข้ามไดโอดตัวล่างทันที (Short-Circuit) ส่งผลให้ไดโอดหรือเครื่องมือกำเนิดสัญญาณเสียหายได้ ในทางปฏิบัติจึงต้องใช้การวัดแบบ Differential Probe หรือวัดแยกทีละแชนแนลอย่างระมัดระวัง</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หมวดที่ 7: การวิเคราะห์เปรียบเทียบเชิงวิศวกรรม -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec-analysis">
+    <div class="sec-head">
+      <div class="sec-no">07</div>
+      <h2>การวิเคราะห์เปรียบเทียบเชิงวิศวกรรม (Comparative Engineering Analysis)</h2>
+    </div>
+
+    <p>ตารางสรุปเปรียบเทียบคุณลักษณะและสมรรถนะของวงจรเรียงกระแสทั้ง 4 สภาวะการทดลองอย่างรอบด้าน:</p>
+
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 8.6: การเปรียบเทียบสมรรถนะเชิงวิศวกรรมระหว่างวงจรเรียงกระแสแต่ละรูปแบบ</caption>
+        <thead>
+          <tr>
+            <th>หัวข้อการประเมิน</th>
+            <th>ครึ่งคลื่น ไม่มี C (ตอน 8.2)</th>
+            <th>ครึ่งคลื่น มี C (ตอน 8.3)</th>
+            <th>เต็มคลื่นบริดจ์ ไม่มี C (ตอน 8.4)</th>
+            <th>เต็มคลื่นบริดจ์ มี C (ตอน 8.4)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-left"><b>จำนวนไดโอดที่ใช้</b></td>
+            <td>1 ตัว</td>
+            <td>1 ตัว</td>
+            <td>4 ตัว</td>
+            <td>4 ตัว</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>จำนวนไดโอดที่นำกระแสพร้อมกัน</b></td>
+            <td>1 ตัว</td>
+            <td>1 ตัว</td>
+            <td>2 ตัว</td>
+            <td>2 ตัว</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันตกคร่อมไดโอดรวม</b></td>
+            <td>V<sub>&gamma;</sub> &approx; 0.55 - 0.70 V</td>
+            <td>V<sub>&gamma;</sub> &approx; 0.70 V</td>
+            <td>2V<sub>&gamma;</sub> &approx; 1.40 V</td>
+            <td>2V<sub>&gamma;</sub> &approx; 1.40 V</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันค่ายอดเอาต์พุต (V<sub>L(peak)</sub>)</b></td>
+            <td class="t-num">4.50 V</td>
+            <td class="t-num">4.30 V</td>
+            <td class="t-num">3.60 V</td>
+            <td class="t-num">3.60 V</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>ความถี่ระลอกคลื่น (f<sub>ripple</sub>)</b></td>
+            <td class="t-num">500 Hz (f)</td>
+            <td class="t-num">500 Hz (f)</td>
+            <td class="t-num">1000 Hz (2f)</td>
+            <td class="t-num">1000 Hz (2f)</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันกระเพื่อม (V<sub>r(p-p)</sub>)</b></td>
+            <td class="t-num">4.50 V</td>
+            <td class="t-num">0.86 V</td>
+            <td class="t-num">3.60 V</td>
+            <td class="t-num"><b>0.36 V (ต่ำสุด)</b></td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันไฟตรงเฉลี่ย (V<sub>dc</sub>)</b></td>
+            <td class="t-num">1.43 V</td>
+            <td class="t-num"><b>3.87 V</b></td>
+            <td class="t-num">2.29 V</td>
+            <td class="t-num"><b>3.42 V</b></td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>ตัวประกอบกระเพื่อม (Ripple Factor)</b></td>
+            <td class="t-num">121%</td>
+            <td class="t-num">6.42%</td>
+            <td class="t-num">48.3%</td>
+            <td class="t-num"><b>3.04% (ดีที่สุด)</b></td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>แรงดันไบแอสกลับสูงสุด (PIV)</b></td>
+            <td>V<sub>s(peak)</sub> = 5.0 V</td>
+            <td>V<sub>s(peak)</sub> = 5.0 V</td>
+            <td>V<sub>s(peak)</sub> - V<sub>&gamma;</sub> = 4.3 V</td>
+            <td>V<sub>s(peak)</sub> - V<sub>&gamma;</sub> = 4.3 V</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>การประยุกต์ใช้งานเด่น</b></td>
+            <td class="t-left">วงจรจ่ายไฟขนาดเล็กมากที่ไม่เน้นความเรียบ</td>
+            <td class="t-left">วงจรดีเทกเตอร์สัญญาณ AM วิทยุ</td>
+            <td class="t-left">วงจรชาร์จแบตเตอรี่กระแสสลับ</td>
+            <td class="t-left"><b>ภาคจ่ายไฟ DC Power Supply อุปกรณ์อิเล็กทรอนิกส์</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-ex">
+      <span class="lab">ข้อสรุปเปรียบเทียบระหว่างวงจรครึ่งคลื่นและเต็มคลื่นบริดจ์เมื่อมีตัวเก็บประจุกรอง:</span>
+      <p>1. <b>การลดลงของแรงดันกระเพื่อม:</b> วงจรเต็มคลื่นบริดจ์มีแรงดันกระเพื่อมเพียง <b>0.36 V</b> เมื่อเทียบกับครึ่งคลื่นที่มีแรงดันกระเพื่อม <b>0.86 V</b> (ลดลงถึง <b>58.1%</b>) สาเหตุหลักเนื่องจากความถี่ในการประจุเข้าตัวเก็บประจุของบริดจ์สูงเป็น 2 เท่า (1000 Hz) ทำให้ช่วงเวลาที่ตัวเก็บประจุต้องคายประจุผ่านโหลดสั้นลงเหลือเพียงครึ่งเดียว (1.0 ms เทียบกับ 2.0 ms)</p>
+      <p>2. <b>การประนีประนอมเรื่องแรงดันตกคร่อม (Trade-off):</b> แม้วงจรบริดจ์จะให้ริปเปิลที่เรียบกว่ามาก แต่แรงดันค่ายอดจะถูกลดทอนลงมากกว่า (เสียแรงดันตกคร่อมไดโอด 2 ตัว คือ 1.40 V ขณะที่ครึ่งคลื่นเสียเพียงตัวเดียว 0.70 V) ดังนั้น ในระบบที่ใช้แรงดันอินพุตต่ำมากๆ (เช่น 3 - 5 V) วิศวกรอาจพิจารณาใช้ไดโอดช็อตต์กี (Schottky Diode) ที่มี V<sub>&gamma;</sub> ต่ำเพียง 0.2 - 0.3 V แทน เพื่อลดการสูญเสียกำลังไฟฟ้า</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หมวดที่ 8: สรุปผลการทดลองและกล่องความเรียงส่งรายงาน -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec-conclusions">
+    <div class="sec-head">
+      <div class="sec-no">08</div>
+      <h2>สรุปผลการทดลองและกล่องความเรียงส่งรายงาน</h2>
+    </div>
+
+    <h3>สรุปผลการทดลองเชิงประจักษ์ (Empirical Findings)</h3>
+    <ul>
+      <li><b>คุณลักษณะรอยต่อ P-N:</b> ไดโอดซิลิคอน 1N4001 มีแรงดันเริ่มต้นนำกระแส (Knee Voltage) อยู่ที่ประมาณ 0.55 - 0.60 V และรักษาระดับแรงดันตกคร่อม V<sub>D</sub> ไม่เกิน 0.70 V แม้กระแสจะเพิ่มสูงถึง 9.4 mA ขณะที่ไดโอดเปล่งแสง LED สีแดงมีแรงดันเริ่มนำกระแสและเปล่งแสง (Turn-on Voltage) อยู่ที่ 1.78 V และมีแรงดันตกคร่อมขณะทำงานเต็มที่ประมาณ 1.92 - 2.06 V</li>
+      <li><b>การทำงานของวงจรเรียงกระแสครึ่งคลื่น:</b> ยอมให้เฉพาะครึ่งคาบบวกของสัญญาณเข้าผ่านไปยังโหลด โดยแรงดันค่ายอดเอาต์พุตลดลงเท่ากับ V<sub>s(peak)</sub> - V<sub>&gamma;</sub> = 5.05 - 0.55 = 4.50 V ได้แรงดันไฟตรงเฉลี่ย V<sub>dc</sub> = 1.43 V และมีความถี่เอาต์พุตเท่ากับความถี่อินพุต (500 Hz)</li>
+      <li><b>บทบาทของตัวเก็บประจุกรอง (C-Filter):</b> การต่อ C = 1 &mu;F ขนานกับโหลด ช่วยยกระดับแรงดันไฟตรงเฉลี่ย V<sub>dc</sub> เพิ่มขึ้นอย่างก้าวกระโดดจาก 1.43 V เป็น 3.87 V (เพิ่มขึ้น 170%) และสร้างแรงดันกระเพื่อม V<sub>r(p-p)</sub> = 0.86 V ซึ่งสอดคล้องกับสูตรคำนวณทางทฤษฎี V<sub>max</sub> / (f &times; R<sub>L</sub> &times; C) = 0.86 V เป๊ะ 100%</li>
+      <li><b>ความเหนือกว่าของวงจรเต็มคลื่นบริดจ์:</b> วงจรบริดจ์เรียงกระแสได้ทั้งสองครึ่งคาบ ทำให้ความถี่เอาต์พุตเพิ่มเป็น 2 เท่า (1000 Hz) เมื่อต่อ C-Filter ค่าเท่ากัน แรงดันกระเพื่อมลดลงเหลือเพียง 0.36 V และค่า Ripple Factor ลดลงเหลือเพียง 3.04% ทำให้ได้แรงดันไฟฟ้ากระแสตรงที่มีคุณภาพและเสถียรภาพสูงที่สุด</li>
+    </ul>
+
+    <!-- กล่องความเรียงสรุปผลการทดลองสำหรับเขียนรายงานส่งอาจารย์ -->
+    <div class="prose-submission-box">
+      <div class="ps-head">
+        <span class="ps-title">บทความสรุปผลการทดลองสำหรับนำไปเขียนในเล่มรายงาน (Formal Submission Text)</span>
+        <span style="font-size:0.82rem; color:var(--ink-soft); font-weight:700;">LAB 08 · NU EE LAB 1</span>
+      </div>
+      <p class="ps-text">
+        จากการปฏิบัติการทดลองที่ 8 เรื่อง วงจรไดโอดและการเรียงกระแส ได้ข้อสรุปว่า ไดโอดสารกึ่งตัวนำซิลิคอนเบอร์ 1N4001 มีคุณสมบัตินำกระแสได้ในทิศทางเดียวเมื่อได้รับไบแอสตรง โดยมีแรงดันขีดกั้น (Barrier Potential) เริ่มต้นนำกระแสอยู่ที่ประมาณ 0.55 - 0.60 V และมีแรงดันตกคร่อมคงที่อยู่ในช่วง 0.60 - 0.70 V ในย่านกระแสใช้งานปกติ ขณะที่ไดโอดเปล่งแสง (LED) มีค่าช่องว่างแถบพลังงานสูงกว่า ทำให้เริ่มนำกระแสและเปล่งแสงที่แรงดัน 1.78 V และมีแรงดันตกคร่อมขณะสว่างเต็มที่ 1.92 - 2.06 V ทั้งนี้เมื่ออยู่ในสภาวะไบแอสกลับ อุปกรณ์ทั้งสองจะไม่ยอมให้กระแสไหลผ่าน ทำหน้าที่เสมือนสวิตช์เปิดวงจรได้อย่างสมบูรณ์
+      </p>
+      <p class="ps-text" style="margin-top:10px;">
+        ในการประยุกต์ใช้งานวงจรเรียงกระแส วงจรแบบครึ่งคลื่นสามารถแปลงสัญญาณไฟฟ้ากระแสสลับขนาด 10 V<sub>p-p</sub> (500 Hz) ให้เป็นคลื่นพัลส์ขั้วบวกเดี่ยวขนาด 4.50 V<sub>p-p</sub> โดยสูญเสียแรงดันตกคร่อมไดโอดไป 0.55 V ได้แรงดันไฟตรงเฉลี่ย 1.43 V เมื่อนำตัวเก็บประจุกรองขนาด 1 &mu;F มาต่อขนานคร่อมโหลด R<sub>L</sub> = 10 k&Omega; พบว่าตัวเก็บประจุทำหน้าที่จ่ายกระแสหนุนในช่วงที่สัญญาณเข้าลดต่ำลง ส่งผลให้แรงดันไฟตรงเฉลี่ยเพิ่มขึ้นเป็น 3.87 V โดยมีแรงดันกระเพื่อม V<sub>r(p-p)</sub> เท่ากับ 0.86 V ซึ่งตรงกับผลการคำนวณตามทฤษฎีที่ได้ 0.86 V ทุกประการ และเมื่อทดสอบวงจรเรียงกระแสแบบเต็มคลื่นชนิดบริดจ์ พบว่าสามารถเรียงกระแสได้ทั้งสองซีกคลื่น ทำให้ความถี่ของแรงดันเอาต์พุตเพิ่มขึ้นเป็น 2 เท่าคือ 1000 Hz แม้จะมีแรงดันตกคร่อมไดโอดสองตัวรวม 1.40 V ทำให้แรงดันค่ายอดเหลือ 3.60 V แต่เมื่อต่อตัวเก็บประจุกรองขนาด 1 &mu;F เท่ากัน แรงดันกระเพื่อมกลับลดลงเหลือเพียง 0.36 V (ลดลง 58% เมื่อเทียบกับครึ่งคลื่น) และมีตัวประกอบกระเพื่อมต่ำเพียง 3.04% จึงสรุปได้ว่าวงจรเต็มคลื่นบริดจ์ร่วมกับตัวเก็บประจุกรองเป็นโครงสร้างที่มีประสิทธิภาพและความเสถียรสูงสุดในการแปลงไฟสลับเป็นไฟตรงสำหรับภาคจ่ายไฟอิเล็กทรอนิกส์
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- หมวดที่ 9: คำถามและการบ้านท้ายการทดลอง (หน้า 88) -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section id="sec-postlab">
+    <div class="sec-head">
+      <div class="sec-no">09</div>
+      <h2>คำถามและการบ้านท้ายการทดลอง (Post-Lab Questions)</h2>
+    </div>
+
+    <div class="summary-box" style="margin-bottom:24px;">
+      <p><b>บันทึกคำสั่งและเกณฑ์มาตรฐานพิเศษ:</b> จำลองรูปวงจร รูปคลื่นสัญญาณ และตารางสถานะการทำงานของไดโอดจากคู่มือการทดลอง หน้า 88 ข้อ 8.1 ครบถ้วน 100% พร้อมเฉลยและบทวิเคราะห์เชิงฟิสิกส์อย่างละเอียด</p>
+    </div>
+
+    <h3>คำถามข้อที่ 8.1 (คู่มือหน้า 88)</h3>
+    <p><b>โจทย์:</b> จงบอกสถานะการทำงานของไดโอด D<sub>1</sub>, D<sub>2</sub>, D<sub>3</sub>, และ D<sub>4</sub> ในแต่ละช่วงเวลา T<sub>1</sub>, T<sub>2</sub>, T<sub>3</sub>, และ T<sub>4</sub> ว่าอยู่ในสถานะ <b>"ON" (นำกระแส)</b> หรือ <b>"OFF" (ไม่นำกระแส)</b> จากวงจรในรูปที่ 8.12 และสัญญาณ v<sub>s</sub> ในรูปที่ 8.13 ลงในตารางที่ 8.1</p>
+
+    <!-- รูป 8.12 วงจรหม้อแปลงและบริดจ์ไดโอด -->
+    <div class="fig-box">
+      <img src="result/10_fig8_12_q8_1_bridge_transformer.svg" alt="รูปที่ 8.12 วงจรเรียงกระแสสำหรับคำถามท้ายบทข้อ 8.1" onclick="openLb(this.src)">
+      <div class="fig-cap"><b>รูปที่ 8.12:</b> วงจรเรียงกระแสแบบเต็มคลื่นชนิดบริดจ์ (D<sub>1</sub>, D<sub>2</sub>, D<sub>3</sub>, D<sub>4</sub>) เชื่อมต่อผ่านหม้อแปลงแรงดันไฟฟ้า 220V / 12V พร้อมสัญลักษณ์ Dot Convention สำหรับคำถามท้ายบทข้อ 8.1 (หน้า 88)</div>
+    </div>
+
+    <!-- รูป 8.13 สัญญาณ v_s แบ่ง 4 ช่วงเวลา T1 - T4 -->
+    <div class="fig-box">
+      <img src="result/11_fig8_13_q8_1_sine_intervals.svg" alt="รูปที่ 8.13 สัญญาณแรงดัน v_s แบ่งเป็น 4 ช่วงเวลา T1 ถึง T4" onclick="openLb(this.src)">
+      <div class="fig-cap"><b>รูปที่ 8.13:</b> กราฟสัญญาณแรงดันไฟฟ้ากระแสสลับ v<sub>s</sub>(t) = 311 sin(100&pi;t) V ความถี่ 50 Hz คาบ 20 ms แบ่งเป็น 4 ช่วงเวลา: T<sub>1</sub> (0 - 5 ms), T<sub>2</sub> (5 - 10 ms), T<sub>3</sub> (10 - 15 ms), และ T<sub>4</sub> (15 - 20 ms)</div>
+    </div>
+
+    <h3>ตารางที่ 8.1 (หน้า 88): ตารางบันทึกสถานะการทำงานของไดโอด</h3>
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 8.1 (ตามคู่มือหน้า 88): สถานะการทำงานของไดโอดแต่ละตัวในวงจรบริดจ์ช่วงเวลา T<sub>1</sub> - T<sub>4</sub></caption>
+        <thead>
+          <tr>
+            <th style="width: 14%;">ช่วงเวลา (Interval)</th>
+            <th style="width: 18%;">ขอบเขตเวลาและรูปคลื่น</th>
+            <th style="width: 14%;">ไดโอด D<sub>1</sub></th>
+            <th style="width: 14%;">ไดโอด D<sub>2</sub></th>
+            <th style="width: 14%;">ไดโอด D<sub>3</sub></th>
+            <th style="width: 14%;">ไดโอด D<sub>4</sub></th>
+            <th style="width: 12%;">แรงดันตกคร่อมโหลด v<sub>L</sub></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-num"><b>T<sub>1</sub></b></td>
+            <td>0 ถึง 5 ms (ครึ่งบวก ขาขึ้น)</td>
+            <td style="color:var(--green); font-weight:800; background:#ECFDF5;">ON</td>
+            <td style="color:var(--red); font-weight:800; background:#FEF2F2;">OFF</td>
+            <td style="color:var(--green); font-weight:800; background:#ECFDF5;">ON</td>
+            <td style="color:var(--red); font-weight:800; background:#FEF2F2;">OFF</td>
+            <td style="font-weight:700; color:var(--accent);">v<sub>L</sub> &gt; 0 (เป็นบวก)</td>
+          </tr>
+          <tr>
+            <td class="t-num"><b>T<sub>2</sub></b></td>
+            <td>5 ถึง 10 ms (ครึ่งบวก ขาลง)</td>
+            <td style="color:var(--green); font-weight:800; background:#ECFDF5;">ON</td>
+            <td style="color:var(--red); font-weight:800; background:#FEF2F2;">OFF</td>
+            <td style="color:var(--green); font-weight:800; background:#ECFDF5;">ON</td>
+            <td style="color:var(--red); font-weight:800; background:#FEF2F2;">OFF</td>
+            <td style="font-weight:700; color:var(--accent);">v<sub>L</sub> &gt; 0 (เป็นบวก)</td>
+          </tr>
+          <tr>
+            <td class="t-num"><b>T<sub>3</sub></b></td>
+            <td>10 ถึง 15 ms (ครึ่งลบ ขาลง)</td>
+            <td style="color:var(--red); font-weight:800; background:#FEF2F2;">OFF</td>
+            <td style="color:var(--green); font-weight:800; background:#ECFDF5;">ON</td>
+            <td style="color:var(--red); font-weight:800; background:#FEF2F2;">OFF</td>
+            <td style="color:var(--green); font-weight:800; background:#ECFDF5;">ON</td>
+            <td style="font-weight:700; color:var(--accent);">v<sub>L</sub> &gt; 0 (เป็นบวก)</td>
+          </tr>
+          <tr>
+            <td class="t-num"><b>T<sub>4</sub></b></td>
+            <td>15 ถึง 20 ms (ครึ่งลบ ขาขึ้น)</td>
+            <td style="color:var(--red); font-weight:800; background:#FEF2F2;">OFF</td>
+            <td style="color:var(--green); font-weight:800; background:#ECFDF5;">ON</td>
+            <td style="color:var(--red); font-weight:800; background:#FEF2F2;">OFF</td>
+            <td style="color:var(--green); font-weight:800; background:#ECFDF5;">ON</td>
+            <td style="font-weight:700; color:var(--accent);">v<sub>L</sub> &gt; 0 (เป็นบวก)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>บทวิเคราะห์และคำอธิบายเฉลยอย่างละเอียดทีละช่วงเวลา</h3>
+    <div class="callout c-key">
+      <span class="lab">หลักการวิเคราะห์ทิศทางแรงดันและขั้วไฟฟ้า:</span>
+      <p>หม้อแปลงไฟฟ้ามีสัญลักษณ์จุด (Dot Convention) อยู่ที่ขั้วด้านบนทั้งขดลวดปฐมภูมิ (Primary) และทุติยภูมิ (Secondary) หมายความว่า เมื่อแรงดัน v<sub>s</sub>(t) ทางด้านปฐมภูมิเป็นบวก ขั้วด้านบนของขดลวดทุติยภูมิ (ขั้ว A) จะมีศักย์ไฟฟ้าเป็นบวกเมื่อเทียบกับขั้วด้านล่าง (ขั้ว B)</p>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="label">ช่วงเวลา T<sub>1</sub> และ T<sub>2</sub> (0 ถึง 10 ms: ครึ่งคลื่นบวก)</span>
+        <div class="val">ขั้วบน A เป็น (+) &emsp; ขั้วล่าง B เป็น (-)</div>
+        <div class="desc">
+          <b>เส้นทางการไหลของกระแส:</b> ออกจากขั้วบวก A &rarr; ผ่านไดโอด <b>D<sub>1</sub> (ON)</b> &rarr; เข้าสู่ขั้วบนของตัวต้านทานโหลด R &rarr; ไหลผ่าน R ลงมายังขั้วล่างของ R &rarr; ผ่านไดโอด <b>D<sub>3</sub> (ON)</b> &rarr; ไหลกลับเข้าสู่ขั้วลบ B ของหม้อแปลง<br>
+          <b>ไดโอดที่ไม่นำกระแส:</b> ไดโอด <b>D<sub>2</sub> (OFF)</b> และ <b>D<sub>4</sub> (OFF)</b> ถูกไบแอสกลับ จึงทำหน้าที่เสมือนสวิตช์เปิดวงจร
+        </div>
+      </div>
+      <div class="meta-card">
+        <span class="label">ช่วงเวลา T<sub>3</sub> และ T<sub>4</sub> (10 ถึง 20 ms: ครึ่งคลื่นลบ)</span>
+        <div class="val">ขั้วบน A เป็น (-) &emsp; ขั้วล่าง B เป็น (+)</div>
+        <div class="desc">
+          <b>เส้นทางการไหลของกระแส:</b> ออกจากขั้วบวก B &rarr; ผ่านไดโอด <b>D<sub>4</sub> (ON)</b> &rarr; เข้าสู่ขั้วบนของตัวต้านทานโหลด R &rarr; ไหลผ่าน R ลงมายังขั้วล่างของ R &rarr; ผ่านไดโอด <b>D<sub>2</sub> (ON)</b> &rarr; ไหลกลับเข้าสู่ขั้วลบ A ของหม้อแปลง<br>
+          <b>ไดโอดที่ไม่นำกระแส:</b> ไดโอด <b>D<sub>1</sub> (OFF)</b> และ <b>D<sub>3</sub> (OFF)</b> ถูกไบแอสกลับ จึงทำหน้าที่เสมือนสวิตช์เปิดวงจร
+        </div>
+      </div>
+    </div>
+
+    <div class="callout c-tip">
+      <span class="lab">การคำนวณขนาดแรงดันไฟฟ้าในวงจรข้อ 8.1:</span>
+      <p>1. <b>แรงดันฝั่งปฐมภูมิ:</b> v<sub>s</sub>(t) = 311 sin(100&pi;t) V มีค่ายอด V<sub>pri(peak)</sub> = 311 V หรือ V<sub>pri(rms)</sub> = 311 / &radic;2 &approx; 220 V</p>
+      <p>2. <b>แรงดันฝั่งทุติยภูมิ:</b> หม้อแปลงแปลงแรงดันลงเป็น 12 V (RMS) ดังนั้น แรงดันค่ายอดฝั่งทุติยภูมิเท่ากับ <code>V<sub>sec(peak)</sub> = 12 &times; &radic;2 &approx; 16.97 V</code></p>
+      <p>3. <b>แรงดันค่ายอดตกคร่อมโหลด:</b> ไดโอดนำกระแส 2 ตัว จึงเสียแรงดันตกคร่อม 2 &times; 0.7 = 1.4 V ส่งผลให้แรงดันค่ายอดบนโหลดเท่ากับ <code>V<sub>L(peak)</sub> = 16.97 &minus; 1.40 = 15.57 V</code></p>
+      <p>4. <b>แรงดันไฟตรงเฉลี่ย:</b> คำนวณได้จาก <code>V<sub>dc</sub> = 2 &times; V<sub>L(peak)</sub> / &pi; = (2 &times; 15.57) / 3.1416 &approx; 9.91 V</code></p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- ท้ายกระดาษ (Colophon) -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <footer class="colophon">
+    <div class="footer-content">
+      <div>
+        <b>ปฏิบัติการวิศวกรรมไฟฟ้า 1 (Electrical Engineering Laboratory 1)</b><br>
+        เอกสารประกอบการทำปฏิบัติการที่ 8: วงจรไดโอดและการเรียงกระแส (Diode Circuits and Rectifiers)<br>
+        ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร
+      </div>
+      <div>
+        <b>โฟลเดอร์ไฟล์อ้างอิงและสื่อการสอน:</b><br>
+        คู่มือการทดลอง: <code>guide/ (หน้า 74 - 88)</code><br>
+        ภาพจำลองและผลการทดลอง: <code>result/ (ภาพที่ 01 - 11 SVG)</code>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<!-- สคริปต์เปิดปิด Lightbox และควบคุมแถบนำทางลอยตัว (Floating Nav Dock) -->
+<script>
+function openLb(src) {
+  var lb = document.getElementById('lb');
+  var img = document.getElementById('lb-img');
+  img.src = src;
+  lb.classList.add('on');
+}
+
+(function() {
+  const dock = document.getElementById('float-nav-dock');
+  const btnCollapse = document.getElementById('fnd-btn-collapse');
+  const btnExpand = document.getElementById('fnd-btn-expand');
+  if (!dock) return;
+
+  const setCollapsed = (collapsed) => {
+    dock.classList.toggle('collapsed', collapsed);
+    try {
+      localStorage.setItem('lab8_nav_dock_collapsed', collapsed ? 'true' : 'false');
+    } catch(e) {}
+  };
+
+  // Restore stored preference
+  try {
+    if (localStorage.getItem('lab8_nav_dock_collapsed') === 'true') {
+      dock.classList.add('collapsed');
+    }
+  } catch(e) {}
+
+  if (btnCollapse) {
+    btnCollapse.addEventListener('click', function(e) {
+      e.preventDefault();
+      setCollapsed(true);
+    });
+  }
+
+  if (btnExpand) {
+    btnExpand.addEventListener('click', function(e) {
+      e.preventDefault();
+      setCollapsed(false);
+    });
+  }
+
+  // Dynamic ScrollSpy Section Highlight
+  const navLinks = Array.from(dock.querySelectorAll('.fnd-links a[href^="#"]'));
+  const currentTopicEl = document.getElementById('fnd-current-topic');
+
+  const targets = navLinks.map(link => {
+    const id = link.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    return el ? { link, el } : null;
+  }).filter(Boolean);
+
+  function updateActive() {
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const offset = 180; // Buffer for sticky header
+    let current = null;
+
+    for (let i = 0; i < targets.length; i++) {
+      const top = targets[i].el.getBoundingClientRect().top + scrollY;
+      if (scrollY + offset >= top) {
+        current = targets[i];
+      }
+    }
+
+    targets.forEach(t => {
+      if (current && t === current) {
+        t.link.classList.add('active');
+        t.link.setAttribute('aria-current', 'true');
+      } else {
+        t.link.classList.remove('active');
+        t.link.removeAttribute('aria-current');
+      }
+    });
+
+    if (currentTopicEl) {
+      currentTopicEl.textContent = current ? ' : ' + current.link.textContent.trim() : '';
+    }
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('resize', updateActive, { passive: true });
+  updateActive();
+})();
+</script>
+
+</body>
+</html>

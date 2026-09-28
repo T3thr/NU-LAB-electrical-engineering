@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 460" width="100%" height="auto" style="background:#FFFFFF; font-family:'IBM Plex Sans Thai', Sarabun, sans-serif;">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#1E40AF"/>
+  </marker>
+</defs>
+<rect x="8" y="8" width="824" height="444" rx="8" fill="#FFFDF9" stroke="#D8CFBC" stroke-width="1.5"/>
+  <rect x="24" y="22" width="480" height="32" rx="6" fill="#0F172A"/>
+  <text x="36" y="43" fill="#F8FAFC" font-size="14" font-weight="800">รูปที่ 6.7: แผนภาพวงจรทดลองตอนที่ 6.2 (วงจรแบ่งแรงดันไฟฟ้า)</text>
+  <rect x="70" y="160" width="140" height="160" rx="8" fill="#F1F5F9" stroke="#334155" stroke-width="2"/>
+  <text x="140" y="190" fill="#0F172A" font-size="13" font-weight="800" text-anchor="middle">FUNCTION</text>
+  <text x="140" y="208" fill="#0F172A" font-size="13" font-weight="800" text-anchor="middle">GENERATOR</text>
+  <path d="M 105 240 Q 122.5 210 140 240 T 175 240" fill="none" stroke="#2563EB" stroke-width="3"/>
+  <text x="140" y="280" fill="#2563EB" font-size="12" font-weight="700" text-anchor="middle">vs = 10 Vp-p</text>
+  <text x="140" y="300" fill="#64748B" font-size="11" font-weight="600" text-anchor="middle">f = 500 Hz</text>
+  <!-- Wires -->
+  <path d="M 210 200 L 320 200" stroke="#0F172A" stroke-width="2.5" fill="none"/>
+  <path d="M 210 280 L 520 280" stroke="#0F172A" stroke-width="2.5" fill="none"/>
+  <!-- R1 (1 kOhm) -->
+  <path d="M 320 200 L 330 200 L 335 188 L 345 212 L 355 188 L 365 212 L 375 188 L 385 212 L 395 188 L 405 212 L 410 200 L 520 200" stroke="#0F172A" stroke-width="2.5" fill="none"/>
+  <text x="370" y="172" fill="#B45309" font-size="14" font-weight="800" text-anchor="middle">R₁ = 1 kΩ</text>
+  <circle cx="520" cy="200" r="4.5" fill="#0F172A"/>
+  <!-- R2 (470 Ohm) -->
+  <path d="M 520 200 L 520 216 L 508 221 L 532 231 L 508 241 L 532 251 L 508 261 L 532 271 L 520 276 L 520 280" stroke="#0F172A" stroke-width="2.5" fill="none"/>
+  <text x="445" y="246" fill="#B45309" font-size="14" font-weight="800" text-anchor="middle">R₂ = 470 Ω</text>
+  <!-- Ground at bottom -->
+  <circle cx="520" cy="280" r="4.5" fill="#0F172A"/>
+  <line x1="520" y1="280" x2="520" y2="310" stroke="#0F172A" stroke-width="2.5"/>
+  <line x1="500" y1="310" x2="540" y2="310" stroke="#0F172A" stroke-width="3"/>
+  <line x1="508" y1="318" x2="532" y2="318" stroke="#0F172A" stroke-width="2"/>
+  <line x1="515" y1="326" x2="525" y2="326" stroke="#0F172A" stroke-width="1.5"/>
+  <text x="550" y="318" fill="#64748B" font-size="12" font-weight="700">GND (0V)</text>
+  <!-- Voltage V2 arrow -->
+  <text x="548" y="210" fill="#047857" font-size="14" font-weight="800">+</text>
+  <text x="548" y="278" fill="#047857" font-size="14" font-weight="800">−</text>
+  <text x="580" y="246" fill="#047857" font-size="14" font-weight="800">V₂ ≈ 3.20 Vp-p</text>
+  <!-- Oscilloscope Block -->
+  <rect x="640" y="140" width="160" height="200" rx="8" fill="#0F172A" stroke="#334155" stroke-width="2"/>
+  <text x="720" y="170" fill="#F8FAFC" font-size="13" font-weight="800" text-anchor="middle">OSCILLOSCOPE</text>
+  <rect x="655" y="185" width="130" height="85" rx="4" fill="#080E18" stroke="#1E293B"/>
+  <line x1="655" y1="227.5" x2="785" y2="227.5" stroke="#1E293B" stroke-dasharray="2,2"/>
+  <line x1="720" y1="185" x2="720" y2="270" stroke="#1E293B" stroke-dasharray="2,2"/>
+  <path d="M 660 227.5 Q 675 200 690 227.5 T 720 227.5 T 750 227.5 T 780 227.5" fill="none" stroke="#F59E0B" stroke-width="1.8"/>
+  <path d="M 660 227.5 Q 675 218 690 227.5 T 720 227.5 T 750 227.5 T 780 227.5" fill="none" stroke="#06B6D4" stroke-width="1.8"/>
+  <circle cx="680" cy="305" r="9" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
+  <circle cx="680" cy="305" r="3" fill="#F59E0B"/>
+  <text x="680" y="328" fill="#F59E0B" font-size="10" font-weight="800" text-anchor="middle">CH1 (vs)</text>
+  <circle cx="750" cy="305" r="9" fill="#1E293B" stroke="#06B6D4" stroke-width="2"/>
+  <circle cx="750" cy="305" r="3" fill="#06B6D4"/>
+  <text x="750" y="328" fill="#06B6D4" font-size="10" font-weight="800" text-anchor="middle">CH2 (V₂)</text>
+  <!-- CH2 Probe Line -->
+  <path d="M 750 305 C 730 380, 580 210, 525 202" fill="none" stroke="#06B6D4" stroke-width="2" stroke-dasharray="4,2"/>
+  <polygon points="522,200 527,196 529,205" fill="#06B6D4"/>
+  <rect x="580" y="270" width="105" height="22" rx="4" fill="#ECFEFF" stroke="#06B6D4" stroke-width="1"/>
+  <text x="632" y="285" fill="#0891B2" font-size="10" font-weight="700" text-anchor="middle">โพรบ CH2 วัด V₂</text>
+  <!-- CH1 Probe Line -->
+  <circle cx="260" cy="200" r="4.5" fill="#F59E0B"/>
+  <path d="M 680 305 C 650 420, 320 340, 262 205" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="4,2"/>
+  <rect x="290" y="375" width="115" height="22" rx="4" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+  <text x="347" y="390" fill="#B45309" font-size="10" font-weight="700" text-anchor="middle">โพรบ CH1 วัด vs</text>
+  <!-- Ground Clip Wire -->
+  <path d="M 680 314 C 670 360, 550 340, 523 285" fill="none" stroke="#475569" stroke-width="2"/>
+  <rect x="470" y="345" width="95" height="20" rx="3" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1"/>
+  <text x="517" y="359" fill="#475569" font-size="9.5" font-weight="700" text-anchor="middle">คลิปกราวด์ร่วม</text>
+  <rect x="24" y="405" width="792" height="38" rx="5" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+  <text x="36" y="428" fill="#1E40AF" font-size="12" font-weight="700">สูตรการแบ่งแรงดันทางทฤษฎี: V₂ = vs × [ R₂ / (R₁ + R₂) ] = 10 Vp-p × [ 470 / (1000 + 470) ] = 3.197 Vp-p ≈ 3.20 Vp-p (มุมเฟสตรงกัน 0°)</text>
+</svg>

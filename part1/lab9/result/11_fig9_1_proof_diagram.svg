@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 480" width="100%" height="auto" style="background:#FFFDF9; font-family:'IBM Plex Sans Thai', Sarabun, sans-serif;">
+<rect width="840" height="480" rx="8" fill="#FFFDF9" stroke="#D8CFBC" stroke-width="1.5"/>
+<text x="420" y="32" fill="#0F172A" font-size="15" font-weight="800" text-anchor="middle">แผนภาพพิสูจน์สมการ (9.2) สำหรับคำถามท้ายบทข้อ 9.1: วงจรขยายแบบกลับเฟส</text>
+<text x="420" y="52" fill="#2563EB" font-size="13" font-weight="700" text-anchor="middle">การประยุกต์ KCL ที่โหนดอินเวอร์ตติ้ง (V_-) ร่วมกับคุณสมบัติ Virtual Ground (V_- ≈ 0V)</text>
+<!-- Op-Amp Symbol -->
+<polygon points="435,185 435,275 525,230" fill="#FFFFFF" stroke="#0F172A" stroke-width="2.5"/>
+<text x="444" y="212" fill="#0F172A" font-size="16" font-weight="900">-</text>
+<text x="444" y="256" fill="#0F172A" font-size="16" font-weight="900">+</text>
+<text x="470" y="235" fill="#64748B" font-size="11" font-weight="700">Ideal Op-Amp</text>
+<circle cx="60" cy="208" r="4.5" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+<text x="45" y="213" fill="#0F172A" font-size="14" font-weight="800" text-anchor="end">V_in</text>
+<line x1="65" y1="208" x2="110" y2="208" stroke="#0F172A" stroke-width="2.5"/>
+<line x1="110" y1="208" x2="120" y2="208" stroke="#0F172A" stroke-width="2.2"/>
+<rect x="120" y="198" width="60" height="20" fill="#F8FAFC" stroke="#0F172A" stroke-width="2"/>
+<line x1="180" y1="208" x2="190" y2="208" stroke="#0F172A" stroke-width="2.2"/>
+<text x="150.0" y="194" fill="#0F172A" font-size="12" font-weight="800" text-anchor="middle">R_S</text>
+<text x="150" y="238" fill="#D97706" font-size="11" font-weight="700" text-anchor="middle">I_S = (V_in - V_-) / R_S</text>
+<line x1="190" y1="208" x2="435" y2="208" stroke="#0F172A" stroke-width="2.5"/>
+<line x1="75" y1="194" x2="103" y2="194" stroke="#D97706" stroke-width="2.5"/>
+<polygon points="103,194 93,190 93,198" fill="#D97706"/>
+<text x="89" y="188" fill="#D97706" font-size="12" font-weight="800">I_S</text>
+<circle cx="250" cy="208" r="6" fill="#2563EB"/>
+<text x="250" y="194" fill="#2563EB" font-size="14" font-weight="800" text-anchor="middle">โหนด V_-</text>
+<rect x="190" y="224" width="124" height="42" rx="5" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.2"/>
+<text x="252" y="240" fill="#1E40AF" font-size="10" font-weight="800" text-anchor="middle">Virtual Ground</text>
+<text x="252" y="255" fill="#1D4ED8" font-size="10" font-weight="700" text-anchor="middle">V_- ≈ V_+ = 0 V</text>
+<line x1="252" y1="224" x2="252" y2="211" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="3 3"/>
+<polygon points="425,208 415,204 415,212" fill="#EF4444"/>
+<text x="420" y="198" fill="#DC2626" font-size="11" font-weight="800" text-anchor="end">I_- = 0 A</text>
+<line x1="250" y1="208" x2="250" y2="90" stroke="#0F172A" stroke-width="2.5"/>
+<line x1="250" y1="90" x2="380" y2="90" stroke="#0F172A" stroke-width="2.5"/>
+<line x1="380" y1="90" x2="390" y2="90" stroke="#0F172A" stroke-width="2.2"/>
+<rect x="390" y="80" width="70" height="20" fill="#F8FAFC" stroke="#0F172A" stroke-width="2"/>
+<line x1="460" y1="90" x2="470" y2="90" stroke="#0F172A" stroke-width="2.2"/>
+<text x="425.0" y="76" fill="#0F172A" font-size="12" font-weight="800" text-anchor="middle"></text>
+<line x1="470" y1="90" x2="600" y2="90" stroke="#0F172A" stroke-width="2.5"/>
+<line x1="600" y1="90" x2="600" y2="230" stroke="#0F172A" stroke-width="2.5"/>
+<line x1="300" y1="78" x2="330" y2="78" stroke="#16A34A" stroke-width="2.5"/>
+<polygon points="330,78 320,74 320,82" fill="#16A34A"/>
+<text x="315" y="70" fill="#16A34A" font-size="12" font-weight="800">I_F</text>
+<text x="425" y="112" fill="#0F172A" font-size="12" font-weight="800" text-anchor="middle">R_F</text>
+<text x="425" y="70" fill="#16A34A" font-size="11" font-weight="700" text-anchor="middle">I_F = (V_- - V_out) / R_F</text>
+<line x1="435" y1="252" x2="400" y2="252" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="400" y1="252" x2="400" y2="295" stroke="#0F172A" stroke-width="2.2"/>
+<line x1="400" y1="295" x2="400" y2="309" stroke="#0F172A" stroke-width="2"/>
+<line x1="386" y1="309" x2="414" y2="309" stroke="#0F172A" stroke-width="2"/>
+<line x1="391" y1="313" x2="409" y2="313" stroke="#0F172A" stroke-width="1.8"/>
+<line x1="396" y1="317" x2="404" y2="317" stroke="#0F172A" stroke-width="1.5"/>
+<text x="390" y="310" fill="#059669" font-size="12" font-weight="800" text-anchor="end">V_+ = 0 V</text>
+<line x1="525" y1="230" x2="710" y2="230" stroke="#0F172A" stroke-width="2.5"/>
+<circle cx="600" cy="230" r="4.5" fill="#0F172A"/>
+<circle cx="710" cy="230" r="4.5" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+<text x="725" y="235" fill="#0F172A" font-size="14" font-weight="800">V_out</text>
+<g transform="translate(40, 360)">
+  <rect width="760" height="96" rx="6" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.2"/>
+  <text x="16" y="24" fill="#0F172A" font-size="12" font-weight="800">ขั้นตอนการพิสูจน์ทางคณิตศาสตร์:</text>
+  <text x="16" y="44" fill="#334155" font-size="11">1. กฎกระแสเคอร์ชอฟฟ์ (KCL) ที่โหนด V_-:  I_S = I_F + I_-  ซึ่งออปแอมป์ในอุดมคติมีความต้านทานอินพุตเป็นอนันต์ (R_in ≈ ∞) ทำให้ I_- = 0 A  ⇒  <b>I_S = I_F</b></text>
+  <text x="16" y="64" fill="#334155" font-size="11">2. คุณสมบัติกราวด์เสมือน (Virtual Ground):  ขา V_+ ต่อลงกราวด์ (V_+ = 0V) ส่งผลให้  V_- ≈ V_+ = 0 V</text>
+  <text x="16" y="84" fill="#1D4ED8" font-size="12" font-weight="800">3. แทนค่า:  (V_in - 0) / R_S = (0 - V_out) / R_F   ⇒   V_out / V_in = - R_F / R_S   ⇒   <b>A_v = - R_F / R_S</b>  (Q.E.D.)</text>
+</g>
+</svg>

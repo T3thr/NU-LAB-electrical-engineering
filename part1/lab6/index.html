@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>ปฏิบัติการที่ 6: การใช้งานออสซิลโลสโคปและเครื่องกำเนิดสัญญาณ · ปฏิบัติการวิศวกรรมไฟฟ้า 1</title>
+<link rel="stylesheet" href="../../assets/css/site-header.css">
+<script src="../../assets/js/site-header.js"></script>
+<style>
+/* ═══════════ พื้นฐานแบบตำราเรียนและเอกสารวิชาการ ═══════════ */
+:root {
+  --paper: #FBF8F1;
+  --paper2: #F5F0E4;
+  --ink: #22292F;
+  --ink-soft: #4B5563;
+  --rule: #D8CFBC;
+  --accent: #1E40AF;
+  --accent2: #B45309;
+  --green: #047857;
+  --green-bg: #ECFDF5;
+  --red: #B91C1C;
+  --red-bg: #FEF2F2;
+  --purple: #6D28D9;
+  --amber-bg: #FFFBEB;
+  --blue-bg: #EFF6FF;
+  --navy: #0F172A;
+}
+
+* { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans Thai", "Sarabun", "Thonburi", "Noto Sans Thai", -apple-system, "Segoe UI", sans-serif;
+  font-size: 16.5px;
+  line-height: 1.85;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 36px 32px 90px;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ═══════════ แถบนำทางและส่วนหัว ═══════════ */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .88rem;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .sep {
+  color: #9CA3AF;
+}
+
+/* ═══════════ ส่วนหัวกลางประจำบทปฏิบัติการ (สมมาตร) ═══════════ */
+header.lab-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.lab-pill-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.lab-pill {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 3px 20px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  font-family: monospace, sans-serif;
+}
+
+h1.book-title {
+  font-size: 2.15rem;
+  line-height: 1.35;
+  margin: 8px auto 12px;
+  font-weight: 800;
+  color: var(--ink);
+  text-align: center;
+  max-width: 900px;
+}
+
+.subtitle {
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  margin: 0 auto 20px;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 860px;
+}
+
+.lab-header-rule {
+  border: none;
+  border-bottom: 3px double var(--ink);
+  width: 100%;
+  margin: 22px auto 0;
+}
+
+/* ═══════════ กล่องสรุปภาพรวม ═══════════ */
+.summary-box {
+  border: 2px solid var(--ink);
+  background: #FFFFFF;
+  padding: 24px 28px;
+  margin: 26px 0 36px;
+  position: relative;
+  box-shadow: 6px 6px 0 var(--paper2);
+  border-radius: 6px;
+}
+
+.summary-box::before {
+  content: "สรุปสาระสำคัญเชิงปฏิบัติการ (LABORATORY OVERVIEW)";
+  position: absolute;
+  top: -15px;
+  left: 24px;
+  background: var(--ink);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: .82rem;
+  padding: 2px 18px;
+  letter-spacing: .10em;
+  border-radius: 4px;
+}
+
+.summary-box p {
+  margin: 8px 0;
+}
+
+/* ═══════════ สารบัญ ═══════════ */
+nav.toc {
+  border: 1.5px solid var(--rule);
+  background: #FFFDF7;
+  border-radius: 8px;
+  padding: 20px 28px;
+  margin: 28px 0 36px;
+  columns: 2;
+  column-gap: 40px;
+  box-shadow: 4px 4px 0 var(--paper2);
+}
+
+nav.toc .toc-head {
+  column-span: all;
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 6px;
+  color: var(--accent);
+}
+
+nav.toc a {
+  display: block;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 4px 0;
+  break-inside: avoid;
+  font-size: .95rem;
+}
+
+nav.toc a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+nav.toc .no {
+  display: inline-block;
+  width: 2.4em;
+  color: var(--accent2);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ═══════════ หัวข้อหลักและเนื้อหา ═══════════ */
+section {
+  margin-top: 56px;
+  scroll-margin-top: 24px;
+}
+
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 2.5px solid var(--ink);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+.sec-no {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 1.45rem;
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 1.18rem;
+  margin: 32px 0 12px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+h4 {
+  font-size: 1.05rem;
+  margin: 22px 0 10px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+p {
+  margin: 10px 0;
+}
+
+b, strong {
+  font-weight: 700;
+}
+
+/* ═══════════ การ์ดข้อมูลและกริด ═══════════ */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin: 24px 0 32px;
+}
+
+.meta-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  padding: 18px 22px;
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 var(--paper2);
+}
+
+.meta-card .label {
+  font-size: .82rem;
+  font-weight: 800;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.meta-card .val {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.meta-card .desc {
+  font-size: .90rem;
+  color: var(--ink-soft);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+/* ═══════════ กล่องเน้นข้อความและการแจ้งเตือน ═══════════ */
+.callout {
+  border-left: 5px solid;
+  padding: 14px 20px;
+  margin: 22px 0;
+  background: #FFFFFF;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,.03);
+}
+
+.callout .lab {
+  font-weight: 800;
+  font-size: .86rem;
+  letter-spacing: .06em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.c-key { border-color: var(--accent); }
+.c-key .lab { color: var(--accent); }
+.c-warn { border-color: var(--red); background: var(--red-bg); }
+.c-warn .lab { color: var(--red); }
+.c-tip { border-color: var(--green); background: var(--green-bg); }
+.c-tip .lab { color: var(--green); }
+.c-ex { border-color: var(--accent2); background: var(--amber-bg); }
+.c-ex .lab { color: var(--accent2); }
+
+.alert-box {
+  border: 1.5px solid;
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 24px 0;
+  line-height: 1.7;
+}
+
+.alert-box.danger {
+  border-color: #F87171;
+  background: #FEF2F2;
+  border-left: 6px solid #DC2626;
+}
+
+.alert-box .alert-title {
+  font-weight: 800;
+  font-size: 1.02rem;
+  color: #991B1B;
+  margin-bottom: 6px;
+}
+
+/* ═══════════ กล่องความเรียงสรุปส่งอาจารย์ ═══════════ */
+.prose-submission-box {
+  background: #FFFFFF;
+  border: 1.5px solid var(--accent);
+  border-left: 6px solid var(--accent);
+  border-radius: 8px;
+  padding: 22px 26px;
+  margin: 20px 0 26px;
+  box-shadow: 0 4px 14px rgba(30,64,175,.08);
+}
+
+.prose-submission-box .ps-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--rule);
+}
+
+.prose-submission-box .ps-title {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.prose-submission-box .ps-badge {
+  font-size: .78rem;
+  font-weight: 700;
+  background: #DBEAFE;
+  color: #1E40AF;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid #BFDBFE;
+}
+
+.prose-submission-box .ps-text {
+  font-size: 1.02rem;
+  line-height: 1.95;
+  color: var(--ink);
+  text-indent: 2.5em;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 0;
+}
+
+/* ═══════════ กล่องสูตรคณิตศาสตร์และเศษส่วน ═══════════ */
+.formula {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 18px 24px;
+  margin: 20px 0;
+  text-align: center;
+  font-size: 1.15rem;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+
+.formula.big {
+  font-size: 1.25rem;
+  border-width: 2px;
+  border-color: var(--ink);
+  background: #FFFDF9;
+}
+
+/* สไตล์เศษส่วนแบบแท้ (Pure CSS Fraction) */
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0 4px;
+  line-height: 1.15;
+  font-size: 0.95em;
+}
+
+.frac .num {
+  border-bottom: 1.6px solid currentColor;
+  padding-bottom: 3px;
+  display: block;
+}
+
+.frac .denom {
+  padding-top: 3px;
+  display: block;
+}
+
+/* เครื่องหมายสแควร์รูท */
+.sqrt {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.sqrt-sym {
+  font-size: 1.25em;
+  line-height: 1;
+  margin-right: 1px;
+}
+
+.sqrt-radicand {
+  border-top: 1.6px solid currentColor;
+  padding-top: 2px;
+  display: inline-block;
+}
+
+.var {
+  font-style: italic;
+  font-weight: 600;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.sym {
+  margin: 0 4px;
+}
+
+/* ═══════════ ตารางวิชาการ ═══════════ */
+.table-wrap {
+  overflow-x: auto;
+  margin: 22px 0;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: #FFFFFF;
+  box-shadow: 3px 3px 0 var(--paper2);
+}
+
+table.tb {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .94rem;
+  min-width: 650px;
+}
+
+table.tb caption {
+  caption-side: top;
+  font-weight: 800;
+  padding: 11px 16px;
+  font-size: .98rem;
+  text-align: left;
+  background: #FDFBF7;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+}
+
+table.tb th {
+  background: var(--ink);
+  color: #FFFFFF;
+  font-weight: 700;
+  padding: 10px 14px;
+  border: 1px solid #374151;
+  text-align: center;
+}
+
+table.tb td {
+  padding: 8px 14px;
+  border: 1px solid var(--rule);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+table.tb tr:nth-child(even) td {
+  background: #FAF7EF;
+}
+
+table.tb td.hl {
+  background: var(--amber-bg) !important;
+  font-weight: 700;
+}
+
+table.tb td.t-left {
+  text-align: left;
+}
+
+.badge-val {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+.badge-val.pass {
+  background: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+}
+
+/* ═══════════ ขั้นตอนการทดลอง (Procedure List) ═══════════ */
+.steps-list {
+  list-style: none;
+  margin: 18px 0;
+  padding: 0;
+}
+
+.steps-list li {
+  display: flex;
+  gap: 14px;
+  padding: 12px 0;
+  align-items: flex-start;
+  border-bottom: 1px dashed var(--rule);
+}
+
+.steps-list li:last-child {
+  border-bottom: none;
+}
+
+.step-no {
+  flex: 0 0 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .88rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.step-desc {
+  font-size: .93rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ═══════════ การ์ดผลการทดลองและรูปคลื่น (Hero Result Cards) ═══════════ */
+.result-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: 24px 0 36px;
+  width: 100%;
+}
+
+.result-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--rule);
+  border-radius: 10px;
+  padding: 22px 24px;
+  box-shadow: 4px 4px 0 var(--paper2);
+  transition: box-shadow 0.2s ease;
+  width: 100%;
+}
+
+.result-card:hover {
+  box-shadow: 5px 5px 0 rgba(0,0,0,0.12);
+}
+
+.result-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.result-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.result-tag {
+  font-size: .80rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: var(--blue-bg);
+  color: var(--accent);
+  border: 1px solid #BFDBFE;
+}
+
+.result-card-body {
+  display: grid;
+  grid-template-columns: minmax(360px, 46%) 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.result-card-media {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.result-card-media img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1.5px solid var(--rule);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  cursor: zoom-in;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.result-card-media img:hover {
+  opacity: 0.95;
+}
+
+.media-hint {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  text-align: center;
+  background: #F8FAFC;
+  border: 1px dashed #CBD5E1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+.result-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.field-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: #FFFFFF;
+}
+
+.field-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  margin: 0;
+  background: #FFFFFF;
+}
+
+.field-table th {
+  background: #EEF4F8;
+  color: var(--navy);
+  font-weight: 700;
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1.5px solid var(--rule);
+  font-size: 0.80rem;
+  white-space: nowrap;
+}
+
+.field-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #E5E7EB;
+  color: var(--ink);
+  vertical-align: middle;
+  line-height: 1.45;
+}
+
+.field-table tr:last-child td {
+  border-bottom: none;
+}
+
+.field-table tr:nth-child(even) td {
+  background: #FAF9F5;
+}
+
+.field-table .f-no {
+  font-weight: 800;
+  color: var(--accent);
+  width: 28px;
+  text-align: center;
+}
+
+.field-table .f-name {
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  width: 140px;
+}
+
+.field-table .f-val {
+  font-weight: 800;
+  color: #1E3A8A;
+  background: #EFF6FF;
+  border-radius: 4px;
+  padding: 2px 7px;
+  display: inline-block;
+  white-space: nowrap;
+  border: 1px solid #DBEAFE;
+}
+
+.field-table .f-src {
+  font-size: 0.80rem;
+  color: #374151;
+  line-height: 1.45;
+}
+
+.card-calc {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.card-calc strong, .card-calc b {
+  color: var(--navy);
+}
+
+/* ═══════════ Lightbox ═══════════ */
+#lb {
+  position: fixed;
+  inset: 0;
+  background: rgba(20,16,8,.88);
+  display: none;
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 26px;
+  cursor: zoom-out;
+}
+
+#lb.on {
+  display: flex;
+}
+
+#lb img {
+  max-width: 95vw;
+  max-height: 92vh;
+  border: 5px solid #FFFFFF;
+  box-shadow: 0 10px 60px rgba(0,0,0,.6);
+  border-radius: 6px;
+}
+
+#lb .x {
+  position: fixed;
+  top: 16px;
+  right: 24px;
+  color: #FFFFFF;
+  font-size: 2rem;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+/* ═══════════ Floating Navigation Dock (Collapsible & ScrollSpy) ═══════════ */
+.float-nav-dock {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 60;
+  font-family: inherit;
+}
+
+.fnd-panel {
+  background: rgba(255, 253, 247, 0.98);
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  padding: 10px 14px 12px;
+  box-shadow: 0 8px 24px rgba(40, 32, 10, 0.16);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 490px;
+  animation: fndSlideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fndSlideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fnd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 6px;
+}
+
+.fnd-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fnd-close-btn {
+  background: var(--paper2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.fnd-close-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.fnd-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.fnd-btn {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1.5px solid var(--ink);
+  background: #FFFFFF;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.80rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  transition: all 0.15s ease;
+  line-height: 1.3;
+}
+
+.fnd-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.fnd-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  box-shadow: 0 2px 8px rgba(26, 22, 18, 0.28);
+  position: relative;
+}
+
+.fnd-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.fnd-btn-vlab {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+.fnd-btn-vlab:hover {
+  background: #1D4ED8;
+  color: #FFFFFF;
+}
+
+.fnd-trigger-btn {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 253, 247, 0.94);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 7px 14px;
+  box-shadow: 0 4px 14px rgba(40, 32, 10, 0.14);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.fnd-trigger-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(40, 32, 10, 0.22);
+}
+
+.fnd-trigger-arrow {
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.fnd-current-topic {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.fnd-trigger-btn:hover .fnd-current-topic {
+  color: #93C5FD;
+}
+
+.float-nav-dock.collapsed .fnd-panel {
+  display: none;
+}
+
+.float-nav-dock.collapsed .fnd-trigger-btn {
+  display: inline-flex;
+}
+
+.top-link {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  background: var(--ink);
+  color: var(--paper);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+  opacity: .85;
+  transition: opacity .15s ease;
+  z-index: 60;
+}
+
+.top-link:hover {
+  opacity: 1;
+}
+
+/* ═══════════ ท้ายกระดาษ ═══════════ */
+footer.colophon {
+  margin-top: 70px;
+  border-top: 3px double var(--ink);
+  padding-top: 24px;
+  font-size: .88rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* ═══════════ การตอบสนองตามขนาดหน้าจอ ═══════════ */
+@media (max-width: 920px) {
+  .result-card-body {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .result-card-media {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
+  body { font-size: 15.5px; }
+  .page {
+    padding: 18px 12px 80px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  nav.toc { columns: 1; }
+  .sec-head { gap: 12px; }
+  .sec-no { width: 38px; height: 38px; font-size: 1.05rem; }
+  .formula { font-size: 1.02rem; padding: 14px 16px; }
+  .formula.big { font-size: 1.10rem; }
+  .result-card { padding: 16px 16px; }
+  .prose-submission-box { padding: 16px 18px; margin: 16px 0 20px; }
+  .prose-submission-box .ps-text { font-size: 0.96rem; line-height: 1.85; text-indent: 1.8em; text-align: left; }
+  .float-nav-dock {
+    left: 10px;
+    right: 10px;
+    bottom: 12px;
+    max-width: calc(100vw - 20px);
+    width: auto;
+  }
+  .fnd-panel {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px 10px;
+  }
+  .fnd-links {
+    gap: 4px;
+  }
+  .fnd-btn {
+    padding: 4px 7px;
+    font-size: 0.72rem;
+  }
+  .fnd-trigger-btn {
+    max-width: 100%;
+    padding: 6px 12px;
+    font-size: 0.76rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .result-card-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .result-card-title { font-size: 1.02rem; }
+  .field-table { font-size: 0.78rem; min-width: 440px; }
+  .field-table td, .field-table th { padding: 5px 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ 1. Unified Standardized Sticky Header ═══════════ -->
+<site-header data-page="lab-06" data-base="../../"></site-header>
+
+<!-- ═══════════ 2. Modal Lightbox ═══════════ -->
+<div id="lb" onclick="this.classList.remove('on')">
+  <span class="x">&times;</span>
+  <img id="lb-img" src="" alt="ภาพขยายขนาดเต็ม">
+</div>
+
+<!-- ═══════════ 3. Floating Navigation Dock (Collapsible & ScrollSpy) ═══════════ -->
+<aside class="float-nav-dock" id="float-nav-dock" aria-label="แถบนำทางด่วน">
+  <div class="fnd-panel" id="fnd-panel">
+    <div class="fnd-header">
+      <span class="fnd-title">นำทางด่วน (Quick Nav)</span>
+      <button type="button" class="fnd-close-btn" id="fnd-btn-collapse" title="หุบแถบนำทาง">
+        ✕ หุบแถบ
+      </button>
+    </div>
+    <div class="fnd-links">
+      <a class="fnd-btn" href="#sec-overview">ภาพรวม</a>
+      <a class="fnd-btn" href="#sec-equip">อุปกรณ์</a>
+      <a class="fnd-btn" href="#sec-theory">ทฤษฎี</a>
+      <a class="fnd-btn" href="#sec-probe-cal">สอบเทียบโพรบ</a>
+      <a class="fnd-btn" href="#sec-part1">ตอนที่ 6.1</a>
+      <a class="fnd-btn" href="#sec-part2">ตอนที่ 6.2</a>
+      <a class="fnd-btn" href="#sec-analysis">วิเคราะห์ผล</a>
+      <a class="fnd-btn" href="#sec-conclusion">สรุปผล</a>
+      <a class="fnd-btn fnd-btn-vlab" href="../../virtual-lab/index.html" target="_blank">Virtual Lab ↗</a>
+    </div>
+  </div>
+
+  <button type="button" class="fnd-trigger-btn" id="fnd-btn-expand" title="เปิดแถบนำทางด่วน" aria-label="เปิดแถบนำทางด่วน">
+    <span class="fnd-trigger-text">นำทางด่วน</span>
+    <span class="fnd-current-topic" id="fnd-current-topic"></span>
+    <span class="fnd-trigger-arrow">▲</span>
+  </button>
+</aside>
+
+<a class="top-link" href="#" title="กลับขึ้นบนสุด">&#8593;</a>
+
+<!-- ═══════════ 4. Page Main Container ═══════════ -->
+<div class="page">
+
+  <!-- ═══════════ ส่วนหัวสมมาตรตาม Design System ═══════════ -->
+  <header class="lab-header">
+    <div class="lab-pill-wrap">
+      <span class="lab-pill">LAB 06</span>
+    </div>
+    <h1 class="book-title">ปฏิบัติการที่ 6: การใช้งานออสซิลโลสโคปและเครื่องกำเนิดสัญญาณ</h1>
+    <p class="subtitle">การศึกษาหลักการทำงานของออสซิลโลสโคป การปรับสเกลแกนเวลาและแกนแรงดัน การสอบเทียบโพรบ และการวัดสัญญาณรูปคลื่นไซน์ คลื่นสี่เหลี่ยม คลื่นสามเหลี่ยม และวงจรแบ่งแรงดันไฟฟ้า</p>
+    <div class="lab-header-rule"></div>
+  </header>
+
+  <!-- ═══════════ กล่องสรุปภาพรวม ═══════════ -->
+  <div class="summary-box" id="sec-overview">
+    <p><b>สาระสำคัญของบทปฏิบัติการ:</b> ออสซิลโลสโคป (Oscilloscope) เป็นเครื่องมือวัดทางไฟฟ้าที่แปลงสัญญาณแรงดันไฟฟ้าที่แปรเปลี่ยนตามเวลาให้ออกมาเป็นกราฟรูปคลื่น 2 มิติ โดยแกนตั้ง (Vertical Axis) แสดงขนาดแรงดันไฟฟ้า และแกนนอน (Horizontal Axis) แสดงเวลา หน้าจอแบ่งเป็นตารางกริดมาตรฐาน 10 ช่องแนวนอน และ 8 ช่องแนวตั้ง ในบทปฏิบัติการนี้นิสิตจะได้ฝึกฝนการปรับตั้งค่า V/DIV, TIME/DIV, Trigger, การสอบเทียบโพรบ (Probe Compensation), การกำเนิดรูปคลื่นไซน์ คลื่นสี่เหลี่ยม คลื่นสามเหลี่ยม และการวัดแรงดันตกคร่อมในวงจรแบ่งแรงดันไฟฟ้า (Voltage Divider) เพื่อเปรียบเทียบกับค่าคำนวณทางทฤษฎี</p>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-card">
+      <span class="label">รหัสบทเรียนและเล่มคู่มือ</span>
+      <div class="val">EE LAB 1 · ปฏิบัติการที่ 6</div>
+      <div class="desc">อ้างอิงคู่มือปฏิบัติการวิศวกรรมไฟฟ้า 1 หน้า 49 ถึง 55 (โดย อ.ธานี โกสุม)</div>
+    </div>
+    <div class="meta-card">
+      <span class="label">เครื่องมือวัดหลัก</span>
+      <div class="val">Dual-Channel DSO &amp; Function Gen</div>
+      <div class="desc">ออสซิลโลสโคปดิจิทัล 2 ช่องสัญญาณ (CH1, CH2) พร้อมเครื่องกำเนิดฟังก์ชันคลื่น</div>
+    </div>
+    <div class="meta-card">
+      <span class="label">รูปคลื่นและวงจรทดสอบ</span>
+      <div class="val">Sine · Square · Triangle · R-Divider</div>
+      <div class="desc">ความถี่ 500 Hz ถึง 2 kHz และวงจรอนุกรมความต้านทาน R₁ = 1 kΩ, R₂ = 470 Ω</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ สารบัญ ═══════════ -->
+  <nav class="toc">
+    <div class="toc-head">สารบัญหัวข้อประจำบทปฏิบัติการ</div>
+    <a href="#sec-equip"><span class="no">1.</span> อุปกรณ์และเครื่องมือในห้องปฏิบัติการ</a>
+    <a href="#sec-theory"><span class="no">2.</span> ทฤษฎีและสมการคณิตศาสตร์พื้นฐาน</a>
+    <a href="#sec-probe-cal"><span class="no">3.</span> การสอบเทียบและชดเชยค่าหัวโพรบ (Probe Calibration)</a>
+    <a href="#sec-part1"><span class="no">4.</span> การทดลองตอนที่ 6.1: การวัดสัญญาณรูปคลื่นจากเครื่องกำเนิดสัญญาณ</a>
+    <a href="#sec-part2"><span class="no">5.</span> การทดลองตอนที่ 6.2: การวัดสัญญาณในวงจรแบ่งแรงดันไฟฟ้า</a>
+    <a href="#sec-analysis"><span class="no">6.</span> การวิเคราะห์ผลการทดลองเชิงตัวเลข</a>
+    <a href="#sec-conclusion"><span class="no">7.</span> สรุปผลการทดลองและกล่องข้อเขียนส่งงาน</a>
+    <a href="#sec-qa"><span class="no">8.</span> คำถามทบทวนความเข้าใจและเกร็ดวิศวกรรม</a>
+  </nav>
+
+  <!-- ═══════════ 1. อุปกรณ์ ═══════════ -->
+  <section id="sec-equip">
+    <div class="sec-head">
+      <div class="sec-no">1</div>
+      <h2>อุปกรณ์และเครื่องมือในห้องปฏิบัติการ</h2>
+    </div>
+
+    <p>รายการอุปกรณ์ตามคู่มือการทดลอง หน้า 49 ประกอบด้วยเครื่องมือวัดหลักและชิ้นส่วนอิเล็กทรอนิกส์ ดังต่อไปนี้:</p>
+
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 6.1: รายการอุปกรณ์สำหรับการทดลองปฏิบัติการที่ 6</caption>
+        <thead>
+          <tr>
+            <th style="width: 70px;">ลำดับ</th>
+            <th>ชื่ออุปกรณ์ / เครื่องมือวัด</th>
+            <th style="width: 130px;">จำนวน</th>
+            <th>คุณลักษณะเฉพาะและบทบาทในการทดลอง</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td class="t-left"><b>ออสซิลโลสโคป (Digital Storage Oscilloscope: DSO)</b></td>
+            <td>1 เครื่อง</td>
+            <td class="t-left">รองรับ 2 ช่องสัญญาณ (CH1, CH2), หน้าจอขนาด 10×8 ช่อง (Divisions), อิมพีแดนซ์ขาเข้า 1 MΩ // 15-20 pF</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="t-left"><b>เครื่องกำเนิดสัญญาณ (Function Generator)</b></td>
+            <td>1 เครื่อง</td>
+            <td class="t-left">สามารถสร้างสัญญาณคลื่นรูปไซน์ คลื่นสี่เหลี่ยม และคลื่นสามเหลี่ยม ปรับแอมพลิจูด (Vp-p) และความถี่ได้</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td class="t-left"><b>สายวัดสัญญาณโพรบ (Passive Probe 10X/1X)</b></td>
+            <td>2 เส้น</td>
+            <td class="t-left">สายโพรบหัวคีบพร้อมคลิปกราวด์สำหรับต่อเข้าขั้วต่อ BNC ของออสซิลโลสโคป มีตัวปรับ Trimmer สำหรับชดเชยค่าความจุ</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td class="t-left"><b>สายต่อสัญญาณ BNC to Alligator Clips</b></td>
+            <td>1 เส้น</td>
+            <td class="t-left">สำหรับจ่ายสัญญาณจากช่อง Main Output ของ Function Generator เข้าสู่วงจรทดลอง</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td class="t-left"><b>ตัวต้านทาน R₁ ขนาด 1 kΩ (0.5 W, 5%)</b></td>
+            <td>1 ตัว</td>
+            <td class="t-left">ตัวต้านทานต่ออนุกรมในวงจรแบ่งแรงดันตอนที่ 6.2 (รหัสสี: น้ำตาล-ดำ-แดง-ทอง)</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td class="t-left"><b>ตัวต้านทาน R₂ ขนาด 470 Ω (0.5 W, 5%)</b></td>
+            <td>1 ตัว</td>
+            <td class="t-left">ตัวต้านทานรับแรงดันตกคร่อม V₂ ที่ทำการวัด (รหัสสี: เหลือง-ม่วง-น้ำตาล-ทอง)</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td class="t-left"><b>แผงต่อวงจรทดลอง (Breadboard)</b></td>
+            <td>1 แผง</td>
+            <td class="t-left">แผงวงจรสำหรับเสียบขาตัวต้านทานและคีบสายวัดสัญญาณอย่างมั่นคง</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- กล่องแจ้งเตือนความปลอดภัยตามมาตรฐาน Design System -->
+    <div class="alert-box danger">
+      <div class="alert-title">ข้อควรระวังเรื่องคลิปกราวด์ของโพรบออสซิลโลสโคป (Ground Clip Hazard)</div>
+      <p>คลิปกราวด์สีดำ (Ground Clip) ของสายโพรบทุกช่องบนออสซิลโลสโคปจะต่อเชื่อมถึงกันภายในผ่านโครงเครื่องและต่อลงกราวด์ดินของระบบไฟฟ้า (Earth Ground) เสมอ <b>ห้ามนำคลิปกราวด์ของโพรบไปคีบที่จุดที่มีศักย์ไฟฟ้าต่างกันในวงจรโดยเด็ดขาด</b> เพราะจะทำให้เกิดการลัดวงจร (Short Circuit) ผ่านตัวเครื่องออสซิลโลสโคป ซึ่งอาจก่อให้เกิดความเสียหายต่ออุปกรณ์และอันตรายต่อผู้ปฏิบัติงาน ในการทดลองให้คีบคลิปกราวด์ไว้ที่จุดอ้างอิงกราวด์ (0V) ร่วมกันเพียงจุดเดียวเท่านั้น</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ 2. ทฤษฎี ═══════════ -->
+  <section id="sec-theory">
+    <div class="sec-head">
+      <div class="sec-no">2</div>
+      <h2>ทฤษฎีและสมการคณิตศาสตร์พื้นฐาน</h2>
+    </div>
+
+    <h3>โครงสร้างหน้าจอออสซิลโลสโคปและระบบพิกัดตารางกริด</h3>
+    <p>หน้าจอแสดงผลของออสซิลโลสโคปมีโครงสร้างเป็นตารางกริดสี่เหลี่ยม (Graticule) ขนาดมาตรฐาน 10 ช่องตามแนวนอน (Horizontal Divisions) และ 8 ช่องตามแนวตั้ง (Vertical Divisions) โดยแต่ละช่องใหญ่จะถูกแบ่งย่อยออกเป็น 5 ขีดย่อยตามแนวแกนกลาง ซึ่งเท่ากับ 0.2 ช่องต่อ 1 ขีดย่อย (0.2 DIV/Sub-division):</p>
+
+    <ul>
+      <li><b>การควบคุมตามแนวตั้ง (Vertical Controls):</b> กำหนดด้วยปุ่ม <b>VOLTS/DIV</b> หมายถึงขนาดแรงดันไฟฟ้าต่อหนึ่งช่องใหญ่ (เช่น 1 V/DIV หมายถึงสัญญาณสูง 1 ช่องจะเท่ากับแรงดัน 1 โวลต์)</li>
+      <li><b>การควบคุมตามแนวนอน (Horizontal Controls):</b> กำหนดด้วยปุ่ม <b>TIME/DIV</b> หรือ <b>SEC/DIV</b> หมายถึงช่วงเวลาต่อหนึ่งช่องใหญ่ (เช่น 500 μs/DIV หมายถึงสัญญาณกว้าง 1 ช่องจะกินเวลา 500 ไมโครวินาที)</li>
+    </ul>
+
+    <h3>สมการการคำนวณคาบเวลาและความถี่ (Time Period &amp; Frequency)</h3>
+    <p>คาบเวลา (<span class="var">T</span>) คือระยะเวลาที่รูปคลื่นเคลื่อนที่ครบ 1 รอบสมบูรณ์ สามารถอ่านได้จากจำนวนช่องในแนวนอนคูณกับค่า TIME/DIV ที่ตั้งไว้บนหน้าจอ:</p>
+
+    <div class="formula big">
+      <span class="var">T</span> = <span class="var">N<sub>div,H</sub></span> <span class="sym">&times;</span> (TIME/DIV)
+    </div>
+
+    <p>และความถี่ (<span class="var">f</span>) คือจำนวนรอบการแกว่งกวัดในหนึ่งวินาที มีหน่วยเป็นเฮิร์ตซ์ (Hz) ซึ่งมีความสัมพันธ์เป็นส่วนกลับของคาบเวลา:</p>
+
+    <div class="formula">
+      <span class="var">f</span> = 
+      <span class="frac">
+        <span class="num">1</span>
+        <span class="denom"><span class="var">T</span></span>
+      </span>
+    </div>
+
+    <h3>สมการการคำนวณแรงดันยอดถึงยอดและค่ายอด (Peak-to-Peak &amp; Peak Voltage)</h3>
+    <p>แรงดันยอดถึงยอด (<span class="var">V<sub>p-p</sub></span>) คือผลต่างระหว่างจุดสูงสุดบวกและจุดต่ำสุดลบของรูปคลื่น หาได้จากจำนวนช่องในแนวตั้งคูณกับค่า VOLTS/DIV:</p>
+
+    <div class="formula big">
+      <span class="var">V<sub>p-p</sub></span> = <span class="var">N<sub>div,V</sub></span> <span class="sym">&times;</span> (VOLTS/DIV)
+    </div>
+
+    <p>สำหรับสัญญาณสมมาตรที่ไม่มีแรงดันไบแอสกระแสตรง (Zero DC Offset) แรงดันค่ายอด (<span class="var">V<sub>p</sub></span> หรือแอมพลิจูด) จะมีค่าเท่ากับครึ่งหนึ่งของแรงดันยอดถึงยอด:</p>
+
+    <div class="formula">
+      <span class="var">V<sub>p</sub></span> = 
+      <span class="frac">
+        <span class="num"><span class="var">V<sub>p-p</sub></span></span>
+        <span class="denom">2</span>
+      </span>
+    </div>
+
+    <h3>ความสัมพันธ์ของค่าประสิทธิผล (RMS Voltage) สำหรับรูปคลื่นแต่ละชนิด</h3>
+    <p>ค่าประสิทธิผลหรือค่าเฉลี่ยกำลังสอง (Root Mean Square: RMS) คือค่าแรงดันที่สร้างกำลังงานความร้อนเทียบเท่ากับแรงดันไฟตรง โดยมีสมการคำนวณตามรูปทรงทางเรขาคณิตของคลื่น ดังนี้:</p>
+
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 6.2: สูตรคำนวณค่าประสิทธิผล (V_rms) สำหรับรูปคลื่นสัญญาณมาตรฐาน</caption>
+        <thead>
+          <tr>
+            <th>ชนิดรูปคลื่น (Waveform Type)</th>
+            <th>สูตรคำนวณจากค่ายอด V_p</th>
+            <th>อัตราส่วนตัวคูณ (Multiplier)</th>
+            <th>Crest Factor (V_p / V_rms)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-left"><b>คลื่นรูปไซน์ (Sine Wave)</b></td>
+            <td>
+              <span class="var">V<sub>rms</sub></span> = 
+              <span class="frac">
+                <span class="num"><span class="var">V<sub>p</sub></span></span>
+                <span class="denom"><span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-radicand">2</span></span></span>
+              </span>
+            </td>
+            <td><span class="var">V<sub>rms</sub></span> <span class="sym">&approx;</span> 0.7071 <span class="sym">&times;</span> <span class="var">V<sub>p</sub></span></td>
+            <td><span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-radicand">2</span></span> <span class="sym">&approx;</span> 1.414</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>คลื่นรูปสี่เหลี่ยมสมมาตร (Square Wave 50% Duty)</b></td>
+            <td><span class="var">V<sub>rms</sub></span> = <span class="var">V<sub>p</sub></span></td>
+            <td><span class="var">V<sub>rms</sub></span> = 1.0000 <span class="sym">&times;</span> <span class="var">V<sub>p</sub></span></td>
+            <td>1.000</td>
+          </tr>
+          <tr>
+            <td class="t-left"><b>คลื่นรูปสามเหลี่ยม (Triangle Wave)</b></td>
+            <td>
+              <span class="var">V<sub>rms</sub></span> = 
+              <span class="frac">
+                <span class="num"><span class="var">V<sub>p</sub></span></span>
+                <span class="denom"><span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-radicand">3</span></span></span>
+              </span>
+            </td>
+            <td><span class="var">V<sub>rms</sub></span> <span class="sym">&approx;</span> 0.5774 <span class="sym">&times;</span> <span class="var">V<sub>p</sub></span></td>
+            <td><span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-radicand">3</span></span> <span class="sym">&approx;</span> 1.732</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>ทฤษฎีวงจรแบ่งแรงดันไฟฟ้า (Voltage Divider Rule) ในตอนที่ 6.2</h3>
+    <p>เมื่อต่อตัวต้านทานสองตัว <span class="var">R₁</span> และ <span class="var">R₂</span> อนุกรมกันเข้ากับแหล่งจ่ายแรงดันสลับ <span class="var">v<sub>s</sub></span>(<span class="var">t</span>) กระแสไฟฟ้าในวงจรจะไหลผ่านตัวต้านทานทั้งสองเท่ากัน แรงดันตกคร่อมตัวต้านทาน <span class="var">R₂</span> คำนวณได้จากกฎการแบ่งแรงดัน:</p>
+
+    <div class="formula big">
+      <span class="var">V<sub>2</sub></span> = <span class="var">v<sub>s</sub></span> <span class="sym">&times;</span> 
+      <span class="frac">
+        <span class="num"><span class="var">R<sub>2</sub></span></span>
+        <span class="denom"><span class="var">R<sub>1</sub></span> + <span class="var">R<sub>2</sub></span></span>
+      </span>
+    </div>
+
+    <p>แทนค่าตัวแปรตามเงื่อนไขการทดลองตอนที่ 6.2 (<span class="var">v<sub>s</sub></span> = 10.0 V<sub>p-p</sub>, <span class="var">R₁</span> = 1000 &Omega;, <span class="var">R₂</span> = 470 &Omega;):</p>
+
+    <div class="formula">
+      <span class="var">V<sub>2</sub></span> = 10.0 <span class="sym">&times;</span> 
+      <span class="frac">
+        <span class="num">470</span>
+        <span class="denom">1000 + 470</span>
+      </span>
+      = 10.0 <span class="sym">&times;</span> 
+      <span class="frac">
+        <span class="num">470</span>
+        <span class="denom">1470</span>
+      </span>
+      = 10.0 <span class="sym">&times;</span> 0.3197 <span class="sym">&approx;</span> 3.197 V<sub>p-p</sub> <span class="sym">&approx;</span> 3.20 V<sub>p-p</sub>
+    </div>
+  </section>
+
+  <!-- ═══════════ 3. สอบเทียบโพรบ ═══════════ -->
+  <section id="sec-probe-cal">
+    <div class="sec-head">
+      <div class="sec-no">3</div>
+      <h2>การสอบเทียบและชดเชยค่าหัวโพรบ (Probe Calibration)</h2>
+    </div>
+
+    <p>ก่อนเริ่มต้นการทดลองวัดสัญญาณทุกครั้ง วิศวกรไฟฟ้าจำเป็นต้องทำการตรวจสอบและปรับชดเชยความจุแฝงของสายโพรบ (Probe Compensation) ที่ตำแหน่งหัวโพรบสเกล 10X โดยนำปลายโพรบไปสัมผัสกับขั้วต่อ <b>PROBE COMP / CAL</b> บนตัวเครื่องออสซิลโลสโคป ซึ่งจะจ่ายสัญญาณคลื่นสี่เหลี่ยมมาตรฐานความถี่ 1 kHz ขนาด 2.00 Vp-p ออกมาอย่างต่อเนื่อง:</p>
+
+    <div class="result-card">
+      <div class="result-card-header">
+        <div class="result-card-title">
+          <span>รูปที่ 6.1: หน้าจอการสอบเทียบโพรบวัดสัญญาณ (Probe Compensation at 1 kHz CAL Terminal)</span>
+        </div>
+        <span class="result-tag">CALIBRATION · หน้า 49</span>
+      </div>
+
+      <div class="result-card-body">
+        <div class="result-card-media">
+          <img src="result/00_fig6_0_probe_calibration.svg" alt="รูปคลื่นการสอบเทียบโพรบ 1 kHz Square Wave" onclick="openLb(this.src)">
+          <div class="media-hint">คลิกที่ภาพหน้าจอออสซิลโลสโคปเพื่อเปิด Lightbox ขยายความละเอียดสูง</div>
+        </div>
+
+        <div class="result-card-content">
+          <div class="field-table-wrap">
+            <table class="field-table">
+              <thead>
+                <tr>
+                  <th style="width: 32px;">ลำดับ</th>
+                  <th>พารามิเตอร์ที่วัดบนหน้าจอ</th>
+                  <th style="width: 120px;">ค่าที่อ่านได้</th>
+                  <th>ความหมายและเกณฑ์ทางวิศวกรรม</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="f-no">1</td>
+                  <td class="f-name">รูปแบบสัญญาณ</td>
+                  <td><span class="f-val">Square Wave</span></td>
+                  <td class="f-src">คลื่นสี่เหลี่ยมสมมาตรจากจุดทดสอบ Cal บนตัวเครื่อง</td>
+                </tr>
+                <tr>
+                  <td class="f-no">2</td>
+                  <td class="f-name">แรงดันยอดถึงยอด (V_p-p)</td>
+                  <td><span class="f-val">2.00 V</span></td>
+                  <td class="f-src">ครอบคลุม 4 ช่องแนวตั้ง (ที่สเกล 0.5 V/DIV)</td>
+                </tr>
+                <tr>
+                  <td class="f-no">3</td>
+                  <td class="f-name">ความถี่ (Frequency, f)</td>
+                  <td><span class="f-val">1.000 kHz</span></td>
+                  <td class="f-src">ค่ามาตรฐานของสัญญาณสอบเทียบเครื่อง</td>
+                </tr>
+                <tr>
+                  <td class="f-no">4</td>
+                  <td class="f-name">คาบเวลา (Period, T)</td>
+                  <td><span class="f-val">1.000 ms</span></td>
+                  <td class="f-src">กว้าง 5 ช่องแนวนอน (ที่สเกล 200 &mu;s/DIV)</td>
+                </tr>
+                <tr>
+                  <td class="f-no">5</td>
+                  <td class="f-name">การชดเชยโพรบ (Comp)</td>
+                  <td><span class="f-val">Proper (Flat)</span></td>
+                  <td class="f-src">ขอบบนและขอบล่างของคลื่นเรียบตรง ไม่มียอดโค้งแหลมหรือลาดมน</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-calc">
+            <b>การวิเคราะห์การสอบเทียบ:</b> หากขอบคลื่นด้านบนมีลักษณะแหลมพุ่งขึ้น (Overshoot) แสดงว่าโพรบอยู่ในสถานะ <i>Over-compensated</i> และหากขอบคลื่นลาดมนโค้งลง (Rolloff) แสดงว่าโพรบอยู่ในสถานะ <i>Under-compensated</i> ให้ใช้ไขควงปรับตัวหมุน Trimmer Capacitor ที่ขั้วต่อ BNC ของโพรบจนกระทั่งรูปคลื่นเป็นสี่เหลี่ยมขอบฉากเรียบสนิท (Proper Compensation) จึงจะพร้อมสำหรับการทดลอง
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 4. ตอนที่ 6.1 ═══════════ -->
+  <section id="sec-part1">
+    <div class="sec-head">
+      <div class="sec-no">4</div>
+      <h2>การทดลองตอนที่ 6.1: การวัดและอ่านค่าสัญญาณจากเครื่องกำเนิดสัญญาณ</h2>
+    </div>
+
+    <p>ขั้นตอนนี้เป็นการฝึกทักษะการเชื่อมต่อสายสัญญาณ การปรับตั้งปุ่มแอมพลิจูดและความถี่บน Function Generator และการปรับสเกล V/DIV, TIME/DIV บนออสซิลโลสโคป เพื่อให้ได้รูปคลื่นที่นิ่งและอ่านค่าได้แม่นยำประมาณ 2 รูปคลื่นบนหน้าจอ ตามขั้นตอนในคู่มือหน้า 50:</p>
+
+    <ul class="steps-list">
+      <li>
+        <div class="step-no">1</div>
+        <div class="step-content">
+          <div class="step-title">ขั้นตอนที่ 6.1.1 ถึง 6.1.2: สัญญาณคลื่นรูปไซน์ (Sine Wave 500 Hz, 6 Vp-p)</div>
+          <div class="step-desc">เชื่อมต่อขั้วจ่าย Main Output ของเครื่องกำเนิดสัญญาณเข้ากับช่อง CH1 ของออสซิลโลสโคป ปรับตั้งให้จ่ายคลื่นไซน์ขนาด 6 Vp-p ความถี่ 500 Hz ปรับออสซิลโลสโคปให้เห็นประมาณ 2 รูปคลื่น และบันทึกค่าลงในรูปที่ 6.4</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">2</div>
+        <div class="step-content">
+          <div class="step-title">ขั้นตอนที่ 6.1.3 ถึง 6.1.4: สัญญาณคลื่นรูปสี่เหลี่ยม (Square Wave 1 kHz, 4 Vp-p)</div>
+          <div class="step-desc">เปลี่ยนฟังก์ชันสัญญาณเป็นคลื่นสี่เหลี่ยม ปรับขนาดแรงดันเป็น 4 Vp-p และปรับความถี่เป็น 1 kHz ปรับแต่งแกนเวลาและแกนแรงดันให้เห็นประมาณ 2 รูปคลื่น และบันทึกค่าลงในรูปที่ 6.5</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">3</div>
+        <div class="step-content">
+          <div class="step-title">ขั้นตอนที่ 6.1.5 ถึง 6.1.6: สัญญาณคลื่นรูปสามเหลี่ยม (Triangle Wave 2 kHz, 4 Vp-p)</div>
+          <div class="step-desc">เปลี่ยนฟังก์ชันสัญญาณเป็นคลื่นสามเหลี่ยม ปรับขนาดแรงดันเป็น 4 Vp-p และปรับความถี่เป็น 2 kHz ปรับแต่งออสซิลโลสโคปให้เห็นประมาณ 2 รูปคลื่น และบันทึกค่าลงในรูปที่ 6.6</div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- การ์ดผล 6.1.2 คลื่นไซน์ -->
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="result-card-header">
+          <div class="result-card-title">
+            <span>รูปที่ 6.4: บันทึกผลการทดลองตอนที่ 6.1.2 (สัญญาณคลื่นรูปไซน์ Sine Wave 500 Hz)</span>
+          </div>
+          <span class="result-tag">RESULT 6.4 · คู่มือหน้า 51</span>
+        </div>
+
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/01_fig6_4_sine_500hz_6vpp.svg" alt="สัญญาณคลื่นรูปไซน์ 500 Hz 6 Vp-p" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อขยายขนาดเต็ม (High-Resolution Zoom)</div>
+          </div>
+
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th style="width: 32px;">ลำดับ</th>
+                    <th>พารามิเตอร์ที่บันทึกลงสมุดแล็บ</th>
+                    <th style="width: 130px;">ค่าที่บันทึกได้</th>
+                    <th>วิธีการอ่านจากตารางกริดบนหน้าจอ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name">แกนตั้ง V/DIV</td>
+                    <td><span class="f-val">1.00 V</span></td>
+                    <td class="f-src">ตั้งสเกล 1 โวลต์ต่อหนึ่งช่องใหญ่</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name">ขนาดแรงดัน (V_p-p)</td>
+                    <td><span class="f-val">6.00 V<sub>p-p</sub></span></td>
+                    <td class="f-src">ยอดถึงยอดสูง 6 ช่องพอดี (6 div &times; 1 V/div = 6 V)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name">แกนนอน TIME/DIV</td>
+                    <td><span class="f-val">500 &times; 10<sup>-6</sup> s</span></td>
+                    <td class="f-src">500 &mu;s/div (หรือ 0.5 ms ต่อช่อง)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name">คาบเวลา (Period, T)</td>
+                    <td><span class="f-val">2 &times; 10<sup>-3</sup> s</span></td>
+                    <td class="f-src">1 คลื่นใช้ 4 ช่องแนวนอน (4 div &times; 0.5 ms = 2 ms)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name">ความถี่ (Frequency, f)</td>
+                    <td><span class="f-val">500 Hz</span></td>
+                    <td class="f-src"><span class="var">f</span> = 1 / <span class="var">T</span> = 1 / (2 &times; 10<sup>-3</sup> s) = 500 Hz ตรงตามแหล่งจ่าย</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name">แรงดันประสิทธิผล (V_rms)</td>
+                    <td><span class="f-val">2.121 V</span></td>
+                    <td class="f-src"><span class="var">V<sub>rms</sub></span> = <span class="var">V<sub>p</sub></span> / &radic;2 = 3.00 V / 1.4142 &approx; 2.121 V</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="card-calc">
+              <b>การยืนยันจำนวนรูปคลื่นบนจอ:</b> หน้าจอกว้าง 10 ช่อง ที่สเกล 500 &mu;s/DIV จะแสดงเวลาทั้งหมด 10 &times; 0.5 ms = 5 ms เมื่อคาบสัญญาณเท่ากับ 2 ms จะปรากฏรูปคลื่นจำนวน 5 / 2 = 2.5 รูปคลื่น ซึ่งสอดคล้องกับข้อกำหนด "สังเกตเห็นประมาณสองรูปคลื่น" พอดี
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- การ์ดผล 6.1.4 คลื่นสี่เหลี่ยม -->
+      <div class="result-card">
+        <div class="result-card-header">
+          <div class="result-card-title">
+            <span>รูปที่ 6.5: บันทึกผลการทดลองตอนที่ 6.1.4 (สัญญาณคลื่นรูปสี่เหลี่ยม Square Wave 1 kHz)</span>
+          </div>
+          <span class="result-tag">RESULT 6.5 · คู่มือหน้า 51</span>
+        </div>
+
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/02_fig6_5_square_1khz_4vpp.svg" alt="สัญญาณคลื่นรูปสี่เหลี่ยม 1 kHz 4 Vp-p" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อขยายขนาดเต็ม (High-Resolution Zoom)</div>
+          </div>
+
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th style="width: 32px;">ลำดับ</th>
+                    <th>พารามิเตอร์ที่บันทึกลงสมุดแล็บ</th>
+                    <th style="width: 130px;">ค่าที่บันทึกได้</th>
+                    <th>วิธีการอ่านจากตารางกริดบนหน้าจอ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name">แกนตั้ง V/DIV</td>
+                    <td><span class="f-val">1.00 V</span></td>
+                    <td class="f-src">ตั้งสเกล 1 โวลต์ต่อหนึ่งช่องใหญ่</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name">ขนาดแรงดัน (V_p-p)</td>
+                    <td><span class="f-val">4.00 V<sub>p-p</sub></span></td>
+                    <td class="f-src">ยอดถึงยอดสูง 4 ช่องแนวตั้ง (4 div &times; 1 V/div = 4 V)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name">แกนนอน TIME/DIV</td>
+                    <td><span class="f-val">200 &times; 10<sup>-6</sup> s</span></td>
+                    <td class="f-src">200 &mu;s/div (หรือ 0.2 ms ต่อช่อง)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name">คาบเวลา (Period, T)</td>
+                    <td><span class="f-val">1 &times; 10<sup>-3</sup> s</span></td>
+                    <td class="f-src">1 คลื่นใช้ 5 ช่องแนวนอน (5 div &times; 0.2 ms = 1.0 ms)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name">ความถี่ (Frequency, f)</td>
+                    <td><span class="f-val">1000 Hz</span></td>
+                    <td class="f-src"><span class="var">f</span> = 1 / <span class="var">T</span> = 1 / (1 &times; 10<sup>-3</sup> s) = 1000 Hz = 1 kHz</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name">แรงดันประสิทธิผล (V_rms)</td>
+                    <td><span class="f-val">2.000 V</span></td>
+                    <td class="f-src">สำหรับคลื่นสี่เหลี่ยมสมมาตร <span class="var">V<sub>rms</sub></span> = <span class="var">V<sub>p</sub></span> = 4 / 2 = 2.00 V</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="card-calc">
+              <b>การยืนยันจำนวนรูปคลื่นบนจอ:</b> หน้าจอกว้าง 10 ช่อง ที่สเกล 200 &mu;s/DIV แสดงเวลารวม 10 &times; 0.2 ms = 2.0 ms เมื่อคาบเท่ากับ 1.0 ms จะเห็นรูปคลื่นสมบูรณ์จำนวน 2.0 รูปคลื่นเต็มจออย่างสวยงามและสมมาตร
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- การ์ดผล 6.1.6 คลื่นสามเหลี่ยม -->
+      <div class="result-card">
+        <div class="result-card-header">
+          <div class="result-card-title">
+            <span>รูปที่ 6.6: บันทึกผลการทดลองตอนที่ 6.1.6 (สัญญาณคลื่นรูปสามเหลี่ยม Triangle Wave 2 kHz)</span>
+          </div>
+          <span class="result-tag">RESULT 6.6 · คู่มือหน้า 52</span>
+        </div>
+
+        <div class="result-card-body">
+          <div class="result-card-media">
+            <img src="result/03_fig6_6_triangle_2khz_4vpp.svg" alt="สัญญาณคลื่นรูปสามเหลี่ยม 2 kHz 4 Vp-p" onclick="openLb(this.src)">
+            <div class="media-hint">คลิกที่ภาพเพื่อขยายขนาดเต็ม (High-Resolution Zoom)</div>
+          </div>
+
+          <div class="result-card-content">
+            <div class="field-table-wrap">
+              <table class="field-table">
+                <thead>
+                  <tr>
+                    <th style="width: 32px;">ลำดับ</th>
+                    <th>พารามิเตอร์ที่บันทึกลงสมุดแล็บ</th>
+                    <th style="width: 130px;">ค่าที่บันทึกได้</th>
+                    <th>วิธีการอ่านจากตารางกริดบนหน้าจอ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="f-no">1</td>
+                    <td class="f-name">แกนตั้ง V/DIV</td>
+                    <td><span class="f-val">1.00 V</span></td>
+                    <td class="f-src">ตั้งสเกล 1 โวลต์ต่อหนึ่งช่องใหญ่</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">2</td>
+                    <td class="f-name">ขนาดแรงดัน (V_p-p)</td>
+                    <td><span class="f-val">4.00 V<sub>p-p</sub></span></td>
+                    <td class="f-src">ยอดถึงยอดสูง 4 ช่องแนวตั้ง (4 div &times; 1 V/div = 4 V)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">3</td>
+                    <td class="f-name">แกนนอน TIME/DIV</td>
+                    <td><span class="f-val">100 &times; 10<sup>-6</sup> s</span></td>
+                    <td class="f-src">100 &mu;s/div (หรือ 0.1 ms ต่อช่อง)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">4</td>
+                    <td class="f-name">คาบเวลา (Period, T)</td>
+                    <td><span class="f-val">500 &times; 10<sup>-6</sup> s</span></td>
+                    <td class="f-src">1 คลื่นใช้ 5 ช่องแนวนอน (5 div &times; 100 &mu;s = 500 &mu;s = 0.5 ms)</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">5</td>
+                    <td class="f-name">ความถี่ (Frequency, f)</td>
+                    <td><span class="f-val">2000 Hz</span></td>
+                    <td class="f-src"><span class="var">f</span> = 1 / <span class="var">T</span> = 1 / (500 &times; 10<sup>-6</sup> s) = 2000 Hz = 2 kHz</td>
+                  </tr>
+                  <tr>
+                    <td class="f-no">6</td>
+                    <td class="f-name">แรงดันประสิทธิผล (V_rms)</td>
+                    <td><span class="f-val">1.155 V</span></td>
+                    <td class="f-src">สำหรับคลื่นสามเหลี่ยม <span class="var">V<sub>rms</sub></span> = <span class="var">V<sub>p</sub></span> / &radic;3 = 2.00 V / 1.732 &approx; 1.155 V</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="card-calc">
+              <b>การยืนยันจำนวนรูปคลื่นบนจอ:</b> หน้าจอกว้าง 10 ช่อง ที่สเกล 100 &mu;s/DIV แสดงเวลารวม 10 &times; 0.1 ms = 1.0 ms เมื่อคาบเท่ากับ 0.5 ms จะเห็นรูปคลื่นสมบูรณ์จำนวน 1.0 / 0.5 = 2.0 รูปคลื่นเต็มจออย่างแม่นยำ
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ตารางสรุปเปรียบเทียบรูปคลื่นทั้งสาม -->
+    <h3>ตารางสรุปเปรียบเทียบคุณลักษณะของรูปคลื่นสัญญาณในตอนที่ 6.1</h3>
+    <div class="table-wrap">
+      <table class="tb">
+        <caption>ตารางที่ 6.3: สรุปผลการวัดรูปคลื่นสัญญาณทั้ง 3 รูปแบบจากเครื่องกำเนิดสัญญาณ</caption>
+        <thead>
+          <tr>
+            <th>รูปที่ในคู่มือ</th>
+            <th>ชนิดรูปคลื่น</th>
+            <th>V_p-p (V)</th>
+            <th>V_p (V)</th>
+            <th>V_rms (V)</th>
+            <th>TIME/DIV</th>
+            <th>คาบ T (s)</th>
+            <th>ความถี่ f (Hz)</th>
+            <th>จำนวนลูกคลื่นบนจอ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>รูปที่ 6.4</td>
+            <td class="t-left"><b>คลื่นไซน์ (Sine)</b></td>
+            <td>6.00</td>
+            <td>3.00</td>
+            <td>2.121</td>
+            <td>500 &mu;s</td>
+            <td>2.0 &times; 10<sup>-3</sup></td>
+            <td>500</td>
+            <td>2.5 รอบ</td>
+          </tr>
+          <tr>
+            <td>รูปที่ 6.5</td>
+            <td class="t-left"><b>คลื่นสี่เหลี่ยม (Square)</b></td>
+            <td>4.00</td>
+            <td>2.00</td>
+            <td>2.000</td>
+            <td>200 &mu;s</td>
+            <td>1.0 &times; 10<sup>-3</sup></td>
+            <td>1,000</td>
+            <td>2.0 รอบ</td>
+          </tr>
+          <tr>
+            <td>รูปที่ 6.6</td>
+            <td class="t-left"><b>คลื่นสามเหลี่ยม (Triangle)</b></td>
+            <td>4.00</td>
+            <td>2.00</td>
+            <td>1.155</td>
+            <td>100 &mu;s</td>
+            <td>0.5 &times; 10<sup>-3</sup></td>
+            <td>2,000</td>
+            <td>2.0 รอบ</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════ 5. ตอนที่ 6.2 ═══════════ -->
+  <section id="sec-part2">
+    <div class="sec-head">
+      <div class="sec-no">5</div>
+      <h2>การทดลองตอนที่ 6.2: การวัดสัญญาณในวงจรแบ่งแรงดันไฟฟ้า</h2>
+    </div>
+
+    <p>การทดลองนี้เป็นการนำออสซิลโลสโคปมาใช้วัดสัญญาณในวงจรไฟฟ้าจริง โดยต่อวงจรแบ่งแรงดัน (Voltage Divider) เพื่อศึกษาการลดทอนของแรงดัน และเปรียบเทียบเฟสระหว่างแรงดันตกคร่อมตัวต้านทานกับแรงดันแหล่งจ่าย ตามขั้นตอนในคู่มือหน้า 52 และ 53:</p>
+
+    <div class="result-card" style="margin-bottom: 24px;">
+      <div class="result-card-header">
+        <div class="result-card-title">
+          <span>รูปที่ 6.7: วงจรสำหรับการทดลองตอนที่ 6.2 และจุดเชื่อมต่อโพรบวัดสัญญาณ</span>
+        </div>
+        <span class="result-tag">SCHEMATIC · คู่มือหน้า 52</span>
+      </div>
+      <div style="padding: 10px 0;">
+        <img src="result/04_fig6_7_voltage_divider_schematic.svg" alt="แผนภาพวงจรแบ่งแรงดันไฟฟ้าตอนที่ 6.2" style="width: 100%; height: auto; border-radius: 8px; border: 1.5px solid var(--rule); cursor: zoom-in;" onclick="openLb(this.src)">
+        <div class="media-hint">คลิกที่แผนภาพวงจรเพื่อขยายดูจุดต่อสายโพรบ CH1, CH2 และคลิปกราวด์ร่วมอย่างละเอียด</div>
+      </div>
+    </div>
+
+    <ul class="steps-list">
+      <li>
+        <div class="step-no">1</div>
+        <div class="step-content">
+          <div class="step-title">ขั้นตอนที่ 6.2.1: การต่อวงจรและปรับตั้งแหล่งจ่าย</div>
+          <div class="step-desc">ต่อตัวต้านทาน <span class="var">R₁</span> = 1 kΩ และ <span class="var">R₂</span> = 470 Ω แบบอนุกรมบนแผงต่อวงจร ปรับ Function Generator ให้จ่ายแรงดันรูปคลื่นไซน์ขนาด 10 Vp-p ที่ความถี่ 500 Hz เข้าสู่วงจร</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">2</div>
+        <div class="step-content">
+          <div class="step-title">ขั้นตอนที่ 6.2.2: การตรวจสอบสัญญาณแหล่งจ่าย</div>
+          <div class="step-desc">ใช้โพรบช่อง CH1 ตรวจสอบแรงดันที่แหล่งจ่ายจ่ายออกมาว่าได้ขนาด 10.0 Vp-p และความถี่ 500 Hz ถูกต้องตรงตามที่ตั้งไว้หรือไม่</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-no">3</div>
+        <div class="step-content">
+          <div class="step-title">ขั้นตอนที่ 6.2.3: การวัดแรงดันตกคร่อมตัวต้านทาน R₂</div>
+          <div class="step-desc">ใช้โพรบช่อง CH2 วัดแรงดันตกคร่อมตัวต้านทาน <span class="var">R₂</span> (<span class="var">V₂</span>) โดยคีบหัวโพรบที่ขั้วบวกของ <span class="var">R₂</span> และคีบคลิปกราวด์ที่ขั้วลบ/กราวด์ร่วมของวงจร ปรับตั้งสเกลและบันทึกผลลงในรูปที่ 6.8</div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- การ์ดผล 6.2.3 สัญญาณ V2 -->
+    <div class="result-card">
+      <div class="result-card-header">
+        <div class="result-card-title">
+          <span>รูปที่ 6.8: บันทึกผลการทดลองตอนที่ 6.2.3 (การวัดแรงดันตกคร่อม R₂ เปรียบเทียบกับแหล่งจ่าย vs)</span>
+        </div>
+        <span class="result-tag">RESULT 6.8 · คู่มือหน้า 53</span>
+      </div>
+
+      <div class="result-card-body">
+        <div class="result-card-media">
+          <img src="result/05_fig6_8_voltage_divider_scope.svg" alt="รูปคลื่นเปรียบเทียบ CH1 vs และ CH2 V2" onclick="openLb(this.src)">
+          <div class="media-hint">คลิกที่ภาพเพื่อขยายขนาดเต็ม (High-Resolution Zoom)</div>
+        </div>
+
+        <div class="result-card-content">
+          <div class="field-table-wrap">
+            <table class="field-table">
+              <thead>
+                <tr>
+                  <th style="width: 32px;">ลำดับ</th>
+                  <th>พารามิเตอร์ที่บันทึกลงสมุดแล็บ</th>
+                  <th style="width: 130px;">ค่าที่อ่านได้</th>
+                  <th>การวิเคราะห์ทางทฤษฎีและตำแหน่งบนจอ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="f-no">1</td>
+                  <td class="f-name">แกนตั้ง V/DIV (CH2)</td>
+                  <td><span class="f-val">1.00 V</span></td>
+                  <td class="f-src">สเกล 1 โวลต์ต่อช่องสำหรับวัดแรงดันย่อย V₂</td>
+                </tr>
+                <tr>
+                  <td class="f-no">2</td>
+                  <td class="f-name">ขนาดแรงดัน (V_p-p)</td>
+                  <td><span class="f-val">3.20 V<sub>p-p</sub></span></td>
+                  <td class="f-src">อ่านได้ 3.2 ช่องพอดี (ทฤษฎีคำนวณได้ 3.197 V<sub>p-p</sub>)</td>
+                </tr>
+                <tr>
+                  <td class="f-no">3</td>
+                  <td class="f-name">แกนนอน TIME/DIV</td>
+                  <td><span class="f-val">500 &times; 10<sup>-6</sup> s</span></td>
+                  <td class="f-src">500 &mu;s/div (0.5 ms ต่อช่อง)</td>
+                </tr>
+                <tr>
+                  <td class="f-no">4</td>
+                  <td class="f-name">คาบเวลา (Period, T)</td>
+                  <td><span class="f-val">2 &times; 10<sup>-3</sup> s</span></td>
+                  <td class="f-src">กว้าง 4 ช่องแนวนอน (4 div &times; 0.5 ms = 2.0 ms)</td>
+                </tr>
+                <tr>
+                  <td class="f-no">5</td>
+                  <td class="f-name">ความถี่ (Frequency, f)</td>
+                  <td><span class="f-val">500 Hz</span></td>
+                  <td class="f-src"><span class="var">f</span> = 1 / 2 ms = 500 Hz (ความถี่ไม่เปลี่ยนแปลง)</td>
+                </tr>
+                <tr>
+                  <td class="f-no">6</td>
+                  <td class="f-name">มุมต่างเฟส (&Delta;&theta;)</td>
+                  <td><span class="f-val">0.0&deg; (In-Phase)</span></td>
+                  <td class="f-src">จุดตัดศูนย์และยอดคลื่นตรงกันสมบูรณ์ เนื่องจากเป็นโหลดความต้านทานบริสุทธิ์</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-calc">
+            <b>การเปรียบเทียบค่าคำนวณทางทฤษฎีกับค่าวัดจริง:</b>
+            <br>
+            - ค่าคำนวณตามกฎการแบ่งแรงดัน: <span class="var">V<sub>2,theory</sub></span> = 10.0 &times; (470 / 1470) = <b>3.197 V<sub>p-p</sub></b>
+            <br>
+            - ค่าวัดจริงจากออสซิลโลสโคป: <span class="var">V<sub>2,meas</sub></span> = 3.2 div &times; 1.0 V/div = <b>3.200 V<sub>p-p</sub></b>
+            <br>
+            - เปอร์เซ็นต์ความคลาดเคลื่อน (% Error) = |(3.200 - 3.197) / 3.197| &times; 100% = <span class="badge-val pass">+0.09%</span> ซึ่งถือว่ามีความแม่นยำสูงมากและสอดคล้องกับทฤษฎีอย่างสมบูรณ์
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 6. การวิเคราะห์ผล ═══════════ -->
+  <section id="sec-analysis">
+    <div class="sec-head">
+      <div class="sec-no">6</div>
+      <h2>การวิเคราะห์ผลการทดลองเชิงตัวเลข (Experiment Analysis)</h2>
+    </div>
+
+    <p>การวิเคราะห์ผลตามหัวข้อในคู่มือหน้า 54 ครอบคลุม 3 ประเด็นหลักทางวิศวกรรมไฟฟ้า ดังนี้:</p>
+
+    <h3>1. การวิเคราะห์ขนาดแรงดันตามแนวตั้ง (Vertical Amplitude Analysis)</h3>
+    <p>ในวงจรแบ่งแรงดันตอนที่ 6.2 แรงดันรวมจากแหล่งจ่าย <span class="var">v<sub>s</sub></span> = 10.0 V<sub>p-p</sub> ถูกแบ่งตามอัตราส่วนความต้านทาน <span class="var">R₁</span> = 1 kΩ และ <span class="var">R₂</span> = 470 Ω:</p>
+
+    <div class="formula">
+      <span class="var">V<sub>2</sub></span> = <span class="var">v<sub>s</sub></span> <span class="sym">&times;</span> 
+      <span class="frac">
+        <span class="num"><span class="var">R<sub>2</sub></span></span>
+        <span class="denom"><span class="var">R<sub>1</sub></span> + <span class="var">R<sub>2</sub></span></span>
+      </span>
+      = 10.0 <span class="sym">&times;</span> 
+      <span class="frac">
+        <span class="num">470</span>
+        <span class="denom">1470</span>
+      </span>
+      = 3.197 V<sub>p-p</sub>
+    </div>
+
+    <p>ค่าวัดจริงที่อ่านได้จากออสซิลโลสโคปคือ 3.20 V<sub>p-p</sub> มีความคลาดเคลื่อนเพียง 0.09% ปัจจัยที่ทำให้เกิดความคลาดเคลื่อนเล็กน้อยในทางปฏิบัติ ได้แก่:</p>
+    <ul>
+      <li><b>ความคลาดเคลื่อนของค่าความต้านทาน (Resistor Tolerance):</b> ตัวต้านทานชนิดคาร์บอนฟิล์มมีค่าพิกัดคลาดเคลื่อน &plusmn;5% ทำให้ค่า <span class="var">R₁</span> จริงอาจอยู่ในช่วง 950 &Omega; ถึง 1,050 &Omega; และ <span class="var">R₂</span> อยู่ในช่วง 446.5 &Omega; ถึง 493.5 &Omega;</li>
+      <li><b>ผลกระทบของการโหลดจากโพรบ (Probe Loading Effect):</b> อิมพีแดนซ์ขาเข้าของออสซิลโลสโคปที่โพรบ 1X มีค่าความต้านทาน 1 MΩ ขนานอยู่กับ <span class="var">R₂</span> (470 &Omega;) ทำให้ความต้านทานสมมูลลดลงเล็กน้อยเป็น <span class="var">R<sub>eq</sub></span> = (470 &times; 1,000,000) / (470 + 1,000,000) = 469.78 &Omega; ซึ่งมีผลน้อยมากจนแทบไม่มีนัยสำคัญ (&lt; 0.05%) แต่หากใช้ตัวต้านทานหลักร้อยกิโลโอห์ม จะส่งผลกระทบอย่างชัดเจน จึงแนะนำให้ใช้โพรบ 10X (10 MΩ) เสมอในการวัดความแม่นยำสูง</li>
+    </ul>
+
+    <h3>2. การวิเคราะห์คาบเวลาตามแนวนอนและความถี่ (Horizontal Timebase Analysis)</h3>
+    <p>สัญญาณแรงดัน <span class="var">V₂</span> ที่ตกคร่อมตัวต้านทาน <span class="var">R₂</span> ยังคงมีความถี่เท่ากับ 500 Hz และมีคาบเวลา <span class="var">T</span> = 2.0 ms เท่ากับสัญญาณของแหล่งจ่าย <span class="var">v<sub>s</sub></span> ทุกประการ เนื่องจากวงจรนี้เป็นวงจรความต้านทานเชิงเส้น (Linear Resistive Circuit) ซึ่งไม่มีผลทำให้ความถี่หรืออัตราเร็วเชิงมุม (<span class="var">&omega;</span>) เปลี่ยนแปลง</p>
+
+    <h3>3. การวิเคราะห์มุมต่างเฟส (Phase Angle Analysis)</h3>
+    <p>จากการสังเกตรูปคลื่นเปรียบเทียบบนหน้าจอออสซิลโลสโคปในรูปที่ 6.8 พบว่า สัญญาณแรงดันแหล่งจ่าย <span class="var">v<sub>s</sub></span> (CH1) และสัญญาณแรงดันตกคร่อม <span class="var">V₂</span> (CH2) มีจุดตัดผ่านแกนศูนย์ (Zero-Crossing) และจุดยอดสูงสุดในเวลาเดียวกันพอดี ซึ่งแสดงว่าสัญญาณทั้งสองมีมุมเฟสตรงกัน (In-Phase, &Delta;&theta; = 0.0&deg;) เนื่องจากตัวต้านทานบริสุทธิ์มีอิมพีแดนซ์เป็นจำนวนจริง (<span class="var">Z<sub>R</sub></span> = <span class="var">R</span> &ang; 0&deg;) ไม่ก่อให้เกิดการหน่วงหรือนำหน้าของเฟส เหมือนกับตัวเก็บประจุหรือตัวเหนี่ยวนำ</p>
+  </section>
+
+  <!-- ═══════════ 7. สรุปผลและกล่องส่งงาน ═══════════ -->
+  <section id="sec-conclusion">
+    <div class="sec-head">
+      <div class="sec-no">7</div>
+      <h2>สรุปผลการทดลองและกล่องข้อเขียนส่งงาน (Conclusion)</h2>
+    </div>
+
+    <p>เพื่อความสะดวกของนิสิตในการบันทึกผลลงเล่มคู่มือหน้า 55 ส่วนนี้ได้เรียบเรียงบทอภิปรายและข้อเขียนสรุปผลตามมาตรฐานวิชาการ สามารถนำไปคัดลอกลงเล่มรายงานได้ทันที:</p>
+
+    <div class="prose-submission-box">
+      <div class="ps-head">
+        <span class="ps-title">บทอภิปรายและสรุปผลการทดลองที่ 6 (ฉบับกระชับสำหรับคัดลอกลงเล่มรายงาน หน้า 55)</span>
+        <span class="ps-badge">สำหรับบันทึกลงสมุดแล็บ</span>
+      </div>
+      <p class="ps-text">
+        จากการทดลองปฏิบัติการที่ 6 เรื่องการใช้งานออสซิลโลสโคปและเครื่องกำเนิดสัญญาณ ได้ข้อสรุปผลการทดลอง 2 ส่วนหลักดังนี้ ในตอนที่ 6.1 การวัดสัญญาณรูปคลื่นไซน์ (500 Hz, 6 Vp-p), สี่เหลี่ยม (1 kHz, 4 Vp-p) และสามเหลี่ยม (2 kHz, 4 Vp-p) สามารถปรับตั้งค่า V/DIV และ TIME/DIV เพื่อสังเกตรูปคลื่นที่นิ่งและชัดเจนประมาณ 2 รูปคลื่นบนหน้าจอได้อย่างถูกต้อง โดยคาบเวลาและความถี่ที่คำนวณได้จากจำนวนช่องแนวนอนคูณด้วยสเกล TIME/DIV สอดคล้องกับค่าที่ตั้งไว้บนเครื่องกำเนิดสัญญาณอย่างแม่นยำ และค่าแรงดันประสิทธิผล (V_rms) ของแต่ละรูปคลื่นมีค่าสัมพันธ์กับค่ายอดตามสูตรทางคณิตศาสตร์อย่างถูกต้อง โดยคลื่นสี่เหลี่ยมมีค่า V_rms สูงสุดเท่ากับ V_p รองลงมาคือคลื่นไซน์ (V_p / &radic;2) และคลื่นสามเหลี่ยมมีค่าต่ำสุด (V_p / &radic;3) สำหรับการทดลองตอนที่ 6.2 ในวงจรแบ่งแรงดันที่ประกอบด้วย R₁ = 1 kΩ และ R₂ = 470 Ω จ่ายด้วยสัญญาณไซน์ 10 Vp-p ที่ 500 Hz พบว่าแรงดันตกคร่อม R₂ ที่วัดได้จริงมีค่าเท่ากับ 3.20 Vp-p ซึ่งสอดคล้องกับค่าคำนวณตามกฎการแบ่งแรงดันทางทฤษฎีที่ได้ 3.197 Vp-p โดยมีเปอร์เซ็นต์ความคลาดเคลื่อนเพียง +0.09% และสัญญาณ V₂ มีความถี่ 500 Hz เท่ากับแหล่งจ่าย พร้อมทั้งมีมุมเฟสตรงกัน (0 องศา) เนื่องจากเป็นวงจรความต้านทานบริสุทธิ์
+      </p>
+    </div>
+
+    <div class="prose-submission-box">
+      <div class="ps-head">
+        <span class="ps-title">บทวิเคราะห์สาเหตุของความคลาดเคลื่อนและข้อควรระวังในการใช้เครื่องมือวัด</span>
+        <span class="ps-badge">เกร็ดวิเคราะห์เชิงลึก</span>
+      </div>
+      <p class="ps-text">
+        ความคลาดเคลื่อนเล็กน้อยที่เกิดขึ้นระหว่างค่าวัดและค่าคำนวณ เกิดจาก 3 ปัจจัยหลักคือ 1) ความคลาดเคลื่อนของค่าความต้านทานจริงที่มีค่าพิกัด &plusmn;5% จากค่าระบุบนแถบสี 2) ความละเอียดในการอ่านเส้นสัญญาณบนตารางกริดออสซิลโลสโคปด้วยสายตาของผู้ทดลอง (Visual Interpolation Error) ซึ่งสามารถลดความคลาดเคลื่อนนี้ได้โดยการปรับสเกล V/DIV ให้สัญญาณแผ่ขยายเต็มหน้าจอมากที่สุด และ 3) อิมพีแดนซ์ขาเข้าของโพรบและออสซิลโลสโคปที่ขนานอยู่กับวงจรทดสอบ ซึ่งมีแนวทางแก้ไขโดยการเลือกใช้โพรบแบบลดทอน 10X และต้องทำการสอบเทียบหัวโพรบ (Probe Compensation) ด้วยสัญญาณ Calibrate 1 kHz ให้ได้รูปคลื่นสี่เหลี่ยมขอบฉากเรียบสนิทก่อนเริ่มการวัดทุกครั้ง เพื่อป้องกันการบิดเบือนของรูปคลื่นที่ความถี่สูง
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════ 8. คำถามท้ายบท ═══════════ -->
+  <section id="sec-qa">
+    <div class="sec-head">
+      <div class="sec-no">8</div>
+      <h2>คำถามทบทวนความเข้าใจและเกร็ดวิศวกรรม (Post-Lab Review)</h2>
+    </div>
+
+    <div class="callout c-key">
+      <span class="lab">คำถามข้อที่ 1: การเลือกใช้โพรบสเกล 1X กับ 10X มีความแตกต่างกันอย่างไร และควรเลือกใช้อย่างไร?</span>
+      <p><b>คำตอบ:</b> โพรบ 1X จะส่งผ่านสัญญาณตรงเข้าสู่ออสซิลโลสโคปโดยไม่มีการลดทอน มีอินพุตอิมพีแดนซ์ 1 MΩ ขนานกับความจุแฝงสูง (ประมาณ 80-100 pF) เหมาะสำหรับวัดสัญญาณแรงดันต่ำที่ความถี่ต่ำมาก ส่วนโพรบ 10X จะมีตัวต้านทาน 9 MΩ ต่ออนุกรมภายในหัวโพรบเพื่อแบ่งแรงดันลง 10 เท่า ทำให้มีอินพุตอิมพีแดนซ์สูงขึ้นถึง 10 MΩ และลดค่าความจุแฝงลงเหลือเพียง 10-15 pF ซึ่งช่วยลดผลกระทบของการโหลดวงจร (Circuit Loading Effect) และขยายแบนด์วิดท์ในการวัดความถี่สูง จึงเป็นโพรบมาตรฐานที่แนะนำให้ใช้งานในทางวิศวกรรม</p>
+    </div>
+
+    <div class="callout c-ex">
+      <span class="lab">คำถามข้อที่ 2: โหมด Coupling ชนิด AC, DC, และ GND บนออสซิลโลสโคปใช้งานต่างกันอย่างไร?</span>
+      <p><b>คำตอบ:</b>
+        <br>1. <b>DC Coupling:</b> ส่งผ่านสัญญาณทั้งหมดทั้งแรงดันกระแสตรง (DC Offset) และแรงดันกระแสสลับ (AC) เข้าสู่หน้าจอ เหมาะสำหรับการวัดสัญญาณทั่วไป
+        <br>2. <b>AC Coupling:</b> ต่อตัวเก็บประจุอนุกรมภายในเพื่อบล็อกแรงดันไฟตรง (DC) ออกไป เหลือเฉพาะสัญญาณไฟสลับ (AC) เหมาะสำหรับใช้วัดสัญญาณริปเปิล (Ripple Voltage) หรือสัญญาณรบกวนขนาดเล็กที่ขี่อยู่บนแรงดันไฟตรงสูง
+        <br>3. <b>GND:</b> ตัดการเชื่อมต่อสัญญาณภายนอกและต่ออินพุตของแอมพลิฟายเออร์ลงกราวด์ เพื่อใช้กำหนดระนาบอ้างอิงแรงดัน 0 โวลต์บนหน้าจอ
+      </p>
+    </div>
+
+    <div class="callout c-tip">
+      <span class="lab">คำถามข้อที่ 3: ฟังก์ชัน Trigger บนออสซิลโลสโคปมีหน้าที่อะไร และหากตั้งค่า Trigger ไม่ถูกต้องจะเกิดอะไรขึ้น?</span>
+      <p><b>คำตอบ:</b> วงจร Trigger มีหน้าที่กำหนดจุดเริ่มต้นของการสแกนกวาดลำอิเล็กตรอนหรือการบันทึกข้อมูลในแนวนอน เพื่อให้การวาดรูปคลื่นในแต่ละรอบเริ่มต้นที่ระดับแรงดัน (Trigger Level) และความชัน (Trigger Slope: ขอบขาขึ้นหรือขาลง) เดียวกันเสมอ ทำให้รูปคลื่นที่แสดงบนหน้าจอดูหยุดนิ่ง หากตั้ง Trigger ไม่เหมาะสมหรือไม่จับสัญญาณ รูปคลื่นบนหน้าจอจะวิ่งเลื่อนไปมาอย่างต่อเนื่องหรือไม่สามารถแสดงผลได้อย่างมีเสถียรภาพ</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ Colophon Footer ═══════════ -->
+  <footer class="colophon">
+    <div class="footer-content">
+      <div>
+        <b>ภาควิชาวิศวกรรมไฟฟ้าและคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยนเรศวร</b>
+        <br>
+        เอกสารประกอบการเรียนการสอนรายวิชาปฏิบัติการวิศวกรรมไฟฟ้า 1 (EE LAB 1)
+      </div>
+      <div style="text-align: right;">
+        ระบบหน้าเว็บและภาพจำลองผลการทดลองพัฒนาตามมาตรฐาน <a href="../DESIGN_SYSTEM.md" style="color: var(--accent); font-weight: 700; text-decoration: none;">Lab Design System</a>
+        <br>
+        Pure CSS Math Architecture · Zero-Dollar Policy · Academic Quality
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ═══════════ สคริปต์ควบคุม Lightbox, Floating Dock และ ScrollSpy ═══════════ -->
+<script>
+function openLb(src) {
+  var lb = document.getElementById('lb');
+  var img = document.getElementById('lb-img');
+  img.src = src;
+  lb.classList.add('on');
+}
+
+(function() {
+  const dock = document.getElementById('float-nav-dock');
+  const btnCollapse = document.getElementById('fnd-btn-collapse');
+  const btnExpand = document.getElementById('fnd-btn-expand');
+  if (!dock) return;
+
+  const setCollapsed = (collapsed) => {
+    dock.classList.toggle('collapsed', collapsed);
+    try {
+      localStorage.setItem('lab6_nav_dock_collapsed', collapsed ? 'true' : 'false');
+    } catch(e) {}
+  };
+
+  try {
+    if (localStorage.getItem('lab6_nav_dock_collapsed') === 'true') {
+      dock.classList.add('collapsed');
+    }
+  } catch(e) {}
+
+  if (btnCollapse) {
+    btnCollapse.addEventListener('click', function(e) {
+      e.preventDefault();
+      setCollapsed(true);
+    });
+  }
+
+  if (btnExpand) {
+    btnExpand.addEventListener('click', function(e) {
+      e.preventDefault();
+      setCollapsed(false);
+    });
+  }
+
+  // Dynamic ScrollSpy Section Highlight
+  const navLinks = Array.from(dock.querySelectorAll('.fnd-links a[href^="#"]'));
+  const currentTopicEl = document.getElementById('fnd-current-topic');
+
+  const targets = navLinks.map(link => {
+    const id = link.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    return el ? { link, el } : null;
+  }).filter(Boolean);
+
+  function updateActive() {
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const offset = 180;
+    let current = null;
+
+    for (let i = 0; i < targets.length; i++) {
+      const top = targets[i].el.getBoundingClientRect().top + scrollY;
+      if (scrollY + offset >= top) {
+        current = targets[i];
+      }
+    }
+
+    targets.forEach(t => {
+      if (current && t === current) {
+        t.link.classList.add('active');
+        t.link.setAttribute('aria-current', 'true');
+      } else {
+        t.link.classList.remove('active');
+        t.link.removeAttribute('aria-current');
+      }
+    });
+
+    if (currentTopicEl) {
+      currentTopicEl.textContent = current ? ' : ' + current.link.textContent.trim() : '';
+    }
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('resize', updateActive, { passive: true });
+  updateActive();
+})();
+</script>
+
+</body>
+</html>
